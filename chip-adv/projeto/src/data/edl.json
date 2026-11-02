@@ -1,0 +1,975 @@
+{
+ "fps": 30,
+ "total": 1232,
+ "chunks": [
+  {
+   "i": 0,
+   "clip": "hook",
+   "from": 41,
+   "to": 71,
+   "start": 0,
+   "dur": 30,
+   "text": "Advogado,",
+   "words": [
+    {
+     "w": "Advogado,",
+     "s": 3,
+     "e": 28,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "clip": "hook",
+   "from": 77,
+   "to": 143,
+   "start": 30,
+   "dur": 66,
+   "text": "você ainda tá editando seus vídeos manualmente?",
+   "words": [
+    {
+     "w": "você",
+     "s": 3,
+     "e": 9,
+     "k": false
+    },
+    {
+     "w": "ainda",
+     "s": 9,
+     "e": 18,
+     "k": false
+    },
+    {
+     "w": "tá",
+     "s": 18,
+     "e": 21,
+     "k": false
+    },
+    {
+     "w": "editando",
+     "s": 21,
+     "e": 33,
+     "k": false
+    },
+    {
+     "w": "seus",
+     "s": 33,
+     "e": 39,
+     "k": false
+    },
+    {
+     "w": "vídeos",
+     "s": 39,
+     "e": 48,
+     "k": false
+    },
+    {
+     "w": "manualmente?",
+     "s": 48,
+     "e": 64,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "clip": "hook",
+   "from": 164,
+   "to": 202,
+   "start": 96,
+   "dur": 38,
+   "text": "Olha o que dá pra fazer",
+   "words": [
+    {
+     "w": "Olha",
+     "s": 3,
+     "e": 10,
+     "k": false
+    },
+    {
+     "w": "o",
+     "s": 10,
+     "e": 13,
+     "k": false
+    },
+    {
+     "w": "que",
+     "s": 13,
+     "e": 20,
+     "k": false
+    },
+    {
+     "w": "dá",
+     "s": 20,
+     "e": 24,
+     "k": false
+    },
+    {
+     "w": "pra",
+     "s": 24,
+     "e": 28,
+     "k": false
+    },
+    {
+     "w": "fazer",
+     "s": 28,
+     "e": 36,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "clip": "hook",
+   "from": 206,
+   "to": 290,
+   "start": 134,
+   "dur": 84,
+   "text": "usando um único arquivo de inteligência artificial.",
+   "words": [
+    {
+     "w": "usando",
+     "s": 3,
+     "e": 13,
+     "k": false
+    },
+    {
+     "w": "um",
+     "s": 13,
+     "e": 17,
+     "k": false
+    },
+    {
+     "w": "único",
+     "s": 17,
+     "e": 27,
+     "k": true
+    },
+    {
+     "w": "arquivo",
+     "s": 27,
+     "e": 40,
+     "k": true
+    },
+    {
+     "w": "de",
+     "s": 40,
+     "e": 43,
+     "k": false
+    },
+    {
+     "w": "inteligência",
+     "s": 43,
+     "e": 64,
+     "k": false
+    },
+    {
+     "w": "artificial.",
+     "s": 64,
+     "e": 82,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "clip": "body",
+   "from": 18,
+   "to": 108,
+   "start": 218,
+   "dur": 90,
+   "text": "Esse vídeo aqui começou com a gravação normal de celular.",
+   "words": [
+    {
+     "w": "Esse",
+     "s": 3,
+     "e": 10,
+     "k": false
+    },
+    {
+     "w": "vídeo",
+     "s": 10,
+     "e": 20,
+     "k": false
+    },
+    {
+     "w": "aqui",
+     "s": 20,
+     "e": 30,
+     "k": false
+    },
+    {
+     "w": "começou",
+     "s": 30,
+     "e": 43,
+     "k": false
+    },
+    {
+     "w": "com",
+     "s": 43,
+     "e": 47,
+     "k": false
+    },
+    {
+     "w": "a",
+     "s": 47,
+     "e": 50,
+     "k": false
+    },
+    {
+     "w": "gravação",
+     "s": 50,
+     "e": 64,
+     "k": false
+    },
+    {
+     "w": "normal",
+     "s": 64,
+     "e": 73,
+     "k": false
+    },
+    {
+     "w": "de",
+     "s": 73,
+     "e": 76,
+     "k": false
+    },
+    {
+     "w": "celular.",
+     "s": 76,
+     "e": 88,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "clip": "body",
+   "from": 118,
+   "to": 167,
+   "start": 308,
+   "dur": 49,
+   "text": "E depois que eu coloquei o CHIP ADV,",
+   "words": [
+    {
+     "w": "E",
+     "s": 3,
+     "e": 5,
+     "k": false
+    },
+    {
+     "w": "depois",
+     "s": 5,
+     "e": 14,
+     "k": false
+    },
+    {
+     "w": "que",
+     "s": 14,
+     "e": 19,
+     "k": false
+    },
+    {
+     "w": "eu",
+     "s": 19,
+     "e": 24,
+     "k": false
+    },
+    {
+     "w": "coloquei",
+     "s": 24,
+     "e": 37,
+     "k": false
+    },
+    {
+     "w": "o",
+     "s": 37,
+     "e": 39,
+     "k": false
+    },
+    {
+     "w": "CHIP",
+     "s": 39,
+     "e": 43,
+     "k": true
+    },
+    {
+     "w": "ADV,",
+     "s": 43,
+     "e": 47,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "clip": "body",
+   "from": 182,
+   "to": 206,
+   "start": 357,
+   "dur": 24,
+   "text": "olha como ficou!",
+   "words": [
+    {
+     "w": "olha",
+     "s": 3,
+     "e": 8,
+     "k": false
+    },
+    {
+     "w": "como",
+     "s": 8,
+     "e": 14,
+     "k": false
+    },
+    {
+     "w": "ficou!",
+     "s": 14,
+     "e": 22,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "clip": "body",
+   "from": 268,
+   "to": 360,
+   "start": 381,
+   "dur": 92,
+   "text": "Funciona assim: você anexa o CHIP ADV na conversa",
+   "words": [
+    {
+     "w": "Funciona",
+     "s": 3,
+     "e": 21,
+     "k": false
+    },
+    {
+     "w": "assim:",
+     "s": 21,
+     "e": 32,
+     "k": false
+    },
+    {
+     "w": "você",
+     "s": 32,
+     "e": 41,
+     "k": false
+    },
+    {
+     "w": "anexa",
+     "s": 41,
+     "e": 55,
+     "k": false
+    },
+    {
+     "w": "o",
+     "s": 55,
+     "e": 58,
+     "k": false
+    },
+    {
+     "w": "CHIP",
+     "s": 58,
+     "e": 65,
+     "k": true
+    },
+    {
+     "w": "ADV",
+     "s": 65,
+     "e": 70,
+     "k": true
+    },
+    {
+     "w": "na",
+     "s": 70,
+     "e": 75,
+     "k": false
+    },
+    {
+     "w": "conversa",
+     "s": 75,
+     "e": 90,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "clip": "body",
+   "from": 362,
+   "to": 420,
+   "start": 473,
+   "dur": 58,
+   "text": "com a sua IA, abre esse mapa",
+   "words": [
+    {
+     "w": "com",
+     "s": 3,
+     "e": 8,
+     "k": false
+    },
+    {
+     "w": "a",
+     "s": 8,
+     "e": 12,
+     "k": false
+    },
+    {
+     "w": "sua",
+     "s": 12,
+     "e": 20,
+     "k": false
+    },
+    {
+     "w": "IA,",
+     "s": 20,
+     "e": 29,
+     "k": false
+    },
+    {
+     "w": "abre",
+     "s": 29,
+     "e": 38,
+     "k": false
+    },
+    {
+     "w": "esse",
+     "s": 38,
+     "e": 47,
+     "k": false
+    },
+    {
+     "w": "mapa",
+     "s": 47,
+     "e": 56,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "clip": "body",
+   "from": 429,
+   "to": 532,
+   "start": 531,
+   "dur": 103,
+   "text": "e você simplesmente escolhe o conteúdo que você quer fazer.",
+   "words": [
+    {
+     "w": "e",
+     "s": 3,
+     "e": 6,
+     "k": false
+    },
+    {
+     "w": "você",
+     "s": 6,
+     "e": 15,
+     "k": false
+    },
+    {
+     "w": "simplesmente",
+     "s": 15,
+     "e": 34,
+     "k": false
+    },
+    {
+     "w": "escolhe",
+     "s": 34,
+     "e": 47,
+     "k": false
+    },
+    {
+     "w": "o",
+     "s": 47,
+     "e": 51,
+     "k": false
+    },
+    {
+     "w": "conteúdo",
+     "s": 51,
+     "e": 67,
+     "k": true
+    },
+    {
+     "w": "que",
+     "s": 67,
+     "e": 75,
+     "k": false
+    },
+    {
+     "w": "você",
+     "s": 75,
+     "e": 83,
+     "k": false
+    },
+    {
+     "w": "quer",
+     "s": 83,
+     "e": 91,
+     "k": false
+    },
+    {
+     "w": "fazer.",
+     "s": 91,
+     "e": 101,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 10,
+   "clip": "body",
+   "from": 546,
+   "to": 630,
+   "start": 634,
+   "dur": 84,
+   "text": "Como você quer fazer, qual estilo você quer fazer,",
+   "words": [
+    {
+     "w": "Como",
+     "s": 3,
+     "e": 11,
+     "k": false
+    },
+    {
+     "w": "você",
+     "s": 11,
+     "e": 19,
+     "k": false
+    },
+    {
+     "w": "quer",
+     "s": 19,
+     "e": 27,
+     "k": false
+    },
+    {
+     "w": "fazer,",
+     "s": 27,
+     "e": 36,
+     "k": false
+    },
+    {
+     "w": "qual",
+     "s": 36,
+     "e": 45,
+     "k": false
+    },
+    {
+     "w": "estilo",
+     "s": 45,
+     "e": 57,
+     "k": true
+    },
+    {
+     "w": "você",
+     "s": 57,
+     "e": 65,
+     "k": false
+    },
+    {
+     "w": "quer",
+     "s": 65,
+     "e": 73,
+     "k": false
+    },
+    {
+     "w": "fazer,",
+     "s": 73,
+     "e": 82,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 11,
+   "clip": "body",
+   "from": 633,
+   "to": 681,
+   "start": 718,
+   "dur": 48,
+   "text": "qual situação você quer fazer.",
+   "words": [
+    {
+     "w": "qual",
+     "s": 3,
+     "e": 10,
+     "k": false
+    },
+    {
+     "w": "situação",
+     "s": 10,
+     "e": 25,
+     "k": true
+    },
+    {
+     "w": "você",
+     "s": 25,
+     "e": 32,
+     "k": false
+    },
+    {
+     "w": "quer",
+     "s": 32,
+     "e": 38,
+     "k": false
+    },
+    {
+     "w": "fazer.",
+     "s": 38,
+     "e": 46,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 12,
+   "clip": "body",
+   "from": 689,
+   "to": 782,
+   "start": 766,
+   "dur": 93,
+   "text": "Entendeu? E você vai apenas dando as ordens",
+   "words": [
+    {
+     "w": "Entendeu?",
+     "s": 3,
+     "e": 24,
+     "k": false
+    },
+    {
+     "w": "E",
+     "s": 24,
+     "e": 28,
+     "k": false
+    },
+    {
+     "w": "você",
+     "s": 28,
+     "e": 39,
+     "k": false
+    },
+    {
+     "w": "vai",
+     "s": 39,
+     "e": 48,
+     "k": false
+    },
+    {
+     "w": "apenas",
+     "s": 48,
+     "e": 63,
+     "k": false
+    },
+    {
+     "w": "dando",
+     "s": 63,
+     "e": 74,
+     "k": false
+    },
+    {
+     "w": "as",
+     "s": 74,
+     "e": 79,
+     "k": false
+    },
+    {
+     "w": "ordens",
+     "s": 79,
+     "e": 91,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 13,
+   "clip": "body",
+   "from": 784,
+   "to": 826,
+   "start": 859,
+   "dur": 42,
+   "text": "e ele vai construindo",
+   "words": [
+    {
+     "w": "e",
+     "s": 3,
+     "e": 6,
+     "k": false
+    },
+    {
+     "w": "ele",
+     "s": 6,
+     "e": 14,
+     "k": false
+    },
+    {
+     "w": "vai",
+     "s": 14,
+     "e": 22,
+     "k": false
+    },
+    {
+     "w": "construindo",
+     "s": 22,
+     "e": 40,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 14,
+   "clip": "body",
+   "from": 828,
+   "to": 876,
+   "start": 901,
+   "dur": 48,
+   "text": "o que há de melhor",
+   "words": [
+    {
+     "w": "o",
+     "s": 3,
+     "e": 8,
+     "k": false
+    },
+    {
+     "w": "que",
+     "s": 8,
+     "e": 19,
+     "k": false
+    },
+    {
+     "w": "há",
+     "s": 19,
+     "e": 26,
+     "k": false
+    },
+    {
+     "w": "de",
+     "s": 26,
+     "e": 32,
+     "k": false
+    },
+    {
+     "w": "melhor",
+     "s": 32,
+     "e": 46,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 15,
+   "clip": "body",
+   "from": 878,
+   "to": 927,
+   "start": 949,
+   "dur": 49,
+   "text": "e mais moderno na edição.",
+   "words": [
+    {
+     "w": "e",
+     "s": 3,
+     "e": 6,
+     "k": false
+    },
+    {
+     "w": "mais",
+     "s": 6,
+     "e": 15,
+     "k": false
+    },
+    {
+     "w": "moderno",
+     "s": 15,
+     "e": 27,
+     "k": true
+    },
+    {
+     "w": "na",
+     "s": 27,
+     "e": 31,
+     "k": false
+    },
+    {
+     "w": "edição.",
+     "s": 31,
+     "e": 47,
+     "k": false
+    }
+   ]
+  },
+  {
+   "i": 16,
+   "clip": "body",
+   "from": 966,
+   "to": 1015,
+   "start": 998,
+   "dur": 49,
+   "text": "Eu organizei tudo",
+   "words": [
+    {
+     "w": "Eu",
+     "s": 3,
+     "e": 12,
+     "k": false
+    },
+    {
+     "w": "organizei",
+     "s": 12,
+     "e": 37,
+     "k": false
+    },
+    {
+     "w": "tudo",
+     "s": 37,
+     "e": 47,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 17,
+   "clip": "body",
+   "from": 1024,
+   "to": 1058,
+   "start": 1047,
+   "dur": 34,
+   "text": "num único chip.",
+   "words": [
+    {
+     "w": "num",
+     "s": 3,
+     "e": 9,
+     "k": false
+    },
+    {
+     "w": "único",
+     "s": 9,
+     "e": 24,
+     "k": false
+    },
+    {
+     "w": "chip.",
+     "s": 24,
+     "e": 32,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 18,
+   "clip": "body",
+   "from": 1087,
+   "to": 1133,
+   "start": 1081,
+   "dur": 46,
+   "text": "Clica aqui em Saiba Mais,",
+   "words": [
+    {
+     "w": "Clica",
+     "s": 3,
+     "e": 11,
+     "k": false
+    },
+    {
+     "w": "aqui",
+     "s": 11,
+     "e": 21,
+     "k": false
+    },
+    {
+     "w": "em",
+     "s": 21,
+     "e": 25,
+     "k": false
+    },
+    {
+     "w": "Saiba",
+     "s": 25,
+     "e": 36,
+     "k": true
+    },
+    {
+     "w": "Mais,",
+     "s": 36,
+     "e": 44,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 19,
+   "clip": "body",
+   "from": 1136,
+   "to": 1178,
+   "start": 1127,
+   "dur": 42,
+   "text": "junta esse documentinho",
+   "words": [
+    {
+     "w": "junta",
+     "s": 3,
+     "e": 11,
+     "k": false
+    },
+    {
+     "w": "esse",
+     "s": 11,
+     "e": 19,
+     "k": false
+    },
+    {
+     "w": "documentinho",
+     "s": 19,
+     "e": 40,
+     "k": true
+    }
+   ]
+  },
+  {
+   "i": 20,
+   "clip": "body",
+   "from": 1181,
+   "to": 1244,
+   "start": 1169,
+   "dur": 63,
+   "text": "e vê a mágica acontecer.",
+   "words": [
+    {
+     "w": "e",
+     "s": 3,
+     "e": 8,
+     "k": false
+    },
+    {
+     "w": "vê",
+     "s": 8,
+     "e": 14,
+     "k": false
+    },
+    {
+     "w": "a",
+     "s": 14,
+     "e": 18,
+     "k": false
+    },
+    {
+     "w": "mágica",
+     "s": 18,
+     "e": 36,
+     "k": true
+    },
+    {
+     "w": "acontecer.",
+     "s": 36,
+     "e": 61,
+     "k": false
+    }
+   ]
+  }
+ ]
+}

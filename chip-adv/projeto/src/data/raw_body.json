@@ -1,0 +1,574 @@
+[
+ {
+  "start": 0.648,
+  "end": 3.564,
+  "text": "Esse vídeo aqui que o Tom começou com a gravação normal de celular.",
+  "words": [
+   {
+    "word": "Esse",
+    "start": 0.648,
+    "end": 0.858
+   },
+   {
+    "word": "vídeo",
+    "start": 0.858,
+    "end": 1.154
+   },
+   {
+    "word": "aqui",
+    "start": 1.154,
+    "end": 1.434
+   },
+   {
+    "word": "que",
+    "start": 1.434,
+    "end": 1.626
+   },
+   {
+    "word": "o",
+    "start": 1.626,
+    "end": 1.713
+   },
+   {
+    "word": "Tom",
+    "start": 1.713,
+    "end": 1.835
+   },
+   {
+    "word": "começou",
+    "start": 1.835,
+    "end": 2.237
+   },
+   {
+    "word": "com",
+    "start": 2.237,
+    "end": 2.359
+   },
+   {
+    "word": "a",
+    "start": 2.359,
+    "end": 2.446
+   },
+   {
+    "word": "gravação",
+    "start": 2.446,
+    "end": 2.866
+   },
+   {
+    "word": "normal",
+    "start": 2.866,
+    "end": 3.11
+   },
+   {
+    "word": "de",
+    "start": 3.11,
+    "end": 3.215
+   },
+   {
+    "word": "celular.",
+    "start": 3.215,
+    "end": 3.564
+   }
+  ]
+ },
+ {
+  "start": 3.944,
+  "end": 5.58,
+  "text": "E depois que eu coloquei o X",
+  "words": [
+   {
+    "word": "E",
+    "start": 3.944,
+    "end": 4.045
+   },
+   {
+    "word": "depois",
+    "start": 4.045,
+    "end": 4.409
+   },
+   {
+    "word": "que",
+    "start": 4.409,
+    "end": 4.631
+   },
+   {
+    "word": "eu",
+    "start": 4.631,
+    "end": 4.833
+   },
+   {
+    "word": "coloquei",
+    "start": 4.833,
+    "end": 5.398
+   },
+   {
+    "word": "o",
+    "start": 5.398,
+    "end": 5.499
+   },
+   {
+    "word": "X",
+    "start": 5.499,
+    "end": 5.58
+   }
+  ]
+ },
+ {
+  "start": 6.12,
+  "end": 7.148,
+  "text": "Olha como ficou.",
+  "words": [
+   {
+    "word": "Olha",
+    "start": 6.12,
+    "end": 6.414
+   },
+   {
+    "word": "como",
+    "start": 6.414,
+    "end": 6.707
+   },
+   {
+    "word": "ficou.",
+    "start": 6.707,
+    "end": 7.148
+   }
+  ]
+ },
+ {
+  "start": 9.0,
+  "end": 21.052,
+  "text": "Funciona assim, você anexa o chip, a DV na conversa, com o seu IA, abre esse mapa e você simplesmente escolhe o conteúdo que você quer fazer. Como você quer fazer, qual estilo você quer fazer.",
+  "words": [
+   {
+    "word": "Funciona",
+    "start": 9.0,
+    "end": 9.647
+   },
+   {
+    "word": "assim,",
+    "start": 9.647,
+    "end": 10.025
+   },
+   {
+    "word": "você",
+    "start": 10.025,
+    "end": 10.348
+   },
+   {
+    "word": "anexa",
+    "start": 10.348,
+    "end": 10.806
+   },
+   {
+    "word": "o",
+    "start": 10.806,
+    "end": 10.941
+   },
+   {
+    "word": "chip,",
+    "start": 10.941,
+    "end": 11.184
+   },
+   {
+    "word": "a",
+    "start": 11.184,
+    "end": 11.319
+   },
+   {
+    "word": "DV",
+    "start": 11.319,
+    "end": 11.427
+   },
+   {
+    "word": "na",
+    "start": 11.427,
+    "end": 11.588
+   },
+   {
+    "word": "conversa,",
+    "start": 11.588,
+    "end": 12.155
+   },
+   {
+    "word": "com",
+    "start": 12.155,
+    "end": 12.343
+   },
+   {
+    "word": "o",
+    "start": 12.343,
+    "end": 12.478
+   },
+   {
+    "word": "seu",
+    "start": 12.478,
+    "end": 12.775
+   },
+   {
+    "word": "IA,",
+    "start": 12.775,
+    "end": 13.071
+   },
+   {
+    "word": "abre",
+    "start": 13.071,
+    "end": 13.395
+   },
+   {
+    "word": "esse",
+    "start": 13.395,
+    "end": 13.718
+   },
+   {
+    "word": "mapa",
+    "start": 13.718,
+    "end": 14.042
+   },
+   {
+    "word": "e",
+    "start": 14.042,
+    "end": 14.177
+   },
+   {
+    "word": "você",
+    "start": 14.177,
+    "end": 14.5
+   },
+   {
+    "word": "simplesmente",
+    "start": 14.5,
+    "end": 15.255
+   },
+   {
+    "word": "escolhe",
+    "start": 15.255,
+    "end": 15.767
+   },
+   {
+    "word": "o",
+    "start": 15.767,
+    "end": 15.902
+   },
+   {
+    "word": "conteúdo",
+    "start": 15.902,
+    "end": 16.549
+   },
+   {
+    "word": "que",
+    "start": 16.549,
+    "end": 16.846
+   },
+   {
+    "word": "você",
+    "start": 16.846,
+    "end": 17.169
+   },
+   {
+    "word": "quer",
+    "start": 17.169,
+    "end": 17.493
+   },
+   {
+    "word": "fazer.",
+    "start": 17.493,
+    "end": 17.87
+   },
+   {
+    "word": "Como",
+    "start": 17.87,
+    "end": 18.194
+   },
+   {
+    "word": "você",
+    "start": 18.194,
+    "end": 18.518
+   },
+   {
+    "word": "quer",
+    "start": 18.518,
+    "end": 18.841
+   },
+   {
+    "word": "fazer,",
+    "start": 18.841,
+    "end": 19.219
+   },
+   {
+    "word": "qual",
+    "start": 19.219,
+    "end": 19.542
+   },
+   {
+    "word": "estilo",
+    "start": 19.542,
+    "end": 20.027
+   },
+   {
+    "word": "você",
+    "start": 20.027,
+    "end": 20.351
+   },
+   {
+    "word": "quer",
+    "start": 20.351,
+    "end": 20.675
+   },
+   {
+    "word": "fazer.",
+    "start": 20.675,
+    "end": 21.052
+   }
+  ]
+ },
+ {
+  "start": 21.128,
+  "end": 31.436,
+  "text": "Qual situação você quer fazer, entendeu? E você vai apenas dando as ordens e ele vai construindo o que há de melhor e mais moderno na edição.",
+  "words": [
+   {
+    "word": "Qual",
+    "start": 21.128,
+    "end": 21.489
+   },
+   {
+    "word": "situação",
+    "start": 21.489,
+    "end": 22.33
+   },
+   {
+    "word": "você",
+    "start": 22.33,
+    "end": 22.691
+   },
+   {
+    "word": "quer",
+    "start": 22.691,
+    "end": 23.051
+   },
+   {
+    "word": "fazer,",
+    "start": 23.051,
+    "end": 23.472
+   },
+   {
+    "word": "entendeu?",
+    "start": 23.472,
+    "end": 24.223
+   },
+   {
+    "word": "E",
+    "start": 24.223,
+    "end": 24.374
+   },
+   {
+    "word": "você",
+    "start": 24.374,
+    "end": 24.734
+   },
+   {
+    "word": "vai",
+    "start": 24.734,
+    "end": 25.065
+   },
+   {
+    "word": "apenas",
+    "start": 25.065,
+    "end": 25.606
+   },
+   {
+    "word": "dando",
+    "start": 25.606,
+    "end": 25.997
+   },
+   {
+    "word": "as",
+    "start": 25.997,
+    "end": 26.177
+   },
+   {
+    "word": "ordens",
+    "start": 26.177,
+    "end": 26.598
+   },
+   {
+    "word": "e",
+    "start": 26.598,
+    "end": 26.748
+   },
+   {
+    "word": "ele",
+    "start": 26.748,
+    "end": 27.078
+   },
+   {
+    "word": "vai",
+    "start": 27.078,
+    "end": 27.409
+   },
+   {
+    "word": "construindo",
+    "start": 27.409,
+    "end": 28.22
+   },
+   {
+    "word": "o",
+    "start": 28.22,
+    "end": 28.371
+   },
+   {
+    "word": "que",
+    "start": 28.371,
+    "end": 28.701
+   },
+   {
+    "word": "há",
+    "start": 28.701,
+    "end": 28.882
+   },
+   {
+    "word": "de",
+    "start": 28.882,
+    "end": 29.062
+   },
+   {
+    "word": "melhor",
+    "start": 29.062,
+    "end": 29.483
+   },
+   {
+    "word": "e",
+    "start": 29.483,
+    "end": 29.633
+   },
+   {
+    "word": "mais",
+    "start": 29.633,
+    "end": 29.993
+   },
+   {
+    "word": "moderno",
+    "start": 29.993,
+    "end": 30.564
+   },
+   {
+    "word": "na",
+    "start": 30.564,
+    "end": 30.745
+   },
+   {
+    "word": "edição.",
+    "start": 30.745,
+    "end": 31.436
+   }
+  ]
+ },
+ {
+  "start": 32.264,
+  "end": 41.536,
+  "text": "Eu organizei tudo num único chip, entendeu? Clica aqui em saiba mais, junta esse documentinho e vê a mágica acontecer.",
+  "words": [
+   {
+    "word": "Eu",
+    "start": 32.264,
+    "end": 32.583
+   },
+   {
+    "word": "organizei",
+    "start": 32.583,
+    "end": 33.507
+   },
+   {
+    "word": "tudo",
+    "start": 33.507,
+    "end": 33.889
+   },
+   {
+    "word": "num",
+    "start": 33.889,
+    "end": 34.112
+   },
+   {
+    "word": "único",
+    "start": 34.112,
+    "end": 34.654
+   },
+   {
+    "word": "chip,",
+    "start": 34.654,
+    "end": 34.94
+   },
+   {
+    "word": "entendeu?",
+    "start": 34.94,
+    "end": 35.737
+   },
+   {
+    "word": "Clica",
+    "start": 35.737,
+    "end": 36.151
+   },
+   {
+    "word": "aqui",
+    "start": 36.151,
+    "end": 36.661
+   },
+   {
+    "word": "em",
+    "start": 36.661,
+    "end": 36.852
+   },
+   {
+    "word": "saiba",
+    "start": 36.852,
+    "end": 37.394
+   },
+   {
+    "word": "mais,",
+    "start": 37.394,
+    "end": 37.808
+   },
+   {
+    "word": "junta",
+    "start": 37.808,
+    "end": 38.222
+   },
+   {
+    "word": "esse",
+    "start": 38.222,
+    "end": 38.605
+   },
+   {
+    "word": "documentinho",
+    "start": 38.605,
+    "end": 39.624
+   },
+   {
+    "word": "e",
+    "start": 39.624,
+    "end": 39.784
+   },
+   {
+    "word": "vê",
+    "start": 39.784,
+    "end": 39.975
+   },
+   {
+    "word": "a",
+    "start": 39.975,
+    "end": 40.134
+   },
+   {
+    "word": "mágica",
+    "start": 40.134,
+    "end": 40.708
+   },
+   {
+    "word": "acontecer.",
+    "start": 40.708,
+    "end": 41.536
+   }
+  ]
+ }
+]

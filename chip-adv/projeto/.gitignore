@@ -1,0 +1,5 @@
+node_modules/
+public/*.mp4
+public/cutout/
+out/
+public/music/

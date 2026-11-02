@@ -40,7 +40,9 @@ Idioma de tudo que aparece na tela e nas suas respostas: **português do Brasil*
 ### Etapa 2 — Transcrição palavra por palavra
 1. Transcreva com Whisper (`openai-whisper` ou `whisper.cpp`, modelo `small` ou maior, `language=pt`, `word_timestamps=True`).
 2. Salve em `src/data/transcript.json` no formato `[{ "word": "...", "start": 1.23, "end": 1.51 }]`.
-3. Corrija erros óbvios de transcrição pelo contexto (nomes, marcas, termos técnicos).
+3. Corrija erros óbvios de transcrição pelo contexto (nomes, marcas, termos técnicos). "CHIP ADV" costuma sair como "chip a DV", "Shippard", "o X" — corrija sempre.
+4. Se o download do modelo for bloqueado (HuggingFace fora do ar ou sem rede), use o **sherpa-onnx** com o modelo `sherpa-onnx-whisper-turbo` dos *releases* do GitHub (`k2-fsa/sherpa-onnx`, tag `asr-models`) + Silero VAD. Transcreva em pedaços curtos entre pausas reais (energia do áudio) e distribua o tempo das palavras pelo número de vogais — fica preciso o bastante para legenda.
+5. Desconfie de palavra repetida no começo do áudio ("advogado advogado advogado"): é alucinação do Whisper em silêncio. Retranscreva só o trecho com fala.
 
 ### Etapa 3 — Corte bruto (ritmo)
 1. Detecte silêncios (`silencedetect=n=-35dB:d=0.35`) e cruze com a transcrição.

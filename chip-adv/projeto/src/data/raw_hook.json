@@ -1,0 +1,128 @@
+[
+ {
+  "start": 1.512,
+  "end": 2.412,
+  "text": "advogado",
+  "words": [
+   {
+    "word": "advogado",
+    "start": 1.512,
+    "end": 2.412
+   }
+  ]
+ },
+ {
+  "start": 2.632,
+  "end": 4.94,
+  "text": "Você ainda tá editando seus vídeos manualmente?",
+  "words": [
+   {
+    "word": "Você",
+    "start": 2.632,
+    "end": 2.861
+   },
+   {
+    "word": "ainda",
+    "start": 2.861,
+    "end": 3.185
+   },
+   {
+    "word": "tá",
+    "start": 3.185,
+    "end": 3.3
+   },
+   {
+    "word": "editando",
+    "start": 3.3,
+    "end": 3.757
+   },
+   {
+    "word": "seus",
+    "start": 3.757,
+    "end": 3.986
+   },
+   {
+    "word": "vídeos",
+    "start": 3.986,
+    "end": 4.33
+   },
+   {
+    "word": "manualmente?",
+    "start": 4.33,
+    "end": 4.94
+   }
+  ]
+ },
+ {
+  "start": 5.512,
+  "end": 10.06,
+  "text": "Olha o que dá para fazer usando um único arquivo de inteligência artificial.",
+  "words": [
+   {
+    "word": "Olha",
+    "start": 5.512,
+    "end": 5.79
+   },
+   {
+    "word": "o",
+    "start": 5.79,
+    "end": 5.906
+   },
+   {
+    "word": "que",
+    "start": 5.906,
+    "end": 6.162
+   },
+   {
+    "word": "dá",
+    "start": 6.162,
+    "end": 6.301
+   },
+   {
+    "word": "para",
+    "start": 6.301,
+    "end": 6.579
+   },
+   {
+    "word": "fazer",
+    "start": 6.579,
+    "end": 6.881
+   },
+   {
+    "word": "usando",
+    "start": 6.881,
+    "end": 7.299
+   },
+   {
+    "word": "um",
+    "start": 7.299,
+    "end": 7.438
+   },
+   {
+    "word": "único",
+    "start": 7.438,
+    "end": 7.832
+   },
+   {
+    "word": "arquivo",
+    "start": 7.832,
+    "end": 8.366
+   },
+   {
+    "word": "de",
+    "start": 8.366,
+    "end": 8.505
+   },
+   {
+    "word": "inteligência",
+    "start": 8.505,
+    "end": 9.341
+   },
+   {
+    "word": "artificial.",
+    "start": 9.341,
+    "end": 10.06
+   }
+  ]
+ }
+]
