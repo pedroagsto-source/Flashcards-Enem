@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHIP ADV</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Anexe um arquivo na sua IA e ela edita seus vídeos de advogado: corta pausas, põe legenda, efeitos e trilha.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  /* ===== CONFIGURE AQUI ===== preço e checkout ficam no objeto OFERTA, no fim da página */
+  :root {
+    --bg: #0B0B0F; --bg2: #121218; --card: #17171F; --line: #26262F;
+    --ink: #F5F3EE; --muted: #A2A2AD; --accent: #D8FF3C; --accent-ink: #0B0B0F;
+    --orange: #FF5A1F; --teal: #5EEAD4; --radius: 22px;
+    color-scheme: dark;
+    --display: Anton, Impact, sans-serif; --ui: Inter, system-ui, sans-serif; --serif: "Instrument Serif", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--ui); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: 1152px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .wrap > * { min-width: 0; }
+  section { padding: 88px 0; }
+  .eyebrow { font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: .01em; line-height: 1.02; margin: 0; text-transform: uppercase; }
+  h1 { font-size: clamp(44px, 8vw, 88px); }
+  h2 { font-size: clamp(36px, 6vw, 64px); }
+  .serif { font-family: var(--serif); font-style: italic; text-transform: none; font-weight: 400; letter-spacing: 0; }
+  .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 58ch; }
+  .hl { background: var(--accent); color: var(--accent-ink); padding: 0 .18em; border-radius: 6px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; padding: 0 30px; border-radius: 999px;
+    background: var(--accent); color: var(--accent-ink); font-weight: 900; font-size: 17px; text-decoration: none; letter-spacing: .02em;
+    box-shadow: 0 14px 40px rgba(216,255,60,.25); transition: transform .15s ease, box-shadow .15s ease; border: 0; cursor: pointer; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 50px rgba(216,255,60,.35); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); box-shadow: none; }
+  .btn:focus-visible, button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+  .price-line { font-size: 14px; color: var(--muted); margin-top: 14px; }
+  .price-line b { color: var(--ink); }
+
+  /* barra */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 25; background: var(--bg); }
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(11,11,15,.82); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+  .logo { font-family: var(--display); font-size: 24px; letter-spacing: .04em; text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .bar .btn { min-height: 40px; padding: 0 18px; font-size: 14px; box-shadow: none; }
+
+  /* hero */
+  .hero { padding-top: 56px; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .hero h1 .serif { display: block; font-size: .62em; color: var(--muted); margin-bottom: 6px; }
+  .hero .lead { margin: 22px 0 30px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .phone { position: relative; width: min(330px, 100%); margin-inline: auto; aspect-ratio: 9/16; border-radius: 42px; padding: 10px; background: #1b1b22;
+    box-shadow: 0 0 0 1.5px #33333d, 0 40px 90px rgba(0,0,0,.6), 0 0 120px rgba(216,255,60,.12); }
+  .phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; background: #000; }
+  .phone .tag { position: absolute; left: -18px; top: 38px; background: var(--accent); color: var(--accent-ink); font-weight: 900; font-size: 13px;
+    padding: 8px 14px; border-radius: 12px; transform: rotate(-6deg); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .chip { font-size: 13px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+
+  /* faixa */
+  .ticker { border-block: 1px solid var(--line); background: var(--bg2); overflow: hidden; white-space: nowrap; }
+  .ticker div { display: inline-block; padding: 14px 0; animation: tick 40s linear infinite; font-family: var(--display); font-size: 20px; letter-spacing: .06em; color: var(--muted); }
+  .ticker span { margin: 0 22px; } .ticker span:nth-child(3n+1) { color: var(--accent); }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* demo */
+  .demo { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .switch { display: inline-flex; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px; margin: 24px 0; }
+  .switch button { border: 0; background: none; color: var(--muted); font: 800 15px var(--ui); padding: 10px 22px; border-radius: 999px; cursor: pointer; }
+  .switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+  .stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 34px; color: var(--accent); line-height: 1.1; }
+  .stat small { color: var(--muted); font-size: 13px; }
+  .steps-log { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; }
+  .steps-log li { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 15px; }
+  .steps-log li::before { content: "✓"; display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--teal); color: #06302C; font-weight: 900; font-size: 13px; }
+
+  /* conversa */
+  .convo { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .how { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; counter-reset: n; }
+  .how li { counter-increment: n; display: grid; grid-template-columns: 54px 1fr; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .how li::before { content: counter(n); font-family: var(--display); font-size: 44px; line-height: 1; color: var(--orange); }
+  .how b { display: block; font-size: 18px; margin-bottom: 4px; } .how span { color: var(--muted); }
+  .chat { background: #F6F3EC; color: #1d1d1f; border-radius: 28px; padding: 22px; box-shadow: 0 40px 80px rgba(0,0,0,.45); font-size: 15px; }
+  .chat .top { display: flex; align-items: center; gap: 8px; font-weight: 800; color: #6b6b6b; font-size: 13px; margin-bottom: 16px; }
+  .chat .top i { width: 10px; height: 10px; border-radius: 50%; background: #E2725B; }
+  .msg { max-width: 86%; padding: 12px 16px; border-radius: 18px; margin: 8px 0; }
+  .me { margin-left: auto; background: #1d1d1f; color: #fff; border-bottom-right-radius: 6px; }
+  .ai { background: #fff; border: 1px solid #e6e1d6; border-bottom-left-radius: 6px; }
+  .file { display: flex; align-items: center; gap: 10px; }
+  .file i { width: 34px; height: 40px; border-radius: 6px; background: var(--orange); display: grid; place-items: center; color: #fff; font: 900 10px var(--ui); font-style: normal; }
+  .ai ul { margin: 6px 0 0; padding-left: 18px; color: #555; }
+
+  /* galeria */
+  .gallery { max-width: calc(100% + 32px); display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 28px 16px 18px; margin: 0 -16px; scrollbar-width: thin; }
+  .fx { flex: 0 0 min(240px, 70vw); scroll-snap-align: start; }
+  .fx img { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 20px; border: 1px solid var(--line); }
+  .fx h3 { font-size: 17px; margin: 14px 0 4px; } .fx p { margin: 0; color: var(--muted); font-size: 14px; }
+  .fx code { display: block; margin-top: 8px; font: 600 13px var(--ui); color: var(--accent); }
+
+  /* grids */
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 36px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card .n { font-family: var(--display); color: var(--accent); font-size: 18px; letter-spacing: .06em; }
+  .card h3 { margin: 8px 0 6px; font-size: 18px; } .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* OAB */
+  .oab { background: linear-gradient(135deg, #10131c, #0B0B0F 60%); border-block: 1px solid var(--line); }
+  .oab .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+  .seal { width: 180px; height: 180px; border-radius: 50%; border: 2px solid var(--teal); display: grid; place-items: center; text-align: center;
+    font-family: var(--display); font-size: 22px; letter-spacing: .06em; color: var(--teal); box-shadow: inset 0 0 0 10px #0B0B0F, inset 0 0 0 11px #1f3b3a; }
+  .rules { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; }
+  .rules li { padding-left: 30px; position: relative; color: var(--muted); }
+  .rules li::before { content: "§"; position: absolute; left: 0; color: var(--teal); font-weight: 900; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 18px; opacity: .8; }
+
+  /* oferta */
+  .offer { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .box { background: var(--ink); color: var(--bg); border-radius: 30px; padding: 34px; box-shadow: 0 40px 100px rgba(216,255,60,.12); }
+  .box .from { color: #77777f; text-decoration: line-through; font-weight: 600; }
+  .box .price { font-family: var(--display); font-size: clamp(64px, 10vw, 92px); line-height: 1; margin: 6px 0; }
+  .box .inst { font-weight: 800; color: #3a3a40; }
+  .box ul { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 10px; }
+  .box li { padding-left: 28px; position: relative; font-weight: 600; }
+  .box li::before { content: "✓"; position: absolute; left: 0; color: #2f7d16; font-weight: 900; }
+  .box .btn { width: 100%; background: var(--bg); color: var(--accent); box-shadow: none; }
+  .box small { display: block; text-align: center; color: #6a6a72; margin-top: 12px; }
+  .req { display: grid; gap: 14px; }
+
+  /* faq */
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  summary { cursor: pointer; font-weight: 800; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin: 10px 0 0; }
+
+  .final { text-align: center; }
+  .final .lead { margin: 18px auto 30px; }
+  footer { border-top: 1px solid var(--line); padding: 32px 0 110px; color: var(--muted); font-size: 13px; }
+  .sticky-cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: rgba(11,11,15,.92); backdrop-filter: blur(12px); border-top: 1px solid var(--line); align-items: center; justify-content: space-between; gap: 12px; }
+  .sticky-cta b { font-size: 15px; } .sticky-cta small { display: block; color: var(--muted); font-size: 12px; }
+  .sticky-cta .btn { min-height: 46px; padding: 0 20px; font-size: 15px; }
+
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .ticker div { animation: none; } }
+
+  @media (max-width: 860px) {
+    section { padding: 64px 0; }
+    .hero .wrap, .demo, .convo, .oab .wrap, .offer { grid-template-columns: 1fr; gap: 36px; }
+    .grid4 { grid-template-columns: 1fr 1fr; }
+    .grid2 { grid-template-columns: 1fr; }
+    .bar .btn { display: none; }
+    .sticky-cta { display: flex; }
+    .seal { width: 140px; height: 140px; font-size: 18px; }
+  }
+  @media (max-width: 480px) { .grid4 { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr 1fr; } .stat b { font-size: 26px; } }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="#topo" class="logo">CHIP <span>ADV</span></a>
+    <a href="#oferta" class="btn">Quero o CHIP ADV</a>
+  </div>
+</header>
+
+<main id="topo">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Edição de vídeo para advogados</div>
+        <h1 style="margin-top:14px"><span class="serif">Você grava. A sua IA edita.</span>Um arquivo transforma a IA no seu <span class="hl">editor</span></h1>
+        <p class="lead">Anexe o CHIP ADV na conversa, mande o vídeo do jeito que gravou e escreva <b style="color:var(--ink)">"edita pra mim"</b>. Volta cortado, legendado, com efeitos e trilha, pronto pra postar.</p>
+        <div class="ctas">
+          <a href="#oferta" class="btn">Quero o CHIP ADV →</a>
+          <a href="#demo" class="btn ghost">Ver o antes e depois</a>
+        </div>
+        <p class="price-line" data-oferta="linha"></p>
+        <div class="chips"><span class="chip">Corta pausas e erros</span><span class="chip">Legenda palavra por palavra</span><span class="chip">17 efeitos premium</span><span class="chip">Trilha e efeitos sonoros</span></div>
+      </div>
+      <div class="phone reveal">
+        <span class="tag">Editado com o CHIP ADV</span>
+        <video src="assets/pronto.mp4" poster="assets/pronto.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo editado pelo CHIP ADV"></video>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div>
+    <span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span><span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span><span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span>
+    <span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span><span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span><span>Você grava</span><span>A IA edita</span><span>Sem curso de edição</span>
+  </div></div>
+
+  <!-- DEMO -->
+  <section id="demo">
+    <div class="wrap demo">
+      <div class="phone reveal">
+        <video id="demoVideo" src="assets/pronto.mp4" poster="assets/pronto.jpg" controls playsinline preload="metadata" aria-label="Comparação entre gravação bruta e vídeo editado"></video>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Antes e depois</div>
+        <h2 style="margin-top:12px">A mesma gravação. <span class="serif">Outro vídeo.</span></h2>
+        <p class="lead" style="margin-top:16px">Duas gravações de celular, com pausas e frase repetida. O CHIP ADV juntou as duas e entregou o vídeo editado.</p>
+        <div class="switch" role="group" aria-label="Escolher versão">
+          <button type="button" data-v="bruto" aria-pressed="false">Bruto</button>
+          <button type="button" data-v="pronto" aria-pressed="true">Pronto</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>52s→41s</b><small>tempo final</small></div>
+          <div class="stat"><b>20</b><small>cortes de pausa</small></div>
+          <div class="stat"><b>7</b><small>efeitos aplicados</small></div>
+        </div>
+        <ul class="steps-log">
+          <li>Transcreveu cada palavra da fala</li>
+          <li>Tirou pausas e a tomada repetida</li>
+          <li>Escolheu um efeito para cada momento da fala</li>
+          <li>Legendou, pôs trilha e efeitos sonoros</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section style="background:var(--bg2)">
+    <div class="wrap convo">
+      <div class="reveal">
+        <div class="eyebrow">Como funciona</div>
+        <h2 style="margin-top:12px">Editar virou <span class="serif">conversa.</span></h2>
+        <p class="lead" style="margin-top:16px">Você escreve como escreveria para uma pessoa. Não tem comando para decorar.</p>
+        <ol class="how">
+          <li><div><b>Anexe o arquivo</b><span>Solte o CHIP ADV e o mapa de efeitos na conversa com o Claude.</span></div></li>
+          <li><div><b>Mande a gravação</b><span>Do jeito que saiu do celular: com erro, com pausa, em mais de um vídeo.</span></div></li>
+          <li><div><b>Peça o ajuste falando</b><span>"Troca esse efeito", "deixa a legenda maior", "versão de 15 segundos".</span></div></li>
+        </ol>
+      </div>
+      <div class="chat reveal" aria-label="Exemplo de conversa">
+        <div class="top"><i></i>Sua IA</div>
+        <div class="msg me"><div class="file"><i>.MD</i><div><b>CHIP_ADV.md</b><br><small>prompt mestre</small></div></div></div>
+        <div class="msg me">hook.mov · body.mov<br>Roda o CHIP ADV.</div>
+        <div class="msg ai">Recebi. Juntei os dois vídeos e já editei:
+          <ul><li>52 s viraram 41 s</li><li>legenda palavra por palavra</li><li>7 efeitos, trilha e sons</li></ul>
+        </div>
+        <div class="msg me">Troca o efeito do segundo 5 por vertigem.</div>
+        <div class="msg ai">Feito. Renderizei de novo só esse trecho. ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section>
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Galeria de efeitos</div>
+        <h2 style="margin-top:12px">Um pedido para <span class="serif">cada efeito.</span></h2>
+        <p class="lead" style="margin-top:16px">Todos estes quadros são do mesmo vídeo, editado pelo CHIP ADV. Arraste para o lado.</p>
+      </div>
+      <div class="gallery" tabindex="0" aria-label="Galeria de efeitos">
+        <figure class="fx"><img src="assets/fx-e05.jpg" alt="Zoom digital com a palavra ADVOGADO" loading="lazy"><h3>Zoom digital</h3><p>Zoom seco no rosto com palavra gigante.</p><code>"Abre com um gancho forte"</code></figure>
+        <figure class="fx"><img src="assets/fx-e17.jpg" alt="Palavra de vidro atrás da pessoa" loading="lazy"><h3>Letra de vidro</h3><p>A frase forte atrás de você.</p><code>"Põe a frase atrás de mim"</code></figure>
+        <figure class="fx"><img src="assets/fx-antes.jpg" alt="Interface de câmera com etiqueta ANTES" loading="lazy"><h3>Antes e depois</h3><p>Mostra a gravação crua e vira a chave.</p><code>"Mostra o antes e o depois"</code></figure>
+        <figure class="fx"><img src="assets/fx-e11.jpg" alt="Vídeo dentro de um editor com tarefas" loading="lazy"><h3>Revelação</h3><p>O vídeo vira a tela de um editor.</p><code>"Mostra o bastidor da edição"</code></figure>
+        <figure class="fx"><img src="assets/fx-e07.jpg" alt="Checklist de vidro sendo marcado" loading="lazy"><h3>Checklist</h3><p>Cada item marca quando você fala.</p><code>"Faz um checklist do que eu falar"</code></figure>
+        <figure class="fx"><img src="assets/fx-ordens.jpg" alt="Balões de comando digitados" loading="lazy"><h3>Comandos na tela</h3><p>Balões digitando no ritmo da fala.</p><code>"Mostra os pedidos na tela"</code></figure>
+        <figure class="fx"><img src="assets/fx-e16.jpg" alt="Capa de revista com a pessoa na frente" loading="lazy"><h3>Capa de revista</h3><p>Nome gigante atrás da sua cabeça.</p><code>"Deixa com cara de capa de revista"</code></figure>
+        <figure class="fx"><img src="assets/fx-e12.jpg" alt="Página com botão Saiba Mais e a pessoa recortada" loading="lazy"><h3>Recorte + CTA</h3><p>Sem pano verde: você numa página com botão.</p><code>"Me recorta e põe um botão de CTA"</code></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section style="background:var(--bg2)">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Para quem é</div>
+        <h2 style="margin-top:12px">Feito para <span class="serif">quem advoga</span> e grava.</h2>
+      </div>
+      <div class="grid4">
+        <div class="card reveal"><div class="n">01</div><h3>Advogado solo</h3><p>Grava no intervalo entre audiências e não tem tempo de editar.</p></div>
+        <div class="card reveal"><div class="n">02</div><h3>Escritório pequeno</h3><p>Precisa de constância no Instagram sem contratar uma equipe.</p></div>
+        <div class="card reveal"><div class="n">03</div><h3>Quem anuncia</h3><p>A campanha pede criativo novo toda semana. Cada um é uma edição.</p></div>
+        <div class="card reveal"><div class="n">04</div><h3>Quem paga editor</h3><p>Manda, paga e espera o vídeo voltar. Agora volta em minutos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OAB -->
+  <section class="oab">
+    <div class="wrap">
+      <div class="reveal" style="display:grid;place-items:center"><div class="seal">INFORMATIVO<br>SEM<br>EXAGERO</div></div>
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--teal)">Feito para a advocacia</div>
+        <h2 style="margin-top:12px">Premium, <span class="serif">com sobriedade.</span></h2>
+        <p class="lead" style="margin-top:16px">O CHIP ADV foi pensado para o tom da publicidade jurídica. A edição chama atenção pela forma, não por promessas.</p>
+        <ul class="rules">
+          <li>Textos na tela reforçam a sua fala, sem inventar promessa de resultado.</li>
+          <li>Nada de linguagem de "oferta" ou captação dentro do conteúdo jurídico.</li>
+          <li>Você revisa tudo antes de postar e pede ajuste em uma frase.</li>
+        </ul>
+        <p class="note">O conteúdo continua sendo seu e de sua responsabilidade. Siga sempre o Provimento 205/2021 do Conselho Federal da OAB.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE FAZ -->
+  <section>
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">O que ele faz</div>
+        <h2 style="margin-top:12px">Oito tarefas de editor. <span class="serif">Uma frase sua.</span></h2>
+      </div>
+      <div class="grid4">
+        <div class="card reveal"><div class="n">01</div><h3>Corta pausas e erros</h3><p>Fica só a fala limpa.</p></div>
+        <div class="card reveal"><div class="n">02</div><h3>Melhor tomada</h3><p>Gravou duas vezes? Fica a melhor.</p></div>
+        <div class="card reveal"><div class="n">03</div><h3>Legenda viva</h3><p>A palavra acende quando é dita.</p></div>
+        <div class="card reveal"><div class="n">04</div><h3>Efeito por momento</h3><p>Escolhe entre 17 efeitos pela sua fala.</p></div>
+        <div class="card reveal"><div class="n">05</div><h3>Recorte sem pano verde</h3><p>Troca o fundo atrás de você.</p></div>
+        <div class="card reveal"><div class="n">06</div><h3>Trilha e sons</h3><p>A música abaixa quando você fala.</p></div>
+        <div class="card reveal"><div class="n">07</div><h3>Cor e acabamento</h3><p>Correção de cor, vinheta e grão sutil.</p></div>
+        <div class="card reveal"><div class="n">08</div><h3>Capa e legenda do post</h3><p>Entrega a capa e o texto para postar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section id="oferta" style="background:var(--bg2)">
+    <div class="wrap offer">
+      <div class="reveal">
+        <div class="eyebrow">O que você recebe</div>
+        <h2 style="margin-top:12px">Tudo num <span class="serif">único arquivo.</span></h2>
+        <div class="req" style="margin-top:28px">
+          <div class="card"><h3>CHIP ADV · prompt mestre</h3><p>O arquivo que faz a IA editar como um editor sênior, do corte ao render.</p></div>
+          <div class="card"><h3>Mapa de efeitos</h3><p>Os 17 efeitos com o pedido de cada um, para você escolher o estilo.</p></div>
+          <div class="card"><h3>Guia de primeiro vídeo</h3><p>Passo a passo para preparar o computador e editar o primeiro vídeo.</p></div>
+          <div class="card"><h3>Bônus · Pautas para advogados</h3><p>Ideias de vídeo e ganchos prontos para a sua área de atuação.</p></div>
+        </div>
+      </div>
+      <div class="box reveal" aria-label="Oferta">
+        <div class="from" data-oferta="de"></div>
+        <div class="price" data-oferta="por"></div>
+        <div class="inst" data-oferta="parcela"></div>
+        <ul>
+          <li>Prompt mestre CHIP ADV</li>
+          <li>Mapa com 17 efeitos</li>
+          <li>Guia de primeiro vídeo</li>
+          <li>Bônus: pautas para advogados</li>
+          <li>Garantia de 7 dias</li>
+        </ul>
+        <a class="btn" data-oferta="checkout" href="#">Quero o CHIP ADV →</a>
+        <small>Pagamento por PIX ou cartão · acesso por e-mail</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTIA + REQUISITOS -->
+  <section>
+    <div class="wrap grid2" style="margin-top:0">
+      <div class="card reveal"><div class="n">GARANTIA DE 7 DIAS</div><h3>Não gostou, devolvemos.</h3><p>Se o CHIP ADV não funcionar para você ou não gostar do resultado, peça o reembolso em até 7 dias e recebe tudo de volta.</p></div>
+      <div class="card reveal"><div class="n">O QUE VOCÊ PRECISA</div><h3>Computador + Claude no plano pago.</h3><p>Funciona no Claude Code, no Mac ou no Windows. A assinatura do Claude é paga à parte, direto para a Anthropic.</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="background:var(--bg2)">
+    <div class="wrap" style="max-width:820px">
+      <div class="eyebrow">Dúvidas</div>
+      <h2 style="margin:12px 0 18px">Respostas <span class="serif">diretas.</span></h2>
+      <details><summary>Preciso saber editar?</summary><p>Não. Quem edita é a IA. Você só grava e escreve o que quer, em português.</p></details>
+      <details><summary>Funciona no celular?</summary><p>A edição roda no computador, com o Claude Code. Você pode gravar no celular e mandar o arquivo para o computador.</p></details>
+      <details><summary>Quanto tempo leva?</summary><p>Depende do tamanho do vídeo e do seu computador. Um Reels de até 1 minuto costuma ficar pronto em minutos.</p></details>
+      <details><summary>Posso mandar mais de um vídeo?</summary><p>Sim. Pode mandar o gancho e o corpo separados que o CHIP ADV junta tudo num vídeo só, como no exemplo desta página.</p></details>
+      <details><summary>E se eu não gostar de um efeito?</summary><p>Peça a troca em uma frase: "troca o efeito do segundo 12 por capa de revista". Ele refaz só aquele trecho.</p></details>
+      <details><summary>Serve para anúncio?</summary><p>Serve para conteúdo e para criativo de anúncio. Você pode pedir versões de 15, 30 e 60 segundos da mesma gravação.</p></details>
+      <details><summary>O vídeo respeita as regras da OAB?</summary><p>A edição segue um tom informativo e não cria promessas. O conteúdo que você fala continua sendo sua responsabilidade, de acordo com o Provimento 205/2021.</p></details>
+      <details><summary>Tem garantia?</summary><p>Sim, 7 dias. Se não funcionar ou não gostar, devolvemos o valor integral.</p></details>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Você grava. <span class="serif">A sua IA edita.</span></h2>
+      <p class="lead">Seu próximo vídeo já pode sair com cara de agência.</p>
+      <a href="#oferta" class="btn">Quero o CHIP ADV →</a>
+      <p class="price-line" data-oferta="linha"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="ano"></span> CHIP ADV. Claude é marca da Anthropic e ChatGPT é marca da OpenAI. O CHIP ADV é um produto independente, sem ligação com essas empresas.</p>
+  </div>
+</footer>
+
+<div class="sticky-cta" aria-label="Comprar">
+  <div><b>CHIP ADV</b><small data-oferta="curta"></small></div>
+  <a href="#oferta" class="btn">Quero →</a>
+</div>
+
+<script>
+  /* ===== CONFIGURE A OFERTA AQUI ===== */
+  const OFERTA = {
+    de: 197,            // preço âncora (deixe null para esconder)
+    por: 97,            // preço de venda
+    parcelas: 12,
+    valorParcela: 10.04, // copie o valor exato do checkout
+    checkout: '#',      // link do checkout (Hubla, Kiwify, Hotmart...)
+  };
+  const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const set = (k, v) => document.querySelectorAll(`[data-oferta="${k}"]`).forEach((el) => (el.textContent = v));
+  set('de', OFERTA.de ? `De ${brl(OFERTA.de)}` : '');
+  set('por', brl(OFERTA.por).replace(',00', ''));
+  set('parcela', `ou ${OFERTA.parcelas}x de ${brl(OFERTA.valorParcela)}`);
+  set('linha', `${brl(OFERTA.por)} ou ${OFERTA.parcelas}x de ${brl(OFERTA.valorParcela)} · Garantia de 7 dias`);
+  set('curta', `${brl(OFERTA.por)} · garantia de 7 dias`);
+  document.querySelectorAll('[data-oferta="checkout"]').forEach((a) => (a.href = OFERTA.checkout));
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  // antes e depois
+  const v = document.getElementById('demoVideo');
+  document.querySelectorAll('.switch button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.switch button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    v.src = `assets/${b.dataset.v}.mp4`; v.poster = `assets/${b.dataset.v}.jpg`; v.play().catch(() => {});
+  }));
+
+  // animação de entrada
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.15 }) : null;
+  document.querySelectorAll('.reveal').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
+</script>
+</body>
+</html>
