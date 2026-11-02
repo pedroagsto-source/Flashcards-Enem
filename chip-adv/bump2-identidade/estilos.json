@@ -1,0 +1,289 @@
+[
+ {
+  "id": "sobrio-classico",
+  "nome": "Sóbrio Clássico",
+  "para": "Qualquer área; escritórios tradicionais",
+  "cores": {
+   "principal": "#0F1E33",
+   "destaque": "#B8955A",
+   "clara": "#F4EFE6",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Cormorant Garamond",
+   700,
+   "cormorant-garamond"
+  ],
+  "texto": [
+   "Inter",
+   800,
+   "inter"
+  ],
+  "legenda": "Branca, caixa normal; palavra-chave em dourado, sem fundo",
+  "ritmo": "Calmo: cortes a cada 3–4 s, punch-in leve (1,04)",
+  "efeitos": [
+   "16",
+   "07",
+   "17",
+   "11"
+  ],
+  "evitar": [
+   "13",
+   "14",
+   "04",
+   "02"
+  ],
+  "trilha": "Piano e cordas, andamento lento",
+  "frase": "Seus direitos, com clareza."
+ },
+ {
+  "id": "editorial",
+  "nome": "Editorial",
+  "para": "Opinião, análise de decisões, notícias jurídicas",
+  "cores": {
+   "principal": "#141414",
+   "destaque": "#C8102E",
+   "clara": "#F6F3EE",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Playfair Display",
+   900,
+   "playfair-display"
+  ],
+  "texto": [
+   "Inter",
+   800,
+   "inter"
+  ],
+  "legenda": "Branca; palavra-chave com fundo vermelho",
+  "ritmo": "Médio: cortes a cada 2–3 s",
+  "efeitos": [
+   "16",
+   "08",
+   "17",
+   "09"
+  ],
+  "evitar": [
+   "13",
+   "14"
+  ],
+  "trilha": "Batida discreta, estilo telejornal",
+  "frase": "O que mudou, explicado."
+ },
+ {
+  "id": "moderno",
+  "nome": "Moderno",
+  "para": "Empresarial, tributário, tecnologia",
+  "cores": {
+   "principal": "#1C1C22",
+   "destaque": "#3B82F6",
+   "clara": "#EEF2F8",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Montserrat",
+   900,
+   "montserrat"
+  ],
+  "texto": [
+   "Montserrat",
+   800,
+   "montserrat"
+  ],
+  "legenda": "Caixa alta; palavra-chave com fundo azul",
+  "ritmo": "Ágil: cortes a cada 2 s, punch-in 1,08",
+  "efeitos": [
+   "05",
+   "09",
+   "11",
+   "10"
+  ],
+  "evitar": [
+   "13",
+   "14"
+  ],
+  "trilha": "Eletrônica leve, 100–110 BPM",
+  "frase": "Direito para quem empreende."
+ },
+ {
+  "id": "minimal",
+  "nome": "Minimal",
+  "para": "Quem quer só legenda e cortes limpos",
+  "cores": {
+   "principal": "#111111",
+   "destaque": "#111111",
+   "clara": "#FAFAF7",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Manrope",
+   800,
+   "manrope"
+  ],
+  "texto": [
+   "Manrope",
+   800,
+   "manrope"
+  ],
+  "legenda": "Caixa normal; palavra-chave sublinhada",
+  "ritmo": "Corte seco, sem zooms",
+  "efeitos": [
+   "07"
+  ],
+  "evitar": [
+   "04",
+   "13",
+   "14",
+   "15",
+   "02",
+   "01"
+  ],
+  "trilha": "Sem trilha ou ambiente muito baixo",
+  "frase": "Direto ao ponto."
+ },
+ {
+  "id": "premium-escuro",
+  "nome": "Premium Escuro",
+  "para": "Anúncios e conteúdo de alto impacto",
+  "cores": {
+   "principal": "#0B0B0F",
+   "destaque": "#D8FF3C",
+   "clara": "#F5F3EE",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Anton",
+   400,
+   "anton"
+  ],
+  "texto": [
+   "Inter",
+   900,
+   "inter"
+  ],
+  "legenda": "Caixa alta; palavra falada acende em limão; palavra-chave com fundo",
+  "ritmo": "Intenso: cortes a cada 1,5–2 s, zooms secos",
+  "efeitos": [
+   "05",
+   "17",
+   "09",
+   "11",
+   "16",
+   "12"
+  ],
+  "evitar": [
+   "13"
+  ],
+  "trilha": "Batida marcada, 100–120 BPM",
+  "frase": "Você grava. A IA edita."
+ },
+ {
+  "id": "institucional",
+  "nome": "Institucional",
+  "para": "Sociedades de advogados, conteúdo de autoridade",
+  "cores": {
+   "principal": "#0E3B2E",
+   "destaque": "#B87333",
+   "clara": "#F3EFE6",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "DM Serif Display",
+   400,
+   "dm-serif-display"
+  ],
+  "texto": [
+   "Inter",
+   800,
+   "inter"
+  ],
+  "legenda": "Branca; palavra-chave em cobre",
+  "ritmo": "Calmo: cortes a cada 3 s",
+  "efeitos": [
+   "07",
+   "10",
+   "16",
+   "11"
+  ],
+  "evitar": [
+   "13",
+   "14",
+   "04"
+  ],
+  "trilha": "Orquestral suave",
+  "frase": "Tradição e orientação jurídica."
+ },
+ {
+  "id": "acolhedor",
+  "nome": "Acolhedor",
+  "para": "Família, previdenciário, sucessões",
+  "cores": {
+   "principal": "#3D2C25",
+   "destaque": "#C9877A",
+   "clara": "#EFE6DA",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Fraunces",
+   800,
+   "fraunces"
+  ],
+  "texto": [
+   "Manrope",
+   800,
+   "manrope"
+  ],
+  "legenda": "Caixa normal; palavra-chave em rosa antigo",
+  "ritmo": "Calmo: cortes a cada 3–4 s, sem tremidas",
+  "efeitos": [
+   "07",
+   "14",
+   "13",
+   "17"
+  ],
+  "evitar": [
+   "05",
+   "04",
+   "15",
+   "09"
+  ],
+  "trilha": "Violão acústico ou piano suave",
+  "frase": "Do seu lado, com cuidado."
+ },
+ {
+  "id": "dinamico",
+  "nome": "Dinâmico",
+  "para": "Consumidor, trabalhista, público jovem",
+  "cores": {
+   "principal": "#2E1065",
+   "destaque": "#FACC15",
+   "clara": "#F5F3FF",
+   "texto": "#FFFFFF"
+  },
+  "titulo": [
+   "Bebas Neue",
+   400,
+   "bebas-neue"
+  ],
+  "texto": [
+   "Montserrat",
+   900,
+   "montserrat"
+  ],
+  "legenda": "Caixa alta; palavra-chave com fundo amarelo, pulando",
+  "ritmo": "Rápido: cortes a cada 1,5 s, zooms e tremidas",
+  "efeitos": [
+   "05",
+   "04",
+   "02",
+   "13",
+   "09"
+  ],
+  "evitar": [
+   "16"
+  ],
+  "trilha": "Pop/funk instrumental, 110–125 BPM",
+  "frase": "Seu direito em 30 segundos."
+ }
+]

@@ -141,6 +141,13 @@ export const brand = {
 
 **Área segura:** nada importante nos **220 px de cima** nem nos **380 px de baixo** (interface do Reels/TikTok) nem nos **90 px laterais**.
 
+**Identidade do escritório (Kit Identidade):** se `MARCA.md` (e `ESTILOS.md`) vierem anexados:
+1. Carregue o estilo indicado em `estilo:` do `ESTILOS.md` e aplique os ajustes finos do `MARCA.md` por cima. O resultado substitui a paleta e as fontes padrão acima, em legendas, cartões e efeitos.
+2. Nome e OAB aparecem em todo vídeo, pelo menos uma vez (assinatura lateral discreta e/ou cartão final de 1,5 s), conforme o art. 44 do Código de Ética e Disciplina da OAB.
+3. Use o `ritmo` do estilo para os cortes e zooms; dê prioridade aos `efeitos` do estilo e aos `efeitos_favoritos`; nunca use os de `evitar` nem os `efeitos_proibidos`.
+4. Nenhum texto na tela pode conter as `palavras_que_eu_evito` nem prometer resultado.
+5. Logo só na abertura e no cartão final, nunca sobre o rosto. Abertura nunca passa de 0,8 s: o hook vem primeiro.
+
 ---
 
 ## 4. LEGENDAS DINÂMICAS (sempre ligadas)
