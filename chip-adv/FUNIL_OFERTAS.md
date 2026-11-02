@@ -1,5 +1,7 @@
 # CHIP ADV: funil de ofertas (3 order bumps + upsell + downsell)
 
+> **Atualizado:** os order bumps, o upsell e o downsell foram revistos a partir do checkout do concorrente. A versão em uso está em `checkout/CHECKOUT_HUBLA.md`.
+
 **Produto principal:** CHIP ADV, R$ 97 (prompt mestre + mapa de efeitos + guia de primeiro vídeo + bônus de pautas).
 
 **Lógica do funil:** cada oferta resolve o **próximo problema** de quem acabou de comprar.
