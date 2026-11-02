@@ -11,6 +11,7 @@ export const RemotionRoot = () => (
   <>
     <Composition id="ChipAdv" component={ChipAdv} durationInFrames={TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="F1Ad" component={F1Ad} durationInFrames={F1_FRAMES} fps={30} width={1080} height={1920} />
+    <Composition id="F1Ad-escritorio" component={F1Ad} defaultProps={{ fundo: 'escritorio' as const }} durationInFrames={F1_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="MotionAd" component={MotionAd} durationInFrames={MOTION_FRAMES} fps={30} width={1080} height={1920} />
     {HOOKS.map((h) => (
       <Composition key={h} id={`Ad30-${h}`} component={AdVariant} defaultProps={{ hook: h, body: 'cut30' }}

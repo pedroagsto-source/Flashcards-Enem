@@ -1,4 +1,4 @@
-import { AbsoluteFill, Audio, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font, springIn } from '../brand';
 import { Grade } from '../components/Grade';
 
@@ -25,6 +25,7 @@ const CH: C[] = RAW.map(([clip, a, b, text, keys], i) => {
   const c = { i, clip, from: a, start: t, dur, words }; t += dur; return c;
 });
 export const F1_FRAMES = t;
+export type Fundo = 'original' | 'escritorio';
 const S = (i: number) => CH[i].start, E = (i: number) => CH[i].start + CH[i].dur;
 const wf = (i: number, w: string) => (CH[i].words.find((x) => x.w.toLowerCase().startsWith(w)) || CH[i].words[0]).g;
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
@@ -49,14 +50,25 @@ const camera = (g: number) => {
   return { s: c.i % 2 ? 1.07 : 1, x: 0, y: 0, filter: GRADE, oy: 35 };
 };
 
-const Base = () => {
+/** Recorte da pessoa no frame da origem correspondente (troca de cenário). */
+const Recorte = ({ c }: { c: C }) => {
+  const lf = useCurrentFrame(); const f = c.from + Math.min(lf, c.dur - 1);
+  return <Img src={staticFile(`f1/cutout/${c.clip}/${String(f).padStart(5, '0')}.webp`)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+    filter: 'sepia(.06) saturate(1.04) drop-shadow(0 0 26px rgba(0,0,0,.35))' }} />;
+};
+
+const Base = ({ fundo }: { fundo: Fundo }) => {
   const g = useCurrentFrame(); const c = camera(g);
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
       <AbsoluteFill style={{ transform: `translate(${c.x}px, ${c.y}px) scale(${c.s})`, transformOrigin: `50% ${c.oy}%`, filter: c.filter }}>
+        {fundo === 'escritorio' && <Img src={staticFile('f1/escritorio.jpg')} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          transform: `scale(1.1) translateX(${interpolate(g, [0, F1_FRAMES], [-12, 12])}px)` }} />}
         {CH.map((x) => (
           <Sequence key={x.i} from={x.start} durationInFrames={x.dur} layout="none">
-            <AbsoluteFill><OffthreadVideo src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>
+            {fundo === 'escritorio'
+              ? <><AbsoluteFill><Recorte c={x} /></AbsoluteFill><Audio src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} /></>
+              : <AbsoluteFill><OffthreadVideo src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>}
           </Sequence>
         ))}
       </AbsoluteFill>
@@ -212,9 +224,9 @@ const SFX: [number, string, number][] = [
   [T.pronto - 2, 'whoosh', 0.35], [T.pronto + 4, 'shimmer', 0.25], [S(7), 'whoosh', 0.3], [T.saiba + 6, 'click', 0.6],
 ];
 
-export const F1Ad = () => (
+export const F1Ad = ({ fundo = 'original' }: { fundo?: Fundo }) => (
   <AbsoluteFill style={{ background: '#000' }}>
-    <Base />
+    <Base fundo={fundo} />
     <PalavraGigante a={Z1} b={S(1)} txt="ADVOGADO" />
     <PalavraGigante a={Z2} b={E(1)} txt="1 ARQUIVO" size={210} />
     <Sequence from={Z2} durationInFrames={E(1) - Z2}><Arquivo at={4} y={260} /></Sequence>
