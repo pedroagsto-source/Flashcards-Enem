@@ -71,3 +71,14 @@ Variam por país. A Colômbia é restritiva no papel (anúncio com nome, título
 - Udemy (Claude Code para vídeo): https://www.udemy.com/course/edit-videos-with-ai-claude-code-for-video-editing/
 - Mentor Lex (Espanha): https://www.que.es/2023/11/15/donde-encontrar-servicios-de-mentoria-digital-para-abogados-y-asesores-fiscales-mentor-lex/
 - Guia TikTok para escritórios de advocacia: https://ads.tiktok.com/business/es-LA/guides/law-firm-marketing-guide
+
+## 7. Anúncio do concorrente na LATAM (EDIT.IA PRO · reel DekKTC_pe4t, ativo desde 16/10/2026)
+- **Mesmo vídeo do Brasil, dublado com IA em espanhol neutro e sincronia labial** (a interface mostra "Hola, André").
+- **Público genérico**: criadores e infoprodutores, não advogados.
+- **Roteiro (42 s)**: cartão pegando fogo "Tu editor de video ahora vive en Claude" → "Abre Claude y pega este archivo aquí" (`editor-profesional.zip`) → "manda el video tal como lo grabaste… en bruto, con errores, con pausas… edita para mí" → checklist (palabras, pausas, mejor toma, subtítulos, zoom, SFX, banda sonora) → "si no te gustó… dile y él lo cambia" ("pon los subtítulos en amarillo → Hecho") → "Toca en Más información".
+- **Preço**: não aparece no anúncio; a venda acontece na página.
+
+**O que muda para nós**
+1. O nosso F1 segue a mesma estrutura dele (cartão, bruto, erros, pausas, checklist). Na LATAM ele vai parecer cópia → priorizar F4, F5 e F6 e um gancho de advogado.
+2. O diferencial que ele não tem: **"hecho para abogados"** (tom sóbrio, ética, temas jurídicos, 17 efeitos).
+3. A solução de áudio que ele usa: **dublagem com IA + sincronia labial** do vídeo original. Dá para fazer o mesmo no F1 e no F7 sem regravar.
