@@ -20,7 +20,7 @@ export const E16Capa = ({ g0 }: { g0: number }) => {
       <AbsoluteFill style={{ background: 'radial-gradient(90% 70% at 50% 40%, #FBF6EA 0%, #EDE3CF 60%, #D9CCB2 100%)' }} />
       {/* nome da revista (atrás da cabeça) */}
       <div style={{ position: 'absolute', top: 250, left: 0, right: 0, textAlign: 'center', fontFamily: font.mag, fontWeight: 900,
-        fontSize: 238, lineHeight: 1, letterSpacing: -6, color: RED, transform: `translateY(${(1 - mast) * -120}px)`, opacity: mast }}>
+        fontSize: es ? 170 : 238, lineHeight: 1, letterSpacing: es ? -4 : -6, color: RED, transform: `translateY(${(1 - mast) * -120}px)`, opacity: mast }}>
         CHIP<span style={{ fontStyle: 'italic', color: '#151515' }}>{es ? 'abogado' : 'adv'}</span>
       </div>
       <div style={{ position: 'absolute', top: 225, left: 70, fontFamily: font.ui, fontWeight: 800, fontSize: 22, letterSpacing: 4, color: '#151515' }}>
@@ -30,12 +30,12 @@ export const E16Capa = ({ g0 }: { g0: number }) => {
       <Img src={cutoutSrc(g)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', filter: `${GRADE} drop-shadow(0 24px 30px rgba(60,40,20,.35))` }} />
       {/* chamadas laterais */}
       <div style={{ position: 'absolute', right: 50, top: 600, width: 250, textAlign: 'right', transform: `translateX(${(1 - side(8)) * 380}px)` }}>
-        <div style={{ fontFamily: font.mag, fontWeight: 900, fontSize: 58, lineHeight: 0.95, color: '#151515' }}>Tudo num único chip</div>
-        <div style={{ fontFamily: font.ui, fontWeight: 600, fontSize: 24, color: '#333', marginTop: 10 }}>o método que edita seus vídeos por você</div>
+        <div style={{ fontFamily: font.mag, fontWeight: 900, fontSize: 58, lineHeight: 0.95, color: '#151515' }}>{es ? 'Todo en un solo chip' : 'Tudo num único chip'}</div>
+        <div style={{ fontFamily: font.ui, fontWeight: 600, fontSize: 24, color: '#333', marginTop: 10 }}>{es ? 'el método que edita tus videos por ti' : 'o método que edita seus vídeos por você'}</div>
       </div>
       <div style={{ position: 'absolute', right: 50, top: 900, width: 250, textAlign: 'right', transform: `translateX(${(1 - side(14)) * 380}px)` }}>
-        <div style={{ fontFamily: font.mag, fontWeight: 900, fontStyle: 'italic', fontSize: 56, lineHeight: 0.95, color: RED }}>17 efeitos premium</div>
-        <div style={{ fontFamily: font.ui, fontWeight: 600, fontSize: 24, color: '#333', marginTop: 8 }}>sem saber editar</div>
+        <div style={{ fontFamily: font.mag, fontWeight: 900, fontStyle: 'italic', fontSize: 56, lineHeight: 0.95, color: RED }}>{es ? '17 efectos premium' : '17 efeitos premium'}</div>
+        <div style={{ fontFamily: font.ui, fontWeight: 600, fontSize: 24, color: '#333', marginTop: 8 }}>{es ? 'sin saber editar' : 'sem saber editar'}</div>
       </div>
       {/* faixa ESPECIAL */}
       <div style={{ position: 'absolute', left: -60, top: 1290, width: 620, padding: '14px 0', background: RED, color: '#fff', textAlign: 'center',
