@@ -3,7 +3,13 @@ import { brand, font } from '../brand';
 import { Braco, Cabeca, Olhos, Personagem } from './Personagem';
 
 /** F6 · Tela dividida animada: sem CHIP ADV (cima) × com CHIP ADV (baixo). 24 s. */
-export const F6_FRAMES = 720;
+export const F6_FRAMES = 705;
+/* o tempo da animação acompanha a narração: frames de saída → frames da animação (cenas esticadas onde a fala é mais longa) */
+const K_OUT = [0, 100, 250, 345, 445, 555, 705], K_ANIM = [0, 90, 210, 330, 450, 570, 720];
+const warp = (f: number) => interpolate(f, K_OUT, K_ANIM, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+const unwarp = (a: number) => Math.round(interpolate(a, K_ANIM, K_OUT, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+const useT = () => warp(useCurrentFrame());
+const VOZ: [number, number][] = [[1, 4], [2, 102], [3, 254], [4, 449], [5, 568]];
 const cl = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const L = (f: number, a: number[], b: number[]) => interpolate(f, a, b, cl);
 const pop = (f: number, fps: number, d: number) => spring({ frame: f - d, fps, config: { damping: 13, stiffness: 200, mass: 0.6 } });
@@ -43,7 +49,7 @@ const Monitor = ({ g }: { g: number }) => {
 };
 
 const Topo = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const g = useT(); const { fps } = useVideoConfig();
   const bt = batida(g), manha = L(g, [330, 380], [0, 1]);
   const braco: Braco = g < 90 ? 'mesa' : g < 150 ? 'mouse' : g < 210 ? 'cabeca' : 'mesa';
   const olhos: Olhos = bt.bateu ? 'fechado' : g >= 450 ? 'surpreso' : 'cansado';
@@ -94,7 +100,7 @@ const Fone = ({ g }: { g: number }) => {
       {g >= 340 && <div style={{ background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: 10, transform: `scale(${pop(g, fps, 340)})` }}>
         <b style={{ fontSize: 24, color: '#2f7d16' }}>Seu vídeo está pronto ✓</b>
         <div style={{ marginTop: 8, height: 250, borderRadius: 14, overflow: 'hidden', background: '#000' }}>
-          <Sequence from={340} layout="none"><OffthreadVideo src={staticFile('ads/clipes/e05.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
+          <Sequence from={unwarp(340)} layout="none"><OffthreadVideo src={staticFile('ads/clipes/e05.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
         </div></div>}
       {bolha('#1b1b1f', '#fff', 'd', 488, 'deixa a legenda maior')}
       {bolha('#fff', '#2f7d16', 'e', 520, 'Feito ✓')}
@@ -104,7 +110,7 @@ const Fone = ({ g }: { g: number }) => {
 };
 
 const Baixo = () => {
-  const g = useCurrentFrame();
+  const g = useT();
   const braco: Braco = g < 90 ? 'cafe' : g < 210 ? 'celular' : g < 330 ? 'nuca' : g < 380 ? 'celular' : g < 450 ? 'joinha' : g < 470 ? 'celular' : g < 530 ? 'ombro' : 'celular';
   const olhos: Olhos = g >= 210 && g < 330 ? 'fechado' : braco === 'cafe' || braco === 'joinha' ? 'feliz' : 'normal';
   const sobe = L(g, [TROCA, TROCA + 30], [0, 1]);
@@ -131,14 +137,14 @@ const Etiqueta = ({ texto, cor, emoji, y, escuro = false }: { texto: string; cor
 
 /* ---------------- faixa do meio + espiada + CTA ---------------- */
 const CENAS: [number, number, string, string][] = [
-  [0, 90, 'QUAL DOS DOIS É VOCÊ?', 'Advogado, qual dos dois é você?'],
-  [90, 210, '3 HORAS × 1 FRASE', 'Um passa a noite cortando pausa, legenda e efeito na mão…'],
-  [210, 330, 'ELA EDITA. VOCÊ ADVOGA.', '…o outro escreve uma frase e vai cuidar do escritório.'],
+  [0, 90, 'QUAL DOS DOIS É VOCÊ?', 'Advogado, qual dos dois aí é você?'],
+  [90, 210, '3 HORAS × 1 FRASE', 'Um passa a noite cortando pausa, legenda e efeito na mão.'],
+  [210, 330, 'ELA EDITA. VOCÊ ADVOGA.', 'O outro escreve uma frase e vai cuidar do escritório.'],
   [330, 450, 'PRONTO EM MINUTOS', 'Volta pronto: cortado, legendado, com efeito e trilha.'],
-  [450, 570, '"DEIXA A LEGENDA MAIOR" → FEITO ✓', 'E se não gostar? Pede o ajuste em português.'],
+  [450, 570, '"DEIXA A LEGENDA MAIOR" → FEITO ✓', 'E se não gostar, ele pede o ajuste em português.'],
 ];
 const Faixa = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const g = useT(); const { fps } = useVideoConfig();
   const c = CENAS.find(([a, b]) => g >= a && g < b); if (!c) return null;
   const k = pop(g, fps, c[0]);
   return <div style={{ position: 'absolute', left: 0, top: FAIXA_Y, width: 1080, height: FAIXA_H, background: '#0B0B0F', borderBlock: `4px solid ${brand.accent}`, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, padding: '0 40px 0 200px', textAlign: 'center', fontFamily: font.ui }}>
@@ -148,7 +154,7 @@ const Faixa = () => {
 };
 
 const Espiada = () => {
-  const g = useCurrentFrame();
+  const g = useT();
   if (g < 455 || g >= TROCA) return null;
   const y = L(g, [455, 480, 545, TROCA], [700, 860, 860, 700]);
   return <div style={{ position: 'absolute', left: 10, top: y, width: 210, height: 210, zIndex: 5 }}>
@@ -158,7 +164,7 @@ const Espiada = () => {
 };
 
 const Cta = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const g = useT(); const { fps } = useVideoConfig();
   if (g < TROCA + 20) return null;
   const a = TROCA + 20, click = 660, press = g >= click && g < click + 6 ? 0.93 : 1;
   const cx = L(g, [630, click - 1], [960, 640]), cy = L(g, [630, click - 1], [1700, 1440]);
@@ -191,9 +197,10 @@ export const F6Anim = () => {
     <Faixa />
     <Espiada />
     <Cta />
-    {SFX.map(([f, n, v], i) => <Sequence key={i} from={f} durationInFrames={60} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
-    {Array.from({ length: 19 }, (_, i) => <Sequence key={'t' + i} from={i * 30} durationInFrames={10} layout="none"><Audio src={staticFile('sfx/tick.wav')} volume={0.12} /></Sequence>)}
-    <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 10, F6_FRAMES - 20, F6_FRAMES], [0, 0.2, 0.2, 0])} />
+    {SFX.map(([f, n, v], i) => <Sequence key={i} from={unwarp(f)} durationInFrames={60} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
+    {Array.from({ length: 19 }, (_, i) => <Sequence key={'t' + i} from={unwarp(i * 30)} durationInFrames={10} layout="none"><Audio src={staticFile('sfx/tick.wav')} volume={0.12} /></Sequence>)}
+    <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 10, F6_FRAMES - 20, F6_FRAMES], [0, 0.11, 0.11, 0])} />
+    {VOZ.map(([n, f]) => <Sequence key={'v' + n} from={f} layout="none"><Audio src={staticFile(`f6/voz${n}.wav`)} volume={1} /></Sequence>)}
     {g < 0 && null}
   </AbsoluteFill>;
 };
