@@ -3,14 +3,15 @@ import { font } from '../brand';
 import { cutoutSrc, lerp } from '../lib';
 import { GRADE } from '../camera';
 import { ease } from '../brand';
+import { useLang, useTx } from '../lang';
 
 const W = 1080, H = 820;
-const Lines = () => (
+const Lines = () => { const es = useLang() === 'es'; return (
   <>
-    <text x={W / 2} y={250} textAnchor="middle" fontFamily="Anton" fontSize={250} letterSpacing={6}>1 ARQUIVO</text>
+    <text x={W / 2} y={250} textAnchor="middle" fontFamily="Anton" fontSize={250} letterSpacing={6}>{es ? '1 ARCHIVO' : '1 ARQUIVO'}</text>
     <text x={W / 2} y={620} textAnchor="middle" fontFamily="Anton" fontSize={380} letterSpacing={10}>DE IA</text>
   </>
-);
+); };
 
 /** 17 · Letra de vidro — palavra gigante de vidro atrás da pessoa, subindo de deitada pra em pé. */
 export const E17Vidro = ({ g0 }: { g0: number }) => {

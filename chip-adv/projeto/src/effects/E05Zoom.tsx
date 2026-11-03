@@ -2,14 +2,15 @@ import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from 'remotion'
 import { brand, font } from '../brand';
 import { E, flash } from '../lib';
 import { T } from '../timing';
+import { useLang, useTx } from '../lang';
 
 /** 05 · Zoom digital — palavra gigante a cada zoom seco + flash. (frames globais: começa em 0) */
 export const E05Zoom = () => {
-  const f = useCurrentFrame();
+  const f = useCurrentFrame(); const tx = useTx();
   const { fps } = useVideoConfig();
   const words: [number, number, string][] = [
-    [T.z1, T.z1 + 26, 'ADVOGADO'],
-    [T.z2, E(1), 'MANUALMENTE?'],
+    [T.z1, T.z1 + 26, tx('ADVOGADO', 'ABOGADO')],
+    [T.z2, E(1), tx('MANUALMENTE?', '¿A MANO?')],
   ];
   const fl = Math.max(flash(f, T.z1), flash(f, T.z2));
   return (

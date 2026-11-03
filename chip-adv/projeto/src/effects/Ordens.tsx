@@ -2,8 +2,9 @@ import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from 'remotion'
 import { brand, font } from '../brand';
 import { lerp } from '../lib';
 import { T } from '../timing';
+import { useLang, useTx } from '../lang';
 
-const MSGS = ['corta os silêncios', 'coloca legenda animada', 'usa o efeito 07', 'deixa premium ✦'];
+const MSGS = ['corta os silêncios', 'coloca legenda animada', 'usa o efeito 07', 'deixa premium ✦'], MSGS_ES = ['corta los silencios', 'pon subtítulo animado', 'usa el efecto 07', 'hazlo premium ✦'];
 
 /** Balões de comando ("dando as ordens") aparecendo no topo, como prompts digitados. */
 export const Ordens = () => {
@@ -14,7 +15,7 @@ export const Ordens = () => {
   const out = lerp(f, [D - 8, D], [1, 0]);
   return (
     <AbsoluteFill style={{ opacity: out }}>
-      {MSGS.map((m, i) => {
+      {(useLang() === 'es' ? MSGS_ES : MSGS).map((m, i) => {
         const at = T.ordens[i];
         if (g < at) return null;
         const k = spring({ frame: g - at, fps, config: { damping: 13, stiffness: 210, mass: 0.55 } });

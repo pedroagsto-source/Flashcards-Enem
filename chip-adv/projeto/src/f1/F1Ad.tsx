@@ -1,6 +1,7 @@
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font, springIn } from '../brand';
 import { Grade } from '../components/Grade';
+import { clipe, Lang, LangCtx, useLang, useTx } from '../lang';
 
 /* ---------- EDL do F1 (gancho + corpo), em frames de 30 fps da origem ---------- */
 type Raw = [clip: 'gancho' | 'corpo', from: number, to: number, text: string, keys: string[]];
@@ -14,16 +15,31 @@ const RAW: Raw[] = [
   ['corpo', 438, 499, 'e devolve pronto pra postar.', ['pronto']],
   ['corpo', 530, 604, 'Toca em Saiba Mais que eu te mostro os efeitos funcionando.', ['Saiba', 'Mais']],
 ];
+/* legenda em espanhol: mesma janela de tempo de cada trecho (a voz continua a original) */
+const ES: [string, string[]][] = [
+  ['Abogado,', ['Abogado,']],
+  ['tu editor de video ahora cabe en un archivo.', ['archivo.']],
+  ['Abres tu IA y adjuntas este archivo aquí.', ['adjuntas']],
+  ['Luego envías el video tal como lo grabaste, con errores, con pausas.', ['errores,', 'pausas.']],
+  ['Y escribes solo esto: edítalo por mí.', ['edítalo', 'por', 'mí.']],
+  ['Corta las pausas, se queda con la mejor toma,', ['pausas,', 'toma,']],
+  ['y te lo devuelve listo para publicar.', ['listo']],
+  ['Toca en Más información y te muestro los efectos funcionando.', ['Más', 'información']],
+];
 const peso = (w: string) => Math.max(1, (w.toLowerCase().match(/[aeiouáéíóúâêôãõà]/g) || []).length + 0.25 * w.length);
 type W = { w: string; g: number; ge: number; k: boolean };
 type C = { i: number; clip: string; from: number; start: number; dur: number; words: W[] };
+const palavras = (text: string, keys: string[], t: number, dur: number): W[] => {
+  const ws = text.split(' '), tot = ws.reduce((s, w) => s + peso(w), 0), span = dur - 5;
+  let cur = 3;
+  return ws.map((w) => { const d = (span * peso(w)) / tot; const o = { w, g: t + Math.round(cur), ge: t + Math.round(cur + d), k: keys.includes(w) }; cur += d; return o; });
+};
 let t = 0;
 const CH: C[] = RAW.map(([clip, a, b, text, keys], i) => {
-  const dur = b - a, ws = text.split(' '), tot = ws.reduce((s, w) => s + peso(w), 0), span = dur - 5;
-  let cur = 3;
-  const words = ws.map((w) => { const d = (span * peso(w)) / tot; const o = { w, g: t + Math.round(cur), ge: t + Math.round(cur + d), k: keys.includes(w) }; cur += d; return o; });
+  const dur = b - a, words = palavras(text, keys, t, dur);
   const c = { i, clip, from: a, start: t, dur, words }; t += dur; return c;
 });
+const CH_ES: C[] = CH.map((c) => ({ ...c, words: palavras(ES[c.i][0], ES[c.i][1], c.start, c.dur) }));
 export const F1_FRAMES = t;
 export type Fundo = 'original' | 'escritorio';
 const S = (i: number) => CH[i].start, E = (i: number) => CH[i].start + CH[i].dur;
@@ -77,9 +93,9 @@ const Base = ({ fundo }: { fundo: Fundo }) => {
 };
 
 /* ---------- legendas ---------- */
-const GROUPS = (() => {
+const mkGroups = (chs: C[]) => {
   const out: { start: number; end: number; words: W[] }[] = [];
-  CH.forEach((c) => {
+  chs.forEach((c) => {
     let cur: W[] = [];
     c.words.forEach((w, i) => {
       cur.push(w);
@@ -89,12 +105,14 @@ const GROUPS = (() => {
   });
   out.forEach((gp, i) => { const nx = out[i + 1]; gp.end = nx && nx.start - gp.end < 12 ? nx.start : gp.end + 6; });
   return out;
-})();
+};
+const GROUPS: Record<Lang, ReturnType<typeof mkGroups>> = { pt: mkGroups(CH), es: mkGroups(CH_ES) };
 const legendaOculta = (g: number) => (g >= Z1 && g < S(1)) || (g >= Z2 && g < E(1)) || g >= T.saiba;
 const Legendas = () => {
   const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const l = useLang();
   if (legendaOculta(g)) return null;
-  const gp = GROUPS.find((x) => g >= x.start && g < x.end); if (!gp) return null;
+  const gp = GROUPS[l].find((x) => g >= x.start && g < x.end); if (!gp) return null;
   const e = spring({ frame: g - gp.start, fps, config: springIn });
   return (
     <AbsoluteFill style={{ alignItems: 'center' }}>
@@ -121,11 +139,11 @@ const PalavraGigante = ({ a, b, txt, size = 230 }: { a: number; b: number; txt: 
 };
 
 const Arquivo = ({ y = 250, at, scale = 1 }: { y?: number; at: number; scale?: number }) => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const k = pop(g, fps, at);
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const k = pop(g, fps, at); const tx = useTx();
   return <div style={{ position: 'absolute', left: '50%', top: y, transform: `translateX(-50%) scale(${k * scale}) rotate(${(1 - k) * -10}deg)`, display: 'flex', alignItems: 'center', gap: 20,
     background: '#F5F2EA', color: '#1b1b1f', borderRadius: 28, padding: '20px 30px', boxShadow: '0 30px 60px rgba(0,0,0,.45)', fontFamily: font.ui }}>
     <span style={{ background: '#E8643C', color: '#fff', borderRadius: 12, padding: '16px 12px', fontWeight: 900, fontSize: 24 }}>.MD</span>
-    <span><b style={{ display: 'block', fontSize: 44, fontWeight: 900 }}>CHIP_ADV.md</b><span style={{ fontSize: 26, color: '#777', fontWeight: 600 }}>prompt mestre</span></span>
+    <span><b style={{ display: 'block', fontSize: 44, fontWeight: 900 }}>{tx('CHIP_ADV.md', 'CHIP_ABOGADO.md')}</b><span style={{ fontSize: 26, color: '#777', fontWeight: 600 }}>{tx('prompt mestre', 'prompt maestro')}</span></span>
   </div>;
 };
 
@@ -134,16 +152,17 @@ const JanelaIA = ({ a, b, modo }: { a: number; b: number; modo: 'anexa' | 'pede'
   const g = useCurrentFrame(); const { fps } = useVideoConfig();
   if (g < a || g >= b) return null;
   const k = pop(g, fps, a), o = interpolate(g, [b - 5, b], [1, 0], clamp);
-  const txt = 'edita pra mim', n = Math.floor(interpolate(g, [T.edita - 6, T.edita + 6], [0, txt.length], clamp)), enviado = g >= T.edita + 10;
+  const tx = useTx();
+  const txt = tx('edita pra mim', 'edítalo por mí'), n = Math.floor(interpolate(g, [T.edita - 6, T.edita + 6], [0, txt.length], clamp)), enviado = g >= T.edita + 10;
   const arqOn = modo === 'anexa' && g >= T.anexa; const ka = pop(g, fps, T.anexa);
   return <div style={{ position: 'absolute', left: 70, right: 70, top: 200, height: 340, borderRadius: 34, background: '#F5F2EA', color: '#1b1b1f', fontFamily: font.ui, padding: 26,
     boxShadow: '0 30px 70px rgba(0,0,0,.5)', transform: `translateY(${(1 - k) * -60}px) scale(${0.9 + 0.1 * k})`, opacity: k * o }}>
-    <div style={{ fontWeight: 800, fontSize: 28, color: '#777' }}>✦ Sua IA</div>
+    <div style={{ fontWeight: 800, fontSize: 28, color: '#777' }}>{tx('✦ Sua IA', '✦ Tu IA')}</div>
     {arqOn && <div style={{ position: 'absolute', right: 26, top: 70, display: 'flex', gap: 14, alignItems: 'center', background: '#1b1b1f', color: '#fff', borderRadius: 22, padding: '14px 20px', transform: `scale(${ka})`, transformOrigin: '100% 50%' }}>
-      <span style={{ background: '#E8643C', borderRadius: 8, padding: '8px 8px', fontWeight: 900, fontSize: 18 }}>.MD</span><b style={{ fontSize: 32 }}>CHIP_ADV.md</b></div>}
-    {modo === 'pede' && enviado && <div style={{ position: 'absolute', right: 26, top: 70, background: '#1b1b1f', color: brand.accent, borderRadius: 22, padding: '16px 26px', fontWeight: 900, fontSize: 44, transform: `scale(${pop(g, fps, T.edita + 10)})`, transformOrigin: '100% 50%' }}>edita pra mim</div>}
+      <span style={{ background: '#E8643C', borderRadius: 8, padding: '8px 8px', fontWeight: 900, fontSize: 18 }}>.MD</span><b style={{ fontSize: 32 }}>{tx('CHIP_ADV.md', 'CHIP_ABOGADO.md')}</b></div>}
+    {modo === 'pede' && enviado && <div style={{ position: 'absolute', right: 26, top: 70, background: '#1b1b1f', color: brand.accent, borderRadius: 22, padding: '16px 26px', fontWeight: 900, fontSize: 44, transform: `scale(${pop(g, fps, T.edita + 10)})`, transformOrigin: '100% 50%' }}>{txt}</div>}
     <div style={{ position: 'absolute', left: 26, right: 26, bottom: 24, background: '#fff', border: '2px solid #e3ddd0', borderRadius: 24, padding: '16px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 34, fontWeight: 600 }}>
-      <span style={{ color: modo === 'pede' && !enviado && n > 0 ? '#1b1b1f' : '#aaa' }}>{modo === 'pede' && !enviado && n > 0 ? txt.slice(0, n) : 'Escreva ou solte um arquivo'}</span>
+      <span style={{ color: modo === 'pede' && !enviado && n > 0 ? '#1b1b1f' : '#aaa' }}>{modo === 'pede' && !enviado && n > 0 ? txt.slice(0, n) : tx('Escreva ou solte um arquivo', 'Escribe o suelta un archivo')}</span>
       <span style={{ width: 52, height: 52, borderRadius: 26, background: '#1b1b1f', color: brand.accent, display: 'grid', placeItems: 'center', fontWeight: 900 }}>↑</span>
     </div>
   </div>;
@@ -161,9 +180,10 @@ const Rabisco = ({ at, txt, x, y, rot }: { at: number; txt: string; x: number; y
   </div>;
 };
 
-const ITENS = ['Corta as pausas', 'Melhor tomada', 'Legenda', 'Efeitos', 'Trilha'];
+const ITENS: Record<Lang, string[]> = { pt: ['Corta as pausas', 'Melhor tomada', 'Legenda', 'Efeitos', 'Trilha'], es: ['Corta las pausas', 'Mejor toma', 'Subtítulos', 'Efectos', 'Música'] };
 const Checklist = () => {
   const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const l = useLang();
   const a = S(5), b = T.pronto + 4; if (g < a || g >= b) return null;
   const at = [T.pausas, T.tomada, E(5) - 18, E(5) - 10, E(5) - 2];
   const k = pop(g, fps, a), o = interpolate(g, [b - 6, b], [1, 0], clamp);
@@ -171,7 +191,7 @@ const Checklist = () => {
     transform: `translateY(${(1 - k) * -400}px)`, opacity: o }}>
     <div style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(26px)', background: 'rgba(12,40,40,.5)' }} />
     <div style={{ position: 'relative', padding: '22px 34px', fontFamily: font.ui }}>
-      {ITENS.map((it, i) => {
+      {ITENS[l].map((it, i) => {
         const on = g >= at[i], kk = pop(g, fps, at[i]);
         return <div key={it} style={{ display: 'flex', alignItems: 'center', gap: 20, height: 62 }}>
           <span style={{ width: 40, height: 40, borderRadius: 20, border: `4px solid ${on ? brand.teal : 'rgba(255,255,255,.5)'}`, background: on ? brand.teal : 'transparent', display: 'grid', placeItems: 'center', transform: `scale(${on ? 0.8 + 0.2 * kk : 1})`, color: '#06302C', fontWeight: 900, fontSize: 24 }}>{on ? '✓' : ''}</span>
@@ -184,18 +204,20 @@ const Checklist = () => {
 
 const Pronto = () => {
   const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const tx = useTx();
   const a = T.pronto - 2, b = E(6); if (g < a || g >= b) return null;
   const k = pop(g, fps, a), o = interpolate(g, [b - 5, b], [1, 0], clamp);
   return <div style={{ position: 'absolute', right: 50, top: 230, width: 330, transform: `translateX(${(1 - k) * 420}px) rotate(${4 - 4 * k}deg)`, opacity: o }}>
     <div style={{ width: 330, height: 587, borderRadius: 36, overflow: 'hidden', boxShadow: `0 0 0 4px ${brand.accent}, 0 30px 60px rgba(0,0,0,.6)` }}>
-      <Sequence from={a} layout="none"><OffthreadVideo src={staticFile('ads/clipes/e16.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
+      <Sequence from={a} layout="none"><OffthreadVideo src={staticFile(clipe(useLang(), 'e16'))} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
     </div>
-    <div style={{ marginTop: 16, textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: 40, color: brand.bg, background: brand.accent, borderRadius: 14, padding: '6px 0' }}>PRONTO ✓</div>
+    <div style={{ marginTop: 16, textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: 40, color: brand.bg, background: brand.accent, borderRadius: 14, padding: '6px 0' }}>{tx('PRONTO ✓', 'LISTO ✓')}</div>
   </div>;
 };
 
 const Cta = () => {
   const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const tx = useTx();
   const a = S(7); if (g < a) return null;
   const clips = ['e17', 'e07', 'e12'];
   const click = T.saiba + 6, press = g >= click && g < click + 6 ? 0.93 : 1;
@@ -204,11 +226,11 @@ const Cta = () => {
     <div style={{ position: 'absolute', top: 200, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 24 }}>
       {clips.map((c, i) => { const k = pop(g, fps, a + i * 5); return (
         <div key={c} style={{ width: 230, height: 409, borderRadius: 28, overflow: 'hidden', boxShadow: `0 0 0 3px ${brand.accent}, 0 20px 40px rgba(0,0,0,.5)`, transform: `translateY(${(1 - k) * -300}px) rotate(${(i - 1) * 4}deg)` }}>
-          <Sequence from={a} layout="none"><OffthreadVideo src={staticFile(`ads/clipes/${c}.mp4`)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
+          <Sequence from={a} layout="none"><OffthreadVideo src={staticFile(clipe(useLang(), c))} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
         </div>); })}
     </div>
     {g >= T.saiba - 4 && <div style={{ position: 'absolute', left: 0, right: 0, top: 1330, display: 'flex', justifyContent: 'center' }}>
-      <div style={{ background: brand.accent, color: brand.bg, fontFamily: font.ui, fontWeight: 900, fontSize: 64, padding: '30px 66px', borderRadius: 999, transform: `scale(${kb * press})`, boxShadow: `0 20px 60px ${brand.accent}66` }}>Saiba mais →</div>
+      <div style={{ background: brand.accent, color: brand.bg, fontFamily: font.ui, fontWeight: 900, fontSize: 64, padding: '30px 66px', borderRadius: 999, transform: `scale(${kb * press})`, boxShadow: `0 20px 60px ${brand.accent}66` }}>{tx('Saiba mais →', 'Más información →')}</div>
     </div>}
     {g >= T.saiba - 6 && <svg width={100} height={100} viewBox="0 0 24 24" style={{ position: 'absolute', left: cx, top: cy }}><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#111" strokeWidth={1.3} strokeLinejoin="round" /></svg>}
   </AbsoluteFill>;
@@ -224,14 +246,14 @@ const SFX: [number, string, number][] = [
   [T.pronto - 2, 'whoosh', 0.35], [T.pronto + 4, 'shimmer', 0.25], [S(7), 'whoosh', 0.3], [T.saiba + 6, 'click', 0.6],
 ];
 
-export const F1Ad = ({ fundo = 'original' }: { fundo?: Fundo }) => (
-  <AbsoluteFill style={{ background: '#000' }}>
+export const F1Ad = ({ fundo = 'original', lang = 'pt' }: { fundo?: Fundo; lang?: Lang }) => (
+  <LangCtx.Provider value={lang}><AbsoluteFill style={{ background: '#000' }}>
     <Base fundo={fundo} />
-    <PalavraGigante a={Z1} b={S(1)} txt="ADVOGADO" />
-    <PalavraGigante a={Z2} b={E(1)} txt="1 ARQUIVO" size={210} />
+    <PalavraGigante a={Z1} b={S(1)} txt={lang === 'es' ? 'ABOGADO' : 'ADVOGADO'} />
+    <PalavraGigante a={Z2} b={E(1)} txt={lang === 'es' ? '1 ARCHIVO' : '1 ARQUIVO'} size={210} />
     <Sequence from={Z2} durationInFrames={E(1) - Z2}><Arquivo at={4} y={260} /></Sequence>
     <JanelaIA a={S(2)} b={E(2)} modo="anexa" />
-    <Rabisco at={T.erro} txt="erro" x={90} y={250} rot={-8} />
+    <Rabisco at={T.erro} txt={lang === 'es' ? 'error' : 'erro'} x={90} y={250} rot={-8} />
     <Rabisco at={T.pausa} txt="pausa" x={600} y={360} rot={6} />
     <JanelaIA a={S(4)} b={E(4)} modo="pede" />
     <Checklist />
@@ -242,5 +264,5 @@ export const F1Ad = ({ fundo = 'original' }: { fundo?: Fundo }) => (
     <Grade />
     {SFX.map(([f, n, v], i) => <Sequence key={i} from={Math.round(f)} durationInFrames={50} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
     <Audio src={staticFile('music/bed.wav')} volume={(f) => interpolate(f, [0, 6, F1_FRAMES - 15, F1_FRAMES], [0, 0.16, 0.16, 0], clamp)} />
-  </AbsoluteFill>
+  </AbsoluteFill></LangCtx.Provider>
 );

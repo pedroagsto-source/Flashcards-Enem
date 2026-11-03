@@ -14,6 +14,7 @@ import { E07Checklist } from './effects/E07Checklist';
 import { Ordens } from './effects/Ordens';
 import { E16Capa } from './effects/E16Capa';
 import { E12Cta } from './effects/E12Cta';
+import { Lang, LangCtx } from './lang';
 
 /** Vídeo base: cada trecho do EDL em sequência, com a "câmera" (zoom, posição, filtro) aplicada. */
 const Base = () => {
@@ -50,8 +51,8 @@ const Music = () => (
   />
 );
 
-export const ChipAdv = () => (
-  <AbsoluteFill style={{ backgroundColor: '#000' }}>
+export const ChipAdv = ({ lang = 'pt' }: { lang?: Lang }) => (
+  <LangCtx.Provider value={lang}><AbsoluteFill style={{ backgroundColor: '#000' }}>
     {/* atrás do vídeo base */}
     <Sequence from={S(7)} durationInFrames={E(7) - S(7)}><E11Revelacao /></Sequence>
 
@@ -73,5 +74,5 @@ export const ChipAdv = () => (
     <Grade />
     <Music />
     <Sfx />
-  </AbsoluteFill>
+  </AbsoluteFill></LangCtx.Provider>
 );

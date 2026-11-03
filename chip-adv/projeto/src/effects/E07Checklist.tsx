@@ -2,9 +2,10 @@ import { AbsoluteFill, random, spring, useCurrentFrame, useVideoConfig } from 'r
 import { brand, font } from '../brand';
 import { lerp } from '../lib';
 import { T } from '../timing';
+import { useLang, useTx } from '../lang';
 
 const TEAL = brand.teal;
-const ITEMS = ['Conteúdo', 'Formato', 'Estilo', 'Situação'];
+const ITEMS = ['Conteúdo', 'Formato', 'Estilo', 'Situação'], ITEMS_ES = ['Contenido', 'Formato', 'Estilo', 'Situación'];
 
 /** 07 · Checklist — cartão de vidro fosco com itens marcados no ritmo da fala + confete. */
 export const E07Checklist = ({ g0 }: { g0: number }) => {
@@ -25,10 +26,10 @@ export const E07Checklist = ({ g0 }: { g0: number }) => {
         <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${TEAL}33, transparent 60%)` }} />
         <div style={{ position: 'relative', padding: '26px 40px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
-            <span style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 34, color: '#fff' }}>Você escolhe</span>
+            <span style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 34, color: '#fff' }}>{useLang() === 'es' ? 'Tú eliges' : 'Você escolhe'}</span>
             <span style={{ fontFamily: font.ui, fontWeight: 800, fontSize: 30, color: TEAL }}>{done}/4</span>
           </div>
-          {ITEMS.map((t, i) => {
+          {(useLang() === 'es' ? ITEMS_ES : ITEMS).map((t, i) => {
             const at = T.checks[i];
             const k = spring({ frame: g - at, fps, config: { damping: 13, stiffness: 200, mass: 0.5 } });
             const on = g >= at;

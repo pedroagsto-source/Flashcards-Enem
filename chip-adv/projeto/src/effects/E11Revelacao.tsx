@@ -1,9 +1,10 @@
 import { AbsoluteFill, random, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, ease, font } from '../brand';
 import { lerp } from '../lib';
+import { useLang, useTx } from '../lang';
 
 const OR = brand.accent2;
-const TASKS = ['Transcrever', 'Cortar silêncio', 'Legenda', 'Efeitos', 'Música'];
+const TASKS = ['Transcrever', 'Cortar silêncio', 'Legenda', 'Efeitos', 'Música'], TASKS_ES = ['Transcribir', 'Cortar silencios', 'Subtítulos', 'Efectos', 'Música'];
 const CHECK0 = 22, STEP = 12;
 const PV = { x: 60, y: 230, w: 540, h: 960 };
 
@@ -15,6 +16,7 @@ const useP = () => {
 
 /** 11 · Revelação (camada de trás): editor escuro em volta do vídeo. */
 export const E11Revelacao = () => {
+  const es = useLang() === 'es';
   const { f, p } = useP();
   const { fps } = useVideoConfig();
   const done = TASKS.filter((_, i) => f >= CHECK0 + i * STEP).length;
@@ -26,14 +28,14 @@ export const E11Revelacao = () => {
       <div style={{ position: 'absolute', top: 150, left: 60, right: 60, display: 'flex', alignItems: 'center', gap: 14,
         fontFamily: font.ui, fontWeight: 600, fontSize: 30, color: brand.muted }}>
         {['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 20, height: 20, borderRadius: 10, background: c }} />)}
-        <span style={{ marginLeft: 16 }}>CHIP ADV — editor</span>
-        <span style={{ marginLeft: 'auto', color: OR }}>● renderizando</span>
+        <span style={{ marginLeft: 16 }}>{es ? 'CHIP — editor' : 'CHIP ADV — editor'}</span>
+        <span style={{ marginLeft: 'auto', color: OR }}>{es ? '● renderizando' : '● renderizando'}</span>
       </div>
       {/* painel de tarefas */}
       <div style={{ position: 'absolute', left: 640, top: PV.y, width: 380, height: PV.h, background: '#16181E', borderRadius: 28,
         border: '1px solid #262A33', padding: 32, boxSizing: 'border-box', transform: `translateX(${(1 - p) * 200}px)` }}>
         <div style={{ fontFamily: font.ui, fontWeight: 800, fontSize: 34, color: brand.ink, marginBottom: 28 }}>Tarefas</div>
-        {TASKS.map((t, i) => {
+        {(es ? TASKS_ES : TASKS).map((t, i) => {
           const at = CHECK0 + i * STEP;
           const k = spring({ frame: f - at, fps, config: { damping: 13, stiffness: 220, mass: 0.5 } });
           const on = f >= at;

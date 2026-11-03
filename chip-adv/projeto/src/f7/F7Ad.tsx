@@ -1,6 +1,7 @@
 import { AbsoluteFill, Audio, interpolate, OffthreadVideo, random, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font, springIn } from '../brand';
 import { Grade } from '../components/Grade';
+import { clipe, Lang, LangCtx, useLang, useTx } from '../lang';
 
 /** F7 · "Gravado no carro": efeitos bem evidentes, um forte por frase. */
 type Raw = [from: number, to: number, text: string, keys: string[]];
@@ -15,16 +16,32 @@ const RAW: Raw[] = [
   [591, 652, 'e vê a mágica acontecer, meu irmão.', ['mágica']],
   [664, 731, 'Clica em Saiba Mais e saiba mais sobre isso.', ['Saiba', 'Mais']],
 ];
+/* legenda em espanhol na mesma janela de tempo (a voz continua a original) */
+const ES: [string, string[]][] = [
+  ['Abogado,', ['Abogado,']],
+  ['igual que yo, estás cansado de hacer videos amateurs.', ['cansado', 'amateurs.']],
+  ['Pasar horas editando un video', ['horas']],
+  ['y que no quede ni cerca de esos videos con los que te comparas.', ['comparas.']],
+  ['Pero ahora tengo una forma de que resuelvas esto', ['ahora']],
+  ['solo adjuntando un archivo a tu IA.', ['archivo']],
+  ['Adjunta este archivo.', ['Adjunta']],
+  ['y mira la magia suceder, hermano.', ['magia']],
+  ['Haz clic en Más información y conoce más.', ['Más', 'información']],
+];
 const peso = (w: string) => Math.max(1, (w.toLowerCase().match(/[aeiouáéíóúâêôãõà]/g) || []).length + 0.25 * w.length);
 type W = { w: string; g: number; ge: number; k: boolean };
 type C = { i: number; from: number; start: number; dur: number; words: W[] };
+const palavras = (text: string, keys: string[], t: number, dur: number): W[] => {
+  const ws = text.split(' '), tot = ws.reduce((s, w) => s + peso(w), 0), span = dur - 5;
+  let cur = 3;
+  return ws.map((w) => { const d = (span * peso(w)) / tot; const o = { w, g: t + Math.round(cur), ge: t + Math.round(cur + d), k: keys.includes(w) }; cur += d; return o; });
+};
 let t = 0;
 const CH: C[] = RAW.map(([a, b, text, keys], i) => {
-  const dur = b - a, ws = text.split(' '), tot = ws.reduce((s, w) => s + peso(w), 0), span = dur - 5;
-  let cur = 3;
-  const words = ws.map((w) => { const d = (span * peso(w)) / tot; const o = { w, g: t + Math.round(cur), ge: t + Math.round(cur + d), k: keys.includes(w) }; cur += d; return o; });
+  const dur = b - a, words = palavras(text, keys, t, dur);
   const c = { i, from: a, start: t, dur, words }; t += dur; return c;
 });
+const CH_ES: C[] = CH.map((c) => ({ ...c, words: palavras(ES[c.i][0], ES[c.i][1], c.start, c.dur) }));
 export const F7_FRAMES = t;
 const S = (i: number) => CH[i].start, E = (i: number) => CH[i].start + CH[i].dur;
 const wf = (i: number, w: string) => (CH[i].words.find((x) => x.w.toLowerCase().startsWith(w)) || CH[i].words[0]).g;
@@ -77,18 +94,19 @@ const Base = () => {
 };
 
 /* ---------- legendas ---------- */
-const GROUPS = (() => {
+const mkGroups = (chs: C[]) => {
   const out: { start: number; end: number; words: W[] }[] = [];
-  CH.forEach((c) => { let cur: W[] = []; c.words.forEach((w, i) => { cur.push(w); const len = cur.reduce((a, x) => a + x.w.length, 0);
+  chs.forEach((c) => { let cur: W[] = []; c.words.forEach((w, i) => { cur.push(w); const len = cur.reduce((a, x) => a + x.w.length, 0);
     if (cur.length >= 3 || (/[,.:?!]$/.test(w.w) && cur.length >= 2) || len > 15 || i === c.words.length - 1) { out.push({ start: cur[0].g, end: w.ge, words: cur }); cur = []; } }); });
   out.forEach((gp, i) => { const nx = out[i + 1]; gp.end = nx && nx.start - gp.end < 12 ? nx.start : gp.end + 6; });
   return out;
-})();
+};
+const GROUPS: Record<Lang, ReturnType<typeof mkGroups>> = { pt: mkGroups(CH), es: mkGroups(CH_ES) };
 const oculta = (g: number) => g < E(0) || (g >= T.amador && g < E(1)) || (g >= T.magica && g < E(7)) || g >= T.saiba;
 const Legendas = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig();
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const l = useLang();
   if (oculta(g)) return null;
-  const gp = GROUPS.find((x) => g >= x.start && g < x.end); if (!gp) return null;
+  const gp = GROUPS[l].find((x) => g >= x.start && g < x.end); if (!gp) return null;
   const e = spring({ frame: g - gp.start, fps, config: springIn });
   return <AbsoluteFill style={{ alignItems: 'center' }}>
     <div style={{ position: 'absolute', top: 1200, width: 940, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px 24px', transform: `scale(${0.8 + 0.2 * e}) rotate(${(1 - e) * -3}deg)`, opacity: e }}>
@@ -110,11 +128,11 @@ const Gigante = ({ a, b, txt, cor = brand.accent, size = 240, y = 300 }: { a: nu
 };
 
 const Carimbo = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const a = T.amador; if (g < a || g >= E(1) + 6) return null;
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const a = T.amador; const tx = useTx(); if (g < a || g >= E(1) + 6) return null;
   const k = pop(g, fps, a, { damping: 9, stiffness: 300, mass: 0.7 });
   return <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
     <div style={{ transform: `translateY(260px) rotate(-14deg) scale(${2.2 - 1.2 * k})`, opacity: Math.min(1, k * 1.4) * L(g, [E(1), E(1) + 6], [1, 0]),
-      border: '14px solid #E5322D', borderRadius: 24, padding: '6px 40px', fontFamily: font.display, fontSize: 190, letterSpacing: 10, color: '#E5322D', background: 'rgba(255,255,255,.12)', boxShadow: 'inset 0 0 0 6px rgba(229,50,45,.35)' }}>AMADOR</div>
+      border: '14px solid #E5322D', borderRadius: 24, padding: '6px 40px', fontFamily: font.display, fontSize: 190, letterSpacing: 10, color: '#E5322D', background: 'rgba(255,255,255,.12)', boxShadow: 'inset 0 0 0 6px rgba(229,50,45,.35)' }}>{tx('AMADOR', 'AMATEUR')}</div>
   </AbsoluteFill>;
 };
 
@@ -138,9 +156,9 @@ const Comparacao = () => {
     <div style={{ height: 470, borderRadius: 30, overflow: 'hidden', boxShadow: `0 0 0 5px ${cor}, 0 30px 60px rgba(0,0,0,.6)`, background: '#000' }}>{child}</div>
     <div style={{ marginTop: 14, textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: 38, color: cor === '#888' ? '#fff' : brand.bg, background: cor, borderRadius: 12, padding: '4px 0' }}>{rot2}</div></div>;
   return <div style={{ position: 'absolute', left: 0, right: 0, top: 170, display: 'flex', justifyContent: 'center', gap: 50, opacity: o }}>
-    {card(k1, -1, -5, <OffthreadVideo src={staticFile('f7/carro.mp4')} trimBefore={250} muted style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1) brightness(.85)' }} />, 'O SEU', '#888')}
+    {card(k1, -1, -5, <OffthreadVideo src={staticFile('f7/carro.mp4')} trimBefore={250} muted style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1) brightness(.85)' }} />, useTx()('O SEU', 'EL TUYO'), '#888')}
     <div style={{ alignSelf: 'center', marginTop: -60, fontFamily: font.display, fontSize: 120, color: '#E5322D', transform: `scale(${kv})`, textShadow: '0 6px 0 #000' }}>≠</div>
-    {card(k2, 1, 5, <Sequence from={a} layout="none"><OffthreadVideo src={staticFile('ads/clipes/e16.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>, 'O QUE VOCÊ QUER', brand.accent)}
+    {card(k2, 1, 5, <Sequence from={a} layout="none"><OffthreadVideo src={staticFile(clipe(useLang(), 'e16'))} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>, useTx()('O QUE VOCÊ QUER', 'EL QUE QUIERES'), brand.accent)}
   </div>;
 };
 
@@ -154,49 +172,49 @@ const Raios = () => {
 };
 
 const Arquivo = ({ at, y, cai }: { at: number; y: number; cai?: number }) => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const k = pop(g, fps, at);
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const k = pop(g, fps, at); const tx = useTx();
   const queda = cai !== undefined ? L(g, [cai - 6, cai], [0, 230]) : 0, sq = cai !== undefined && g >= cai && g < cai + 4 ? 0.85 : 1;
   return <div style={{ position: 'absolute', left: '50%', top: y + queda, transform: `translateX(-50%) scale(${k}) scaleY(${sq}) rotate(${(1 - k) * -14}deg)`, display: 'flex', alignItems: 'center', gap: 18, zIndex: 3,
     background: '#F5F2EA', color: '#1b1b1f', borderRadius: 26, padding: '18px 28px', boxShadow: '0 30px 60px rgba(0,0,0,.5)', fontFamily: font.ui }}>
     <span style={{ background: '#E8643C', color: '#fff', borderRadius: 10, padding: '14px 10px', fontWeight: 900, fontSize: 22 }}>.MD</span>
-    <b style={{ fontSize: 42, fontWeight: 900 }}>CHIP_ADV.md</b></div>;
+    <b style={{ fontSize: 42, fontWeight: 900 }}>{tx('CHIP_ADV.md', 'CHIP_ABOGADO.md')}</b></div>;
 };
 
 const Janela = ({ a, b }: { a: number; b: number }) => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); if (g < a || g >= b) return null;
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const tx = useTx(); if (g < a || g >= b) return null;
   const k = pop(g, fps, a), o = L(g, [b - 5, b], [1, 0]); const dentro = g >= T.junta;
   return <div style={{ position: 'absolute', left: 70, right: 70, top: 380, height: 300, borderRadius: 34, background: '#F5F2EA', color: '#1b1b1f', fontFamily: font.ui, padding: 24,
     boxShadow: dentro && g < T.junta + 8 ? `0 0 0 8px ${brand.accent}, 0 30px 70px rgba(0,0,0,.5)` : '0 30px 70px rgba(0,0,0,.5)', transform: `scale(${0.9 + 0.1 * k})`, opacity: k * o }}>
-    <div style={{ fontWeight: 800, fontSize: 28, color: '#777' }}>✦ Sua IA</div>
+    <div style={{ fontWeight: 800, fontSize: 28, color: '#777' }}>{tx('✦ Sua IA', '✦ Tu IA')}</div>
     {dentro && <div style={{ position: 'absolute', right: 24, top: 70, display: 'flex', gap: 12, alignItems: 'center', background: '#1b1b1f', color: '#fff', borderRadius: 20, padding: '12px 18px', transform: `scale(${pop(g, fps, T.junta)})`, transformOrigin: '100% 50%' }}>
-      <span style={{ background: '#E8643C', borderRadius: 8, padding: '6px 8px', fontWeight: 900, fontSize: 18 }}>.MD</span><b style={{ fontSize: 30 }}>CHIP_ADV.md ✓</b></div>}
+      <span style={{ background: '#E8643C', borderRadius: 8, padding: '6px 8px', fontWeight: 900, fontSize: 18 }}>.MD</span><b style={{ fontSize: 30 }}>{tx('CHIP_ADV.md ✓', 'CHIP_ABOGADO.md ✓')}</b></div>}
     <div style={{ position: 'absolute', left: 24, right: 24, bottom: 22, background: '#fff', border: '2px solid #e3ddd0', borderRadius: 22, padding: '14px 20px', fontSize: 30, fontWeight: 600, color: '#aaa', display: 'flex', justifyContent: 'space-between' }}>
-      <span>Solte o arquivo aqui</span><span style={{ color: brand.accent, background: '#1b1b1f', borderRadius: 24, width: 46, height: 46, display: 'grid', placeItems: 'center' }}>↑</span></div>
+      <span>{tx('Solte o arquivo aqui', 'Suelta el archivo aquí')}</span><span style={{ color: brand.accent, background: '#1b1b1f', borderRadius: 24, width: 46, height: 46, display: 'grid', placeItems: 'center' }}>↑</span></div>
   </div>;
 };
 
 const Magica = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const a = T.magica - 3, b = E(7); if (g < a || g >= b) return null;
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const tx = useTx(); const a = T.magica - 3, b = E(7); if (g < a || g >= b) return null;
   const clips = ['e05', 'e17', 'e16', 'e12'], seg = Math.max(6, Math.floor((b - a) / 4)), i = Math.min(3, Math.floor((g - a) / seg));
   const t0 = (g - a) / fps;
   return <AbsoluteFill>
     <div style={{ position: 'absolute', left: 290, top: 170, width: 500, height: 889, borderRadius: 44, overflow: 'hidden', boxShadow: `0 0 0 6px ${brand.accent}, 0 0 80px ${brand.accent}88`, transform: `rotate(${(i % 2 ? 1 : -1) * 3}deg) scale(${0.9 + 0.1 * pop(g, fps, a + i * seg)})`, opacity: L(g, [b - 4, b], [1, 0]) }}>
-      {clips.map((c, j) => <Sequence key={c} from={a + j * seg} durationInFrames={j === 3 ? b - (a + j * seg) : seg} layout="none"><OffthreadVideo src={staticFile(`ads/clipes/${c}.mp4`)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>)}
+      {clips.map((c, j) => <Sequence key={c} from={a + j * seg} durationInFrames={j === 3 ? b - (a + j * seg) : seg} layout="none"><OffthreadVideo src={staticFile(clipe(useLang(), c))} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>)}
     </div>
     {Array.from({ length: 36 }).map((_, j) => { const ang = random(`m${j}`) * Math.PI * 2, r = 120 + 900 * t0 * (0.4 + random(`r${j}`));
       return <div key={j} style={{ position: 'absolute', left: 540 + Math.cos(ang) * r, top: 620 + Math.sin(ang) * r, fontSize: 34 + 40 * random(`s${j}`), color: j % 3 ? brand.accent : '#fff', opacity: L(t0, [0.5, 1.4], [1, 0]), transform: `rotate(${g * 9 + j * 20}deg)` }}>✦</div>; })}
-    <div style={{ position: 'absolute', left: 0, right: 0, top: 1150, textAlign: 'center', fontFamily: font.bebas, fontSize: 210, color: brand.accent, textShadow: '0 8px 0 #000', transform: `scale(${pop(g, fps, a + 2)})` }}>✦ MÁGICA ✦</div>
+    <div style={{ position: 'absolute', left: 0, right: 0, top: 1150, textAlign: 'center', fontFamily: font.bebas, fontSize: 210, color: brand.accent, textShadow: '0 8px 0 #000', transform: `scale(${pop(g, fps, a + 2)})` }}>{tx('✦ MÁGICA ✦', '✦ MAGIA ✦')}</div>
   </AbsoluteFill>;
 };
 
 const Cta = () => {
-  const g = useCurrentFrame(); const { fps } = useVideoConfig(); if (g < S(8)) return null;
+  const g = useCurrentFrame(); const { fps } = useVideoConfig(); const tx = useTx(); if (g < S(8)) return null;
   const click = T.saiba + 8, press = g >= click && g < click + 6 ? 0.92 : 1, pulso = 1 + 0.05 * Math.sin(g / 3);
   const cx = L(g, [T.saiba - 4, click - 1], [920, 640]), cy = L(g, [T.saiba - 4, click - 1], [1720, 1410]);
   return <AbsoluteFill>
     {[0, 1, 2].map((i) => <div key={i} style={{ position: 'absolute', left: 0, right: 0, top: 1060 + i * 70, textAlign: 'center', fontSize: 70, color: brand.accent, opacity: 0.35 + 0.65 * Math.abs(Math.sin((g - i * 4) / 6)), fontWeight: 900 }}>↓</div>)}
     <div style={{ position: 'absolute', left: 0, right: 0, top: 1300, display: 'flex', justifyContent: 'center' }}>
-      <div style={{ background: brand.accent, color: brand.bg, fontFamily: font.ui, fontWeight: 900, fontSize: 70, padding: '32px 70px', borderRadius: 999, transform: `scale(${pop(g, fps, S(8)) * press * pulso})`, boxShadow: `0 0 0 8px ${brand.bg}, 0 0 60px ${brand.accent}` }}>Saiba mais →</div>
+      <div style={{ background: brand.accent, color: brand.bg, fontFamily: font.ui, fontWeight: 900, fontSize: 70, padding: '32px 70px', borderRadius: 999, transform: `scale(${pop(g, fps, S(8)) * press * pulso})`, boxShadow: `0 0 0 8px ${brand.bg}, 0 0 60px ${brand.accent}` }}>{tx('Saiba mais →', 'Más información →')}</div>
     </div>
     {g >= T.saiba - 4 && <svg width={110} height={110} viewBox="0 0 24 24" style={{ position: 'absolute', left: cx, top: cy }}><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#111" strokeWidth={1.3} strokeLinejoin="round" /></svg>}
   </AbsoluteFill>;
@@ -214,10 +232,10 @@ const SFX: [number, string, number][] = [
   [S(8), 'whoosh', 0.35], [T.saiba + 8, 'click', 0.6],
 ];
 
-export const F7Ad = () => (
-  <AbsoluteFill style={{ background: '#000' }}>
+export const F7Ad = ({ lang = 'pt' }: { lang?: Lang }) => (
+  <LangCtx.Provider value={lang}><AbsoluteFill style={{ background: '#000' }}>
     <Base />
-    <Gigante a={T.z1 + 1} b={E(0)} txt="ADVOGADO" />
+    <Gigante a={T.z1 + 1} b={E(0)} txt={lang === 'es' ? 'ABOGADO' : 'ADVOGADO'} />
     <Carimbo />
     <Relogio />
     <Comparacao />
@@ -232,5 +250,5 @@ export const F7Ad = () => (
     <Grade />
     {SFX.map(([f, n, v], i) => <Sequence key={i} from={Math.max(0, Math.round(f))} durationInFrames={50} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
     <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 6, F7_FRAMES - 15, F7_FRAMES], [0, 0.16, 0.16, 0])} />
-  </AbsoluteFill>
+  </AbsoluteFill></LangCtx.Provider>
 );

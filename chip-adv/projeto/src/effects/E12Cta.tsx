@@ -3,10 +3,11 @@ import { brand, ease, font } from '../brand';
 import { cutoutSrc, lerp } from '../lib';
 import { GRADE } from '../camera';
 import { T } from '../timing';
+import { useLang, useTx } from '../lang';
 
 /** 12 · Chroma key (CTA) — pessoa no canto de uma página de site; o cursor clica em SAIBA MAIS no ritmo da fala. */
 export const E12Cta = ({ g0 }: { g0: number }) => {
-  const f = useCurrentFrame();
+  const f = useCurrentFrame(); const es = useLang() === 'es';
   const { fps } = useVideoConfig();
   const g = g0 + f;
   const slide = spring({ frame: f - 2, fps, config: { damping: 16, stiffness: 120, mass: 0.8 } });
@@ -14,7 +15,7 @@ export const E12Cta = ({ g0 }: { g0: number }) => {
   const stage = g < T.doc ? 0 : g < T.magica ? 1 : 2;
   const stageAt = [0, T.doc - g0, T.magica - g0][stage];
   const tIn = spring({ frame: f - stageAt, fps, config: { damping: 14, stiffness: 160, mass: 0.6 } });
-  const titles = [['Clica em', 'SAIBA MAIS'], ['Junta esse', 'DOCUMENTINHO'], ['E veja a', 'MÁGICA ✦']];
+  const titles = es ? [['Haz clic en', 'MÁS INFO'], ['Adjunta este', 'DOCUMENTO'], ['Y mira la', 'MAGIA ✦']] : [['Clica em', 'SAIBA MAIS'], ['Junta esse', 'DOCUMENTINHO'], ['E veja a', 'MÁGICA ✦']];
   // cursor: entra e clica no botão
   const cf = T.click - g0;
   const cx = lerp(f, [cf - 22, cf - 2], [980, 330], ease.out);
@@ -33,8 +34,8 @@ export const E12Cta = ({ g0 }: { g0: number }) => {
       })}
       {/* menu */}
       <div style={{ position: 'absolute', top: 210, left: 70, right: 70, display: 'flex', alignItems: 'center', fontFamily: font.ui, color: '#fff' }}>
-        <span style={{ fontFamily: font.display, fontSize: 44, letterSpacing: 2 }}>CHIP <span style={{ color: brand.accent }}>ADV</span></span>
-        <span style={{ marginLeft: 'auto', display: 'flex', gap: 34, fontWeight: 600, fontSize: 28, opacity: 0.85 }}><span>Método</span><span>Efeitos</span><span>Contato</span></span>
+        <span style={{ fontFamily: font.display, fontSize: 44, letterSpacing: 2 }}>CHIP <span style={{ color: brand.accent }}>{es ? 'ABOGADO' : 'ADV'}</span></span>
+        <span style={{ marginLeft: 'auto', display: 'flex', gap: 34, fontWeight: 600, fontSize: 28, opacity: 0.85 }}><span>{es ? 'Método' : 'Método'}</span><span>{es ? 'Efectos' : 'Efeitos'}</span><span>{es ? 'Contacto' : 'Contato'}</span></span>
       </div>
       {/* título que muda com a fala */}
       <div style={{ position: 'absolute', top: 370, left: 70, right: 70, transform: `translateY(${(1 - tIn) * 40}px)`, opacity: tIn }}>
@@ -43,13 +44,13 @@ export const E12Cta = ({ g0 }: { g0: number }) => {
           textShadow: '0 10px 40px rgba(60,0,80,.45)' }}>{titles[stage][1]}</div>
       </div>
       <div style={{ position: 'absolute', top: 740, left: 70, width: 560, fontFamily: font.ui, fontWeight: 600, fontSize: 32, color: 'rgba(255,255,255,.85)', lineHeight: 1.3 }}>
-        Edição premium para advogados — com um único arquivo de IA.
+        {es ? 'Edición premium para abogados — con un solo archivo de IA.' : 'Edição premium para advogados — com um único arquivo de IA.'}
       </div>
       {/* botão */}
       <div style={{ position: 'absolute', top: 860, left: 70, transform: `scale(${press})`, transformOrigin: '0 50%' }}>
         <div style={{ position: 'relative', padding: '26px 54px', borderRadius: 60, background: brand.accent, color: brand.bg,
           fontFamily: font.ui, fontWeight: 900, fontSize: 40, letterSpacing: 1, boxShadow: `0 16px 50px ${brand.accent}66` }}>
-          SAIBA MAIS →
+          {es ? 'MÁS INFORMACIÓN →' : 'SAIBA MAIS →'}
           {f >= cf && <div style={{ position: 'absolute', inset: -20 * ripple, borderRadius: 80, border: `4px solid ${brand.accent}`, opacity: 1 - ripple }} />}
         </div>
       </div>
@@ -61,8 +62,8 @@ export const E12Cta = ({ g0 }: { g0: number }) => {
           <div style={{ width: 54, height: 66, borderRadius: 8, background: brand.violet, color: '#fff', fontFamily: font.ui, fontWeight: 900, fontSize: 18,
             display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: 8, boxSizing: 'border-box' }}>.MD</div>
           <div style={{ fontFamily: font.ui }}>
-            <div style={{ fontWeight: 800, fontSize: 28, color: '#1a1a1a' }}>CHIP_ADV.md</div>
-            <div style={{ fontWeight: 600, fontSize: 22, color: '#666' }}>prompt mestre · 1 arquivo</div>
+            <div style={{ fontWeight: 800, fontSize: 28, color: '#1a1a1a' }}>{es ? 'CHIP_ABOGADO.md' : 'CHIP_ADV.md'}</div>
+            <div style={{ fontWeight: 600, fontSize: 22, color: '#666' }}>{es ? 'prompt maestro · 1 archivo' : 'prompt mestre · 1 arquivo'}</div>
           </div>
         </div>
       )}

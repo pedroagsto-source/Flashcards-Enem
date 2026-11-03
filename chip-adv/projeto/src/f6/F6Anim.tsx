@@ -1,15 +1,21 @@
 import { AbsoluteFill, Audio, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font } from '../brand';
 import { Braco, Cabeca, Olhos, Personagem } from './Personagem';
+import { clipe, Lang, LangCtx, useLang, useTx } from '../lang';
 
 /** F6 · Tela dividida animada: sem CHIP ADV (cima) × com CHIP ADV (baixo). 24 s. */
 export const F6_FRAMES = 705;
+export const F6_FRAMES_ES = 735;
 /* o tempo da animação acompanha a narração: frames de saída → frames da animação (cenas esticadas onde a fala é mais longa) */
-const K_OUT = [0, 100, 250, 345, 445, 555, 705], K_ANIM = [0, 90, 210, 330, 450, 570, 720];
-const warp = (f: number) => interpolate(f, K_OUT, K_ANIM, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-const unwarp = (a: number) => Math.round(interpolate(a, K_ANIM, K_OUT, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
-const useT = () => warp(useCurrentFrame());
-const VOZ: [number, number][] = [[1, 4], [2, 102], [3, 254], [4, 449], [5, 568]];
+const K_ANIM = [0, 90, 210, 330, 450, 570, 720];
+const K_OUT: Record<Lang, number[]> = { pt: [0, 100, 250, 345, 445, 555, 705], es: [0, 90, 235, 345, 490, 585, 735] };
+const warp = (f: number, l: Lang) => interpolate(f, K_OUT[l], K_ANIM, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+const unwarp = (a: number, l: Lang) => Math.round(interpolate(a, K_ANIM, K_OUT[l], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+const useT = () => warp(useCurrentFrame(), useLang());
+const VOZ: Record<Lang, [string, number][]> = {
+  pt: [['f6/voz1.wav', 4], ['f6/voz2.wav', 102], ['f6/voz3.wav', 254], ['f6/voz4.wav', 449], ['f6/voz5.wav', 568]],
+  es: [['es/f6_l1.wav', 4], ['es/f6_l2.wav', 93], ['es/f6_l3.wav', 238], ['es/f6_l4.wav', 348], ['es/f6_l5.wav', 493]],
+};
 const cl = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const L = (f: number, a: number[], b: number[]) => interpolate(f, a, b, cl);
 const pop = (f: number, fps: number, d: number) => spring({ frame: f - d, fps, config: { damping: 13, stiffness: 200, mass: 0.6 } });
@@ -33,6 +39,7 @@ const tremor = (g: number, ats: number[], amp = 16) => {
 
 /* ---------------- metade de cima: sem CHIP ADV ---------------- */
 const Monitor = ({ g }: { g: number }) => {
+  const tx = useTx(), l = useLang();
   const erro = g >= 140 && g < 210, abas = g >= 210 && g < 330, video = g >= 330;
   const nAbas = Math.floor(L(g, [212, 280], [0, 7]));
   return <div style={{ position: 'absolute', left: 640, top: 430, width: 400, height: 260, background: '#0E1320', border: '14px solid #2A2F3A', borderRadius: 16, overflow: 'hidden' }}>
@@ -40,11 +47,11 @@ const Monitor = ({ g }: { g: number }) => {
       background: ['#5B8CFF', '#FF5A1F', '#C084FC', '#5EEAD4', '#FACC15'][i], opacity: 0.85 }} />)}
     {!video && <div style={{ position: 'absolute', top: 0, bottom: 0, left: 40 + ((g * 3) % 300), width: 3, background: '#fff' }} />}
     {erro && <div style={{ position: 'absolute', inset: '40px 26px', background: '#F4F1EA', borderRadius: 10, border: '4px solid #E5322D', padding: 14, fontFamily: font.ui, color: '#1b1b1f',
-      transform: `scale(${L(g, [140, 146], [0.5, 1])})` }}><b style={{ color: '#E5322D', fontSize: 26 }}>⚠ Erro</b><div style={{ fontSize: 22, fontWeight: 700, marginTop: 6 }}>Renderização falhou (87%)</div></div>}
+      transform: `scale(${L(g, [140, 146], [0.5, 1])})` }}><b style={{ color: '#E5322D', fontSize: 26 }}>⚠ {tx('Erro', 'Error')}</b><div style={{ fontSize: 22, fontWeight: 700, marginTop: 6 }}>{tx('Renderização falhou (87%)', 'Falló el render (87%)')}</div></div>}
     {abas && Array.from({ length: nAbas }).map((_, i) => <div key={i} style={{ position: 'absolute', left: 16 + i * 26, top: 16 + i * 22, width: 230, height: 130, background: '#F4F1EA', borderRadius: 8, border: '2px solid #888',
-      fontFamily: font.ui, fontSize: 15, fontWeight: 700, color: '#333', padding: 8, boxShadow: '0 6px 14px rgba(0,0,0,.4)' }}>{['Tutorial: legenda animada', 'Como cortar pausas', 'Plugin pago ✕', 'Atalhos de edição', 'Exportar sem travar', 'Fonte bonita grátis', 'Por que travou?'][i]}</div>)}
+      fontFamily: font.ui, fontSize: 15, fontWeight: 700, color: '#333', padding: 8, boxShadow: '0 6px 14px rgba(0,0,0,.4)' }}>{(l === 'es' ? ['Tutorial: subtítulo animado', 'Cómo cortar pausas', 'Plugin de pago ✕', 'Atajos de edición', 'Exportar sin trabarse', 'Fuente bonita gratis', '¿Por qué se trabó?'] : ['Tutorial: legenda animada', 'Como cortar pausas', 'Plugin pago ✕', 'Atalhos de edição', 'Exportar sem travar', 'Fonte bonita grátis', 'Por que travou?'])[i]}</div>)}
     {video && <div style={{ position: 'absolute', inset: 0, background: '#555', display: 'grid', placeItems: 'center' }}>
-      <span style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 30, color: '#fff', background: '#000', padding: '2px 8px', transform: 'rotate(-7deg) translate(30px, 60px)' }}>legenda tort a</span></div>}
+      <span style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 30, color: '#fff', background: '#000', padding: '2px 8px', transform: 'rotate(-7deg) translate(30px, 60px)' }}>{tx('legenda tort a', 'subtítulo tor cido')}</span></div>}
   </div>;
 };
 
@@ -79,32 +86,34 @@ const Topo = () => {
         transform: `scale(${pop(g, fps, b) * 1.1}) rotate(-10deg)`, opacity: L(g, [b + 10, b + 16], [1, 0]) }}>TUM!</div>)}
     </div>
     <div style={{ position: 'absolute', inset: 0, background: '#000', opacity: sai * 0.6 }} />
-    <Etiqueta texto="SEM CHIP ADV" cor="#FF4A3D" emoji="😩" y={230} />
+    <Etiqueta texto={useTx()('SEM CHIP ADV', 'SIN CHIP')} cor="#FF4A3D" emoji="😩" y={230} />
   </div>;
 };
 
 /* ---------------- metade de baixo: com CHIP ADV ---------------- */
 const Fone = ({ g }: { g: number }) => {
+  const l = useLang();
   const { fps } = useVideoConfig();
-  const txt = 'edita pra mim', n = Math.floor(L(g, [140, 172], [0, txt.length]));
+  const tx = useTx();
+  const txt = tx('edita pra mim', 'edítalo por mí'), n = Math.floor(L(g, [140, 172], [0, txt.length]));
   const prog = L(g, [220, 320], [0, 100]);
   const bolha = (cor: string, fg: string, lado: 'e' | 'd', at: number, children: React.ReactNode) => g >= at &&
     <div style={{ alignSelf: lado === 'd' ? 'flex-end' : 'flex-start', background: cor, color: fg, borderRadius: 22, padding: '12px 18px', fontWeight: 800, fontSize: 28, maxWidth: '86%', transform: `scale(${pop(g, fps, at)})`, transformOrigin: lado === 'd' ? '100% 50%' : '0 50%' }}>{children}</div>;
   return <div style={{ position: 'absolute', left: 620, top: 60, width: 410, height: 700, borderRadius: 50, background: '#111', padding: 14, boxShadow: '0 30px 60px rgba(80,40,0,.35)' }}>
     <div style={{ width: '100%', height: '100%', borderRadius: 38, background: '#F5F2EA', padding: '28px 18px 18px', display: 'flex', flexDirection: 'column', gap: 12, fontFamily: font.ui, color: '#1b1b1f', overflow: 'hidden' }}>
-      <div style={{ fontWeight: 800, fontSize: 22, color: '#777' }}>✦ Sua IA</div>
-      {bolha('#1b1b1f', '#fff', 'd', 110, <span><span style={{ background: '#E8643C', borderRadius: 6, padding: '2px 6px', fontSize: 16, marginRight: 8 }}>.MD</span>CHIP_ADV.md</span>)}
-      {bolha('#1b1b1f', brand.accent, 'd', 180, 'edita pra mim')}
-      {g >= 215 && g < 340 && <div style={{ background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: 14, fontWeight: 800, fontSize: 24 }}>Editando… {Math.round(prog)}%
+      <div style={{ fontWeight: 800, fontSize: 22, color: '#777' }}>{tx('✦ Sua IA', '✦ Tu IA')}</div>
+      {bolha('#1b1b1f', '#fff', 'd', 110, <span><span style={{ background: '#E8643C', borderRadius: 6, padding: '2px 6px', fontSize: 16, marginRight: 8 }}>.MD</span>{tx('CHIP_ADV.md', 'CHIP_ABOGADO.md')}</span>)}
+      {bolha('#1b1b1f', brand.accent, 'd', 180, txt)}
+      {g >= 215 && g < 340 && <div style={{ background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: 14, fontWeight: 800, fontSize: 24 }}>{tx('Editando…', 'Editando…')} {Math.round(prog)}%
         <div style={{ marginTop: 8, height: 12, borderRadius: 6, background: '#e8e2d4' }}><div style={{ height: 12, borderRadius: 6, width: `${prog}%`, background: '#2f7d16' }} /></div></div>}
       {g >= 340 && <div style={{ background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: 10, transform: `scale(${pop(g, fps, 340)})` }}>
-        <b style={{ fontSize: 24, color: '#2f7d16' }}>Seu vídeo está pronto ✓</b>
+        <b style={{ fontSize: 24, color: '#2f7d16' }}>{tx('Seu vídeo está pronto ✓', 'Tu video está listo ✓')}</b>
         <div style={{ marginTop: 8, height: 250, borderRadius: 14, overflow: 'hidden', background: '#000' }}>
-          <Sequence from={unwarp(340)} layout="none"><OffthreadVideo src={staticFile('ads/clipes/e05.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
+          <Sequence from={unwarp(340, l)} layout="none"><OffthreadVideo src={staticFile(clipe(l, 'e05'))} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
         </div></div>}
-      {bolha('#1b1b1f', '#fff', 'd', 488, 'deixa a legenda maior')}
-      {bolha('#fff', '#2f7d16', 'e', 520, 'Feito ✓')}
-      <div style={{ marginTop: 'auto', background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: '10px 14px', fontSize: 22, fontWeight: 600, color: n > 0 && g < 180 ? '#1b1b1f' : '#aaa' }}>{n > 0 && g < 180 ? txt.slice(0, n) : 'Escreva…'}</div>
+      {bolha('#1b1b1f', '#fff', 'd', 488, tx('deixa a legenda maior', 'haz el subtítulo más grande'))}
+      {bolha('#fff', '#2f7d16', 'e', 520, tx('Feito ✓', 'Listo ✓'))}
+      <div style={{ marginTop: 'auto', background: '#fff', border: '2px solid #e3ddd0', borderRadius: 18, padding: '10px 14px', fontSize: 22, fontWeight: 600, color: n > 0 && g < 180 ? '#1b1b1f' : '#aaa' }}>{n > 0 && g < 180 ? txt.slice(0, n) : tx('Escreva…', 'Escribe…')}</div>
     </div>
   </div>;
 };
@@ -128,7 +137,7 @@ const Baixo = () => {
     </div>
     <div style={{ position: 'absolute', left: 0, top: 690, width: 1080, height: 160, background: 'linear-gradient(#B98A5E, #9C7048)' }} />
     <Fone g={g} />
-    <Etiqueta texto="COM CHIP ADV" cor={brand.accent} emoji="😌" y={24} escuro />
+    <Etiqueta texto={useTx()('COM CHIP ADV', 'CON CHIP')} cor={brand.accent} emoji="😌" y={24} escuro />
   </div>;
 };
 
@@ -136,6 +145,13 @@ const Etiqueta = ({ texto, cor, emoji, y, escuro = false }: { texto: string; cor
   <div style={{ position: 'absolute', left: 30, top: y, background: escuro ? '#0B0B0F' : 'rgba(0,0,0,.55)', color: cor, fontFamily: font.ui, fontWeight: 900, fontSize: 38, letterSpacing: 2, padding: '10px 20px', borderRadius: 14 }}>{texto} {emoji}</div>;
 
 /* ---------------- faixa do meio + espiada + CTA ---------------- */
+const CENAS_ES: [number, number, string, string][] = [
+  [0, 90, '¿CUÁL DE LOS DOS ERES TÚ?', 'Abogado, ¿cuál de estos dos eres tú?'],
+  [90, 210, '3 HORAS × 1 FRASE', 'Uno pasa la noche cortando pausas, subtítulos y efectos a mano.'],
+  [210, 330, 'ELLA EDITA. TÚ EJERCES.', 'El otro escribe una frase y se va a atender su despacho.'],
+  [330, 450, 'LISTO EN MINUTOS', 'Vuelve listo: cortado, subtitulado, con efectos y música.'],
+  [450, 570, '"SUBTÍTULO MÁS GRANDE" → LISTO ✓', 'Y si no le gusta, pide el ajuste en español.'],
+];
 const CENAS: [number, number, string, string][] = [
   [0, 90, 'QUAL DOS DOIS É VOCÊ?', 'Advogado, qual dos dois aí é você?'],
   [90, 210, '3 HORAS × 1 FRASE', 'Um passa a noite cortando pausa, legenda e efeito na mão.'],
@@ -145,7 +161,7 @@ const CENAS: [number, number, string, string][] = [
 ];
 const Faixa = () => {
   const g = useT(); const { fps } = useVideoConfig();
-  const c = CENAS.find(([a, b]) => g >= a && g < b); if (!c) return null;
+  const c = (useLang() === 'es' ? CENAS_ES : CENAS).find(([a, b]) => g >= a && g < b); if (!c) return null;
   const k = pop(g, fps, c[0]);
   return <div style={{ position: 'absolute', left: 0, top: FAIXA_Y, width: 1080, height: FAIXA_H, background: '#0B0B0F', borderBlock: `4px solid ${brand.accent}`, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, padding: '0 40px 0 200px', textAlign: 'center', fontFamily: font.ui }}>
     <div style={{ fontWeight: 900, fontSize: c[2].length > 24 ? 48 : 60, color: brand.accent, letterSpacing: -1, transform: `scale(${0.8 + 0.2 * k})`, opacity: k }}>{c[2]}</div>
@@ -165,17 +181,18 @@ const Espiada = () => {
 
 const Cta = () => {
   const g = useT(); const { fps } = useVideoConfig();
+  const tx = useTx();
   if (g < TROCA + 20) return null;
   const a = TROCA + 20, click = 660, press = g >= click && g < click + 6 ? 0.93 : 1;
   const cx = L(g, [630, click - 1], [960, 640]), cy = L(g, [630, click - 1], [1700, 1440]);
   return <AbsoluteFill style={{ fontFamily: font.ui, textAlign: 'center' }}>
     <div style={{ position: 'absolute', top: 150, left: 0, right: 0, opacity: pop(g, fps, a) }}>
-      <div style={{ fontWeight: 900, fontSize: 64, color: brand.ink }}>CHIP <span style={{ color: brand.accent }}>ADV</span></div>
-      <div style={{ fontWeight: 900, fontSize: 92, color: brand.ink, letterSpacing: -3, marginTop: 6 }}>Seja o de <span style={{ fontFamily: font.serif, fontStyle: 'italic', fontWeight: 400, color: brand.accent }}>baixo</span>.</div>
+      <div style={{ fontWeight: 900, fontSize: 64, color: brand.ink }}>CHIP <span style={{ color: brand.accent }}>{tx('ADV', 'ABOGADO')}</span></div>
+      <div style={{ fontWeight: 900, fontSize: 92, color: brand.ink, letterSpacing: -3, marginTop: 6 }}>{tx('Seja o de ', 'Sé el de ')}<span style={{ fontFamily: font.serif, fontStyle: 'italic', fontWeight: 400, color: brand.accent }}>{tx('baixo', 'abajo')}</span>.</div>
     </div>
     <div style={{ position: 'absolute', top: 1300, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18 }}>
-      <div style={{ background: brand.accent, color: brand.bg, fontWeight: 900, fontSize: 64, padding: '30px 66px', borderRadius: 999, transform: `scale(${pop(g, fps, a + 10) * press})`, boxShadow: `0 20px 60px ${brand.accent}66` }}>Saiba mais →</div>
-      <div style={{ fontWeight: 600, fontSize: 34, color: '#9C9CA6', opacity: pop(g, fps, a + 18) }}>Ela edita. Você advoga.</div>
+      <div style={{ background: brand.accent, color: brand.bg, fontWeight: 900, fontSize: 64, padding: '30px 66px', borderRadius: 999, transform: `scale(${pop(g, fps, a + 10) * press})`, boxShadow: `0 20px 60px ${brand.accent}66` }}>{tx('Saiba mais →', 'Más información →')}</div>
+      <div style={{ fontWeight: 600, fontSize: 34, color: '#9C9CA6', opacity: pop(g, fps, a + 18) }}>{tx('Ela edita. Você advoga.', 'Ella edita. Tú ejerces.')}</div>
     </div>
     {g >= 630 && <svg width={100} height={100} viewBox="0 0 24 24" style={{ position: 'absolute', left: cx, top: cy }}><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#111" strokeWidth={1.3} strokeLinejoin="round" /></svg>}
   </AbsoluteFill>;
@@ -189,18 +206,18 @@ const SFX: [number, string, number][] = [
   ...[0, 90, 210, 330, 450].map((f): [number, string, number] => [f + 2, 'pop', 0.2]),
 ];
 
-export const F6Anim = () => {
-  const g = useCurrentFrame();
-  return <AbsoluteFill style={{ background: '#0B0B0F' }}>
+export const F6Anim = ({ lang = 'pt' }: { lang?: Lang }) => {
+  const g = useCurrentFrame(); const N = lang === 'es' ? F6_FRAMES_ES : F6_FRAMES;
+  return <LangCtx.Provider value={lang}><AbsoluteFill style={{ background: '#0B0B0F' }}>
     <Topo />
     <Baixo />
     <Faixa />
     <Espiada />
     <Cta />
-    {SFX.map(([f, n, v], i) => <Sequence key={i} from={unwarp(f)} durationInFrames={60} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
-    {Array.from({ length: 19 }, (_, i) => <Sequence key={'t' + i} from={unwarp(i * 30)} durationInFrames={10} layout="none"><Audio src={staticFile('sfx/tick.wav')} volume={0.12} /></Sequence>)}
-    <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 10, F6_FRAMES - 20, F6_FRAMES], [0, 0.11, 0.11, 0])} />
-    {VOZ.map(([n, f]) => <Sequence key={'v' + n} from={f} layout="none"><Audio src={staticFile(`f6/voz${n}.wav`)} volume={1} /></Sequence>)}
+    {SFX.map(([f, n, v], i) => <Sequence key={i} from={unwarp(f, lang)} durationInFrames={60} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
+    {Array.from({ length: 19 }, (_, i) => <Sequence key={'t' + i} from={unwarp(i * 30, lang)} durationInFrames={10} layout="none"><Audio src={staticFile('sfx/tick.wav')} volume={0.12} /></Sequence>)}
+    <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 10, N - 20, N], [0, 0.11, 0.11, 0])} />
+    {VOZ[lang].map(([n, f]) => <Sequence key={'v' + n} from={f} layout="none"><Audio src={staticFile(n)} volume={1} /></Sequence>)}
     {g < 0 && null}
-  </AbsoluteFill>;
+  </AbsoluteFill></LangCtx.Provider>;
 };

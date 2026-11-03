@@ -1,10 +1,11 @@
 import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font } from '../brand';
 import { flash, lerp } from '../lib';
+import { useLang, useTx } from '../lang';
 
 /** 09 · Corte no zoom — raios azuis saindo do centro, flash no corte, etiqueta DEPOIS. Corte no frame local 10. */
 export const E09Corte = () => {
-  const f = useCurrentFrame();
+  const f = useCurrentFrame(); const es = useLang() === 'es';
   const { fps, durationInFrames: D } = useVideoConfig();
   const C = 10;
   const rays = lerp(f, [C - 8, C, C + 10], [0, 1, 0]);
@@ -19,7 +20,7 @@ export const E09Corte = () => {
       {f >= C + 4 && (
         <div style={{ position: 'absolute', top: 330, left: 110, transform: `scale(${tag}) rotate(${(1 - tag) * -12}deg)`, opacity: tagOut,
           fontFamily: font.display, fontSize: 64, color: brand.bg, background: brand.accent, padding: '4px 26px', borderRadius: 10, letterSpacing: 3,
-          boxShadow: `0 0 40px ${brand.accent}88` }}>DEPOIS ✦</div>
+          boxShadow: `0 0 40px ${brand.accent}88` }}>{es ? 'DESPUÉS ✦' : 'DEPOIS ✦'}</div>
       )}
     </AbsoluteFill>
   );
