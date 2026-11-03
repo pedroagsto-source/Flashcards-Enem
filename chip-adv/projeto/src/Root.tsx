@@ -5,6 +5,7 @@ import { TOTAL } from './lib';
 import { MotionAd, MOTION_FRAMES } from './MotionAd';
 import { F1Ad, F1_FRAMES } from './f1/F1Ad';
 import { F6Anim, F6_FRAMES } from './f6/F6Anim';
+import { F7Ad, F7_FRAMES } from './f7/F7Ad';
 
 const HOOKS: HookId[] = ['h2', 'h3', 'h4', 'h5'];
 
@@ -14,6 +15,7 @@ export const RemotionRoot = () => (
     <Composition id="F1Ad" component={F1Ad} durationInFrames={F1_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="F1Ad-escritorio" component={F1Ad} defaultProps={{ fundo: 'escritorio' as const }} durationInFrames={F1_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="F6Anim" component={F6Anim} durationInFrames={F6_FRAMES} fps={30} width={1080} height={1920} />
+    <Composition id="F7Ad" component={F7Ad} durationInFrames={F7_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="MotionAd" component={MotionAd} durationInFrames={MOTION_FRAMES} fps={30} width={1080} height={1920} />
     {HOOKS.map((h) => (
       <Composition key={h} id={`Ad30-${h}`} component={AdVariant} defaultProps={{ hook: h, body: 'cut30' }}
