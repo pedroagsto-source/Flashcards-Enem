@@ -340,6 +340,14 @@
   (function () {
     var b = $('[data-bfix]'), of = $('#oferta'); if (!b) return; var ofVis = false;
     if (of && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { ofVis = es[0].isIntersecting; upd(); }).observe(of);
+    /* ViewContent: 1× por visita, quando a oferta aparece na tela */
+    var vc = false;
+    if (of && 'IntersectionObserver' in window) new IntersectionObserver(function (es) {
+      if (vc || !es[0].isIntersecting) return; vc = true;
+      if (window.fbq) fbq('track', 'ViewContent', { value: C.preco, currency: 'BRL', content_name: 'CHIP ADV' });
+      if (window.gtag) gtag('event', 'view_item', { value: C.preco, currency: 'BRL' });
+      if (window.ttq) ttq.track('ViewContent');
+    }, { threshold: .3 }).observe(of);
     function upd() { var on = scrollY > (C.barraDepoisDe || 600) && !ofVis; b.classList.toggle('on', on); b.setAttribute('aria-hidden', String(!on)); $('a', b).tabIndex = on ? 0 : -1; }
     addEventListener('scroll', upd, { passive: true }); upd();
   })();
