@@ -5,11 +5,12 @@
 
 | # | Formato | Ângulo | Precisa gravar? | Status |
 |---|---|---|---|---|
-| F1 | **Demonstração com quebra de padrão** (rosto + tela) | Mecanismo: "um arquivo + edita pra mim" | Sim | 🎥 roteiro pronto |
+| F1 | **Demonstração com quebra de padrão** (rosto + tela) | Mecanismo: "um arquivo + edita pra mim" | Gravado | ✅ `CHIPADV_F1_demo_ganchoA_v1` e `…_escritorio_v1` (18,6 s) |
 | F2 | **Tutorial em 3 passos** (tela do celular + você em figurinha) | Facilidade | Sim (tela + rosto) | 🎥 roteiro pronto |
 | F3 | **Resposta a objeção** (card de comentário) | "OAB não deixa" | Sim | 🎥 roteiro pronto |
 | F4 | **Prova visual lado a lado** (sem fala no início) | Antes × depois | **Não** | ✅ renderizado |
 | F5 | **Motion sem rosto** (texto animado + trechos editados) | Curiosidade + resultado | **Não** | ✅ renderizado |
+| F6 | **Tela dividida animada** (sem × com CHIP ADV, desenho 2D + sua narração) | Dor × alívio | **Não** | ✅ `CHIPADV_F6_teladividida_animado_v2_voz` (23,6 s) |
 
 Arquivos renderizados em `projeto/out/criativos/`.
 
