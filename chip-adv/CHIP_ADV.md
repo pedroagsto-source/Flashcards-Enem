@@ -1,6 +1,6 @@
 # CHIP ADV — Prompt Mestre de Edição Premium
 
-> **Como usar:** abra o Claude Code numa pasta vazia, anexe **(1)** este arquivo, **(2)** o PDF "17 efeitos de vídeo" (o mapa) e **(3)** um ou mais vídeos. Escreva só: **"Roda o CHIP ADV."**
+> **Como usar:** abra o Claude Code numa pasta vazia, anexe **(1)** este arquivo, **(2)** o **Mapa de efeitos do CHIP ADV** (PDF) e **(3)** um ou mais vídeos. Escreva só: **"Roda o CHIP ADV."**
 > Se quiser direcionar, acrescente uma linha opcional, ex.: `Objetivo: vender minha mentoria · Tom: autoridade · CTA: link na bio · Paleta: azul e laranja`.
 
 ---
@@ -20,8 +20,8 @@ Idioma de tudo que aparece na tela e nas suas respostas: **português do Brasil*
 | Entrada | Obrigatória | O que fazer |
 |---|---|---|
 | Vídeo(s) `.mov`/`.mp4` | Sim | Material bruto. Vários vídeos = um único vídeo final, na ordem que fizer mais sentido narrativo (por padrão, a ordem de envio). |
-| PDF "17 efeitos" (mapa) | Sim | É o **cardápio** de efeitos. Leia todos os 17 e use as receitas como base. A seção 6 abaixo traz a versão técnica de cada um. |
-| Prints / imagens / logo | Não | Habilitam os efeitos 01 (Órbita) e 02 (Parede de posts). Sem eles, não use esses dois. |
+| Mapa de efeitos do CHIP ADV (PDF) | Sim | É o **cardápio** com os 17 efeitos e o pedido de cada um. Se o usuário citar um efeito pelo número ou pelo pedido, use-o. A seção 6 abaixo traz a receita técnica de cada um. |
+| Prints / imagens / logo / foto de cenário | Não | Logo e prints entram nos efeitos 06, 08 e 12; uma foto de escritório real substitui o cenário gerado no efeito 01. |
 | Linha de direção (objetivo, tom, CTA, paleta) | Não | Se não vier, deduza pela fala do vídeo. |
 
 ---
@@ -65,17 +65,17 @@ Funções narrativas: **Gancho · Problema · Virada · Prova · Método/Lista �
 - Nunca repita o mesmo efeito grande no mesmo vídeo.
 - Nunca dois efeitos com recorte (✂) colados sem um trecho limpo de ≥ 2 s entre eles.
 - Casamento fala → efeito:
-  - Gancho / afirmação forte → **05 Zoom digital**, **15 Vertigem**, **17 Letra de vidro**
-  - Lista, passos, "3 coisas" → **07 Checklist**
-  - Número, crescimento, resultado → **10 Gráfico subindo**
-  - Notícia, polêmica, "todo mundo tá falando" → **08 Mural de manchete**
-  - Autoridade, "quem sou eu" → **16 Capa de revista**
-  - Ferramenta, processo, bastidor → **03 Dentro do app**, **11 Revelação**, **06 Mockup de celular**
-  - Mudança de assunto → **09 Corte no zoom** (transição)
-  - Momento leve / humor → **13 Recorte de papel**, **14 Rabisco vivo**
-  - Prova social (com prints) → **01 Órbita**, **02 Parede de posts**
-  - Clímax / "quebrar a regra" → **04 Saindo da tela**
-  - CTA final → **12 Chroma key** (página com botão) ou **16**
+  - Gancho / afirmação forte → **05 Zoom de impacto**, **17 Palavra de vidro**, **04 Carimbo de impacto**
+  - Lista, passos, "3 coisas" → **07 Checklist no tempo da fala**
+  - Tempo perdido, prazo, "horas" → **10 Relógio de horas**
+  - Dor, comparação, "o seu × o deles" → **02 Comparação lado a lado**, **04 Carimbo de impacto**
+  - Autoridade, "quem sou eu" → **16 Capa de revista**, **01 Troca de cenário**
+  - Ferramenta, processo, bastidor → **03 Janela da IA**, **11 Bastidor do editor**, **06 Celular com o resultado**
+  - Mudança de assunto / virada ("mas agora…") → **09 Corte no zoom**
+  - Apontar erro, detalhe, humor → **14 Rabisco vivo**
+  - Prova (antes × depois) → **15 Antes e depois**, **06 Celular com o resultado**, **13 Tela dividida animada** (vídeo inteiro)
+  - Clímax / "veja a mágica" → **08 Mágica**
+  - CTA final → **12 Recorte + botão**
 - Cada efeito dura **1,5 a 4 s** e precisa ter texto que reforce a fala daquele instante (nunca texto genérico).
 
 ### Etapa 5 — Recorte (só se algum efeito ✂ foi escolhido)
@@ -170,31 +170,29 @@ export const brand = {
 
 ---
 
-## 6. CARDÁPIO TÉCNICO DOS 17 EFEITOS
+## 6. CARDÁPIO TÉCNICO DOS 17 EFEITOS (Mapa de efeitos do CHIP ADV)
 
-✂ = precisa do recorte (etapa 5). Os parâmetros são padrão; adapte cor e texto à fala.
+✂ = precisa do recorte (etapa 5). Os parâmetros são padrão; adapte cor e texto à fala. Os números são os mesmos do mapa em PDF.
 
 | Nº | Efeito | Receita técnica |
 |---|---|---|
-| 01 ✂ | **Órbita** | Prints em cartões 3D (`perspective: 1400px`) numa elipse em volta da pessoa. Ângulo do cartão define profundidade: `sin(θ) < 0` → renderiza **atrás** do recorte; `> 0` → **na frente**. Velocidade angular começa alta e desacelera (`spring`). Grade quente de fim de tarde, partículas de luz subindo, título em Instrument Serif Italic no topo. |
-| 02 ✂ | **Parede de posts** | Fundo substituído por concreto claro. Polaroids com os prints entram a cada **3 frames** com spring de queda + rotação aleatória ±8°, alfinete colorido. Pessoa (recorte) na frente com `drop-shadow` projetado na parede. Legenda pequena + legenda gigante em Anton embaixo. |
-| 03 | **Dentro do app** | Metade de cima vira janela de app clara (cantos 28 px, sombra), área "solta seus vídeos aqui", 4 miniaturas caindo com spring, etiqueta "4 CLIPES", campo de texto digitando um comando (máquina de escrever, 2 frames por letra) e botão de enviar sendo pressionado (escala 0.92). Pessoa embaixo, legenda grande. |
-| 04 ✂ | **Saindo da tela** | Vídeo dentro de um quadro de post com borda neon `accent`, fundo preto com grade. Aos **12 frames**, o recorte (máscara presa só embaixo do quadro) ultrapassa a borda; estilhaços (8–14 triângulos) voam, câmera treme, borda pisca. Título em cima na mesma cor. |
-| 05 | **Zoom digital** | P&B com contraste alto. Dois zooms secos no rosto: 1.0 → 1.3 → 1.65, cada um com tremida, flash de 2 frames e *motion blur* de 3 frames (empilhar 3 cópias com opacidade). A cada zoom, troca uma palavra gigante amarela em Bebas Neue no centro. |
-| 06 | **Mockup de celular** | Zoom no rosto, desloca para a esquerda com tinta lilás. iPhone 3D (`rotateY(-18deg) rotateX(6deg)`) flutuando à direita (`sin` lento). Conversa: mensagem do usuário → três pontinhos → resposta → miniatura do vídeo com botão de play. Legenda curta com uma palavra destacada. |
-| 07 | **Checklist** | Cartão de vidro fosco (`backdrop-filter: blur(24px)`, `glass`), tom verde-água. 3 itens marcados um a um: círculo enche, check se desenha (`stroke-dashoffset`), texto ganha risco, barra de progresso enche. Fecha com confetes saindo do cartão. **Itens = os pontos reais da fala.** |
-| 08 ✂ | **Mural de manchete** | Fundo vira parede escura com luz de cima (gradiente radial). Recortes de jornal batem um a um (escala 1.4 → 1, rotação ±6°), cada batida com tremida. Manchetes em serifa de jornal (Playfair Display / Old Standard TT). No fim, um círculo vermelho de caneta se desenha em volta da primeira manchete. Pessoa na frente. |
-| 09 | **Corte no zoom** | Transição: trecho A acelera zoom até um ponto (ex.: camiseta) e trecho B sai do zoom no mesmo ponto, desacelerando. Borrão radial com **5 cópias** em escalas diferentes e opacidade decrescente, raios de luz azul saindo do centro, flash no corte. Grade azul de cinema. Duração total 14–18 frames. |
-| 10 ✂ | **Gráfico subindo** | Fundo verde-esmeralda escuro com grade. Atrás da pessoa, barras S T Q Q S S D crescendo uma após a outra (spring, degradê limão). Linha se desenha ligando os topos; no fim pula a etiqueta "ESCALA ↗". Recorte na frente com brilho verde no contorno (`drop-shadow` colorido). |
-| 11 | **Revelação** | Vídeo em tela cheia; câmera recua até ele virar a janela de pré-visualização de um editor escuro: lista de tarefas (Transcrever, Cortar silêncio, Legenda, Efeitos, Música) sendo marcadas, timeline com faixas coloridas, onda de áudio e cursor andando. Destaque laranja. |
-| 12 ✂ | **Chroma key** | Fundo removido; pessoa no canto inferior de uma página de site em degradê roxo e rosa, manchas de luz se movendo, menu, título grande, frase e **botão = CTA real**. Pessoa entra deslizando da direita. |
-| 13 ✂ | **Recorte de papel** | Colagem em papel kraft: papel rasgado, fita adesiva, rabisco azul, X vermelho. Pessoa vira adesivo com borda branca grossa, levemente torta, **animada a 15 fps** (segura cada frame 2×). Frase em letras de recorte, cada letra com fonte e papel diferentes. |
-| 14 ✂ | **Rabisco vivo** | Fundo vira lousa escura. Contorno branco à mão em volta da pessoa, tremendo (ruído muda a cada 3 frames). Rabiscos de giz se desenhando: coroa amarela na cabeça, estrela, coração rosa, espiral, claquete, seta e frase manuscrita (Caveat / Permanent Marker), tudo tremendo junto. |
-| 15 ✂ | **Vertigem** | *Dolly zoom*: fundo (montado sem a pessoa juntando frames + preenchimento do buraco) cresce devagar (1.0 → 1.35) enquanto a pessoa fica do mesmo tamanho. Fundo vermelho-escuro, pessoa P&B, raios saindo do centro, pergunta em Oswald com aberração cromática (RGB split de 4 px). |
-| 16 ✂ | **Capa de revista** | Fundo creme de estúdio, nome da revista gigante em serifa **atrás da cabeça** (pessoa cobre parte), chamadas laterais (uma em vermelho), faixa "ESPECIAL", código de barras, brilho de papel couché passando na diagonal. |
-| 17 ✂ | **Letra de vidro** | Palavra gigante de vidro atrás da pessoa: por dentro mostra o fundo desfocado e deslocado (refração), contorno branco fino, reflexo diagonal e brilho passando. Sobe girando (`rotateX 80° → 0°`), saindo do desfoque. Fundo tom gelo, bolhas de vidro subindo. |
-
----
+| 01 ✂ | **Troca de cenário** | Recorte da pessoa em **todos** os frames; atrás, uma imagem de escritório (estante, janela, luminária) com `gblur` forte (σ≈22) e escala 1.1 deslizando ±12 px no vídeo todo (parallax). Na pessoa: `sepia(.06) saturate(1.04)` + `drop-shadow(0 0 26px rgba(0,0,0,.35))` para colar a luz. Áudio sai do vídeo original. |
+| 02 | **Comparação lado a lado** | Dois cartões 340×470 entram de lados opostos com spring e giro de ±5°: à esquerda o próprio vídeo em `grayscale(1)` com etiqueta cinza **"O SEU"**; à direita um trecho editado com borda `accent` e etiqueta **"O QUE VOCÊ QUER"**; "≠" vermelho no meio. Whoosh em cada cartão. |
+| 03 | **Janela da IA** | Janela clara (cantos 34 px, sombra) no alto da tela, acima da cabeça: "✦ Sua IA", arquivo `.MD` entrando com spring na palavra "anexa", campo de texto digitando o pedido (≈1 letra/frame) e balão enviado. Some com fade de 5 frames. |
+| 04 | **Carimbo de impacto** | Palavra em caixa alta dentro de borda vermelha grossa (`#E5322D`), rotação −14°, entra com escala 2.2 → 1 (spring duro), flash branco de 3 frames, tremida de 20 px e som de impacto. Tinta vermelha radial nas bordas da tela na frase de dor. |
+| 05 | **Zoom de impacto** | P&B com contraste alto, zoom seco 1.0 → 1.3 (e 1.45 na palavra-chave), tremida de 8 frames, flash e desfoque de 3 frames; palavra gigante em Bebas Neue na cor `accent`, entrando de 1.6 → 1 de escala. |
+| 06 | **Celular com o resultado** | Celular 330×587 entra pela direita (spring + giro 4°) com um trecho do vídeo editado tocando e borda `accent`; etiqueta **"PRONTO ✓"** embaixo. Whoosh + brilho. |
+| 07 | **Checklist no tempo da fala** | Cartão de vidro fosco (`backdrop-filter: blur(26px)`, tom verde-água) com os itens **reais da fala**; cada item: círculo enche, ✓, texto riscado, no frame da palavra. Barra de progresso; confete opcional no último. |
+| 08 | **Mágica** | Celular central com montagem rápida de 4 trechos editados (6–8 frames cada), borda e brilho `accent`; 30–40 "✦" explodindo do centro; palavra gigante "✦ MÁGICA ✦". Brilho sonoro + riser. |
+| 09 | **Corte no zoom** | Trecho A acelera zoom até 2.6 com desfoque até 14 px em 8 frames; trecho B sai do zoom desacelerando em 12 frames. Raios (`repeating-conic-gradient`) e flash no corte. Bom momento para mudar a cor de lavada para viva. |
+| 10 | **Relógio de horas** | Relógio SVG (borda `accent`) com ponteiros girando 3 voltas + contador "0:00 → 3:00h" em fonte de números tabulares; tique-taque a cada 9 frames. |
+| 11 | **Bastidor do editor** | A câmera recua (escala 1 → 0.5, origem no canto) até o vídeo virar a pré-visualização de um editor escuro: lista de tarefas sendo marcadas (Transcrever, Cortar silêncio, Legenda, Efeitos, Música), linha do tempo com faixas e cursor andando. Destaque laranja. |
+| 12 ✂ | **Recorte + botão** | Pessoa recortada (escala 0.64, canto inferior direito, entrando da direita) sobre página em degradê roxo-rosa com manchas de luz, menu, título que muda com a fala e botão **Saiba mais** com cursor clicando na palavra "Saiba". |
+| 13 | **Tela dividida animada** | Vídeo inteiro em desenho vetorial 2D: em cima "SEM CHIP ADV" (noite, cabeçadas, erro de render), embaixo "COM CHIP ADV" (dia, café, "edita pra mim", vídeo pronto), faixa do meio com o texto da cena; no fim a metade de cima sai e entra o CTA. Narração do usuário, com as cenas esticadas para acompanhar a voz. |
+| 14 | **Rabisco vivo** | Palavras escritas à mão (Caveat, 150 px, vermelho) com elipse se desenhando (`stroke-dashoffset`) e tremendo ±1,5° a cada 3 frames, ao lado do rosto, na palavra exata. |
+| 15 | **Antes e depois** | Interface de câmera de celular (REC piscando, cantos, grade de terços, "FOTO · VÍDEO · CINEMA") com etiqueta **ANTES** e cor lavada; na virada, corte no zoom (09) e etiqueta **DEPOIS ✦**. |
+| 16 ✂ | **Capa de revista** | Fundo creme de estúdio, nome da revista gigante em serifa **atrás da cabeça** (pessoa recortada na frente), chamadas laterais (uma em vermelho), faixa "ESPECIAL", código de barras e brilho de papel passando. |
+| 17 | **Palavra de vidro** | Frase gigante atrás da pessoa, recortada por `clip-path` de texto: por dentro, `backdrop-filter: blur(16px)` (refração), contorno branco fino e brilho diagonal passando; sobe de `rotateX 80° → 0°` saindo do desfoque. Fundo gelo com bolhas. Com recorte da pessoa na frente, fica atrás da cabeça. |
 
 ## 7. CONTROLE DE QUALIDADE (checar antes de entregar)
 
@@ -216,6 +214,6 @@ export const brand = {
 2. **Tabela do storyboard** (etapa 4).
 3. **Arquivos:** `out/CHIP_ADV_final.mp4`, `out/CHIP_ADV_capa.png`, `src/data/transcript.json`.
 4. **Legenda sugerida para o post** (até 3 linhas + 3–5 hashtags) e **título da capa**.
-5. **3 variações rápidas** que o usuário pode pedir com uma frase (ex.: "troca o efeito do segundo 12 por Vertigem", "versão de 15 s só com o gancho", "paleta azul e laranja").
+5. **3 variações rápidas** que o usuário pode pedir com uma frase (ex.: "troca o efeito do segundo 12 por capa de revista", "versão de 15 s só com o gancho", "paleta azul e laranja").
 
 Depois disso, fique pronto para ajustes do tipo *"muda X"* — refaça só o trecho afetado e renderize de novo.

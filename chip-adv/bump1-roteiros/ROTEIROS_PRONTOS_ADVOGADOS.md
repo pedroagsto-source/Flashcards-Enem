@@ -60,7 +60,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CC, art. 1.583 e art. 1.584, § 2º (Leis 13.058/2014 e 14.713/2023).
 
-**Linha CHIP ADV:** `Tom: acolhedor · Efeitos: 15 Vertigem no hook, 07 com as duas exceções, 16 capa "GUARDA COMPARTILHADA"`
+**Linha CHIP ADV:** `Tom: acolhedor · Efeitos: 05 zoom de impacto no hook, 07 com as duas exceções, 16 capa "GUARDA COMPARTILHADA"`
 
 ### F3 · Divórcio no cartório
 **Hook:** "Dá pra se divorciar sem processo na Justiça? Dá."
@@ -71,7 +71,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CPC, art. 733; Resolução CNJ 35/2007, alterada pela Resolução CNJ 571/2024.
 
-**Linha CHIP ADV:** `Tom: direto · Efeitos: 05 no hook, 07 checklist (acordo · filhos · advogado), 12 com "cartório"`
+**Linha CHIP ADV:** `Tom: direto · Efeitos: 05 no hook, 07 checklist (acordo · filhos · advogado), 04 carimbo "CARTÓRIO"`
 
 ### F4 · União estável sem papel
 **Hook:** "Morar junto sem assinar nada não gera direito? Gera."
@@ -82,7 +82,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CC, art. 1.723 e art. 1.725.
 
-**Linha CHIP ADV:** `Tom: conversa · Efeitos: 17 "SEM PAPEL" atrás de você, 07 com os 3 requisitos, 10 para "comunhão parcial"`
+**Linha CHIP ADV:** `Tom: conversa · Efeitos: 17 "SEM PAPEL" atrás de você, 07 com os 3 requisitos, 04 carimbo "COMUNHÃO PARCIAL"`
 
 ### F5 · Pensão acaba aos 18?
 **Hook:** "Filho fez 18 anos, a pensão acaba sozinha? Não acaba."
@@ -93,7 +93,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Súmula 358 do STJ.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "18 ANOS", 08 mural com "Súmula 358", 04 saindo da tela no "não acaba"`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "18 ANOS", 04 carimbo com "Súmula 358", 04 carimbo no "não acaba"`
 
 ---
 
@@ -108,7 +108,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CLT, arts. 477 e 487; Lei 8.036/1990, arts. 18 e 20; Lei 7.998/1990.
 
-**Linha CHIP ADV:** `Tom: comparativo · Efeitos: tela dividida (demitido × pediu demissão), 07 checklist em cada lado`
+**Linha CHIP ADV:** `Tom: comparativo · Efeitos: 02 comparação (demitido × pediu demissão), 07 checklist em cada lado`
 
 ### T2 · Acordo para sair da empresa
 **Hook:** "Existe demissão em comum acordo? Existe, e tem regras."
@@ -119,7 +119,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CLT, art. 484-A.
 
-**Linha CHIP ADV:** `Tom: didático · Efeitos: 05 no hook, 10 gráfico (aviso 50% · multa 20% · FGTS 80%), 17 "SEM SEGURO"`
+**Linha CHIP ADV:** `Tom: didático · Efeitos: 05 no hook, 02 comparação (aviso 50% · multa 20% · FGTS 80%), 17 "SEM SEGURO"`
 
 ### T3 · Hora extra
 **Hook:** "Quanto vale a sua hora extra? No mínimo, 50% a mais."
@@ -130,7 +130,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CF, art. 7º, XVI; CLT, art. 59 e art. 74, § 2º.
 
-**Linha CHIP ADV:** `Tom: direto · Efeitos: 05 com "+50%", 11 Revelação com um holerite, 07 com o que guardar`
+**Linha CHIP ADV:** `Tom: direto · Efeitos: 05 com "+50%", 11 bastidor com um holerite, 07 com o que guardar`
 
 ### T4 · Prazo para reclamar
 **Hook:** "Saiu da empresa? Você tem um prazo para cobrar seus direitos."
@@ -141,7 +141,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CF, art. 7º, XXIX; CLT, art. 11.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 15 Vertigem no hook, 10 linha do tempo (2 anos / 5 anos), 08 com "PRESCRIÇÃO"`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 zoom de impacto no hook, 10 relógio (2 anos / 5 anos), 04 carimbo "PRESCRIÇÃO"`
 
 ### T5 · Gestante demitida
 **Hook:** "Descobriu a gravidez depois de ser demitida? Isso importa."
@@ -167,7 +167,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.742/1993 (LOAS), art. 20.
 
-**Linha CHIP ADV:** `Tom: didático · Efeitos: tela dividida (BPC × aposentadoria), 07 com as diferenças`
+**Linha CHIP ADV:** `Tom: didático · Efeitos: 02 comparação (BPC × aposentadoria), 07 com as diferenças`
 
 ### P2 · Pensão por morte não é sempre vitalícia
 **Hook:** "Pensão por morte é para a vida toda? Depende."
@@ -178,7 +178,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.213/1991, art. 77, § 2º (redação da Lei 13.135/2015).
 
-**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 14 rabisco com "DEPENDE", 10 gráfico de idade × duração (sem números exatos na tela)`
+**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 14 rabisco com "DEPENDE", 02 comparação de idade × duração (sem números exatos na tela)`
 
 ### P3 · Afastamento pelo INSS
 **Hook:** "Ficou doente e não consegue trabalhar? Conheça o auxílio por incapacidade."
@@ -189,7 +189,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.213/1991, arts. 25, I; 26, II; 59.
 
-**Linha CHIP ADV:** `Tom: prático · Efeitos: 05 no hook, 07 checklist (laudos · exames · receitas), 12 com "perícia"`
+**Linha CHIP ADV:** `Tom: prático · Efeitos: 05 no hook, 07 checklist (laudos · exames · receitas), 04 carimbo "PERÍCIA"`
 
 ### P4 · Revisão tem prazo
 **Hook:** "Acha que o seu benefício foi calculado errado? Existe prazo para revisar."
@@ -200,7 +200,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.213/1991, art. 103.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 15 Vertigem com "10 ANOS", 08 mural com "DECADÊNCIA"`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 04 carimbo "10 ANOS", 04 carimbo com "DECADÊNCIA"`
 
 ### P5 · Tempo especial
 **Hook:** "Trabalhou exposto a ruído ou produto químico? Esse tempo pode valer diferente."
@@ -211,7 +211,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.213/1991, arts. 57 e 58; EC 103/2019, art. 25, § 2º.
 
-**Linha CHIP ADV:** `Tom: técnico · Efeitos: 17 "TEMPO ESPECIAL", 07 com "PPP", 10 linha do tempo até 13/11/2019`
+**Linha CHIP ADV:** `Tom: técnico · Efeitos: 17 "TEMPO ESPECIAL", 07 com "PPP", 10 relógio até 13/11/2019`
 
 ---
 
@@ -226,7 +226,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CDC, art. 49.
 
-**Linha CHIP ADV:** `Tom: leve · Efeitos: 05 com "7 DIAS", 06 mockup de celular com a compra, 13 recorte de papel no fecho`
+**Linha CHIP ADV:** `Tom: leve · Efeitos: 05 com "7 DIAS", 06 celular com a compra, 14 rabisco no fecho`
 
 ### C2 · Cobrança indevida em dobro
 **Hook:** "Pagou uma cobrança que não devia? Pode ter direito ao dobro."
@@ -248,7 +248,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CDC, art. 43, § 2º; Súmulas 359 e 385 do STJ.
 
-**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 08 mural com as súmulas, 09 corte no zoom na exceção`
+**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 04 carimbo com as súmulas, 09 corte no zoom na exceção`
 
 ### C4 · Voo atrasado
 **Hook:** "Voo atrasou? A companhia tem obrigações a cada hora."
@@ -259,7 +259,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Resolução ANAC 400/2016, arts. 21 e 27.
 
-**Linha CHIP ADV:** `Tom: prático · Efeitos: 07 checklist (1h · 2h · 4h) no ritmo da fala, 11 Revelação com o cartão de embarque`
+**Linha CHIP ADV:** `Tom: prático · Efeitos: 07 checklist (1h · 2h · 4h) no ritmo da fala, 11 bastidor com o cartão de embarque`
 
 ### C5 · Produto com defeito
 **Hook:** "Produto deu defeito? A loja não pode simplesmente mandar você procurar o fabricante."
@@ -270,7 +270,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CDC, arts. 18 e 26.
 
-**Linha CHIP ADV:** `Tom: firme · Efeitos: 04 saindo da tela no hook, 07 com as 3 opções, 10 com "30 / 90 dias"`
+**Linha CHIP ADV:** `Tom: firme · Efeitos: 04 carimbo no hook, 07 com as 3 opções, 10 relógio com "30 / 90 dias"`
 
 ---
 
@@ -296,7 +296,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CC, art. 1.245.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 17 "QUEM NÃO REGISTRA…", 13 recorte de papel com o contrato`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 17 "QUEM NÃO REGISTRA…", 14 rabisco circulando o contrato`
 
 ### I3 · Desistir de imóvel na planta
 **Hook:** "Desistiu do apartamento na planta? Existe limite para o que a construtora retém."
@@ -307,7 +307,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 4.591/1964, art. 67-A (incluído pela Lei 13.786/2018).
 
-**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 10 gráfico (25% × 50%), 11 Revelação com o quadro-resumo`
+**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 02 comparação (25% × 50%), 11 bastidor com o quadro-resumo`
 
 ### I4 · Devolver o imóvel alugado antes do prazo
 **Hook:** "Quer entregar o apartamento antes do fim do contrato? A multa não é cheia."
@@ -329,7 +329,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 8.245/1991, arts. 37 e 38, § 2º.
 
-**Linha CHIP ADV:** `Tom: direto · Efeitos: 04 saindo da tela no hook, 07 com as modalidades, 17 "SÓ UMA"`
+**Linha CHIP ADV:** `Tom: direto · Efeitos: 04 carimbo no hook, 07 com as modalidades, 17 "SÓ UMA"`
 
 ---
 
@@ -344,7 +344,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CF, art. 5º, LXIII; CPP, art. 186, parágrafo único.
 
-**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 15 Vertigem no hook, 08 mural com o artigo, 17 "É UM DIREITO"`
+**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 05 zoom de impacto no hook, 04 carimbo com o artigo, 17 "É UM DIREITO"`
 
 ### CR2 · Audiência de custódia
 **Hook:** "Uma pessoa foi presa em flagrante. O que acontece em 24 horas?"
@@ -366,7 +366,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CF, art. 5º, LVII; CPP, arts. 4º e seguintes.
 
-**Linha CHIP ADV:** `Tom: didático · Efeitos: 10 linha do tempo (BO → inquérito → processo), 09 corte no zoom entre etapas`
+**Linha CHIP ADV:** `Tom: didático · Efeitos: 07 checklist (BO → inquérito → processo), 09 corte no zoom entre etapas`
 
 ### CR4 · Medida protetiva
 **Hook:** "Medida protetiva precisa de processo aberto? Não precisa."
@@ -403,7 +403,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CTN, art. 138; Lei 9.430/1996, arts. 44 e 61.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "MALHA FINA", 10 gráfico (mora × 75%), 11 Revelação com o e-CAC`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "MALHA FINA", 02 comparação (mora × 75%), 11 bastidor com o e-CAC`
 
 ### TR2 · Isenção de IR por doença grave
 **Hook:** "Aposentado com doença grave pode não pagar imposto de renda."
@@ -414,7 +414,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 7.713/1988, art. 6º, XIV; Súmulas 598 e 627 do STJ.
 
-**Linha CHIP ADV:** `Tom: acolhedor · Efeitos: 17 "ISENÇÃO", 07 com exemplos de doenças, 08 mural com as súmulas`
+**Linha CHIP ADV:** `Tom: acolhedor · Efeitos: 17 "ISENÇÃO", 07 com exemplos de doenças, 04 carimbo com as súmulas`
 
 ### TR3 · Dívida tributária prescreve
 **Hook:** "Dívida com o Fisco dura para sempre? Não."
@@ -425,7 +425,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CTN, art. 174.
 
-**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 15 Vertigem no hook, 10 linha do tempo de 5 anos`
+**Linha CHIP ADV:** `Tom: explicativo · Efeitos: 05 zoom de impacto no hook, 10 relógio de 5 anos`
 
 ### TR4 · Imposto na herança
 **Hook:** "Recebeu herança? Tem imposto, e ele muda de estado para estado."
@@ -436,7 +436,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CF, art. 155, I, e § 6º, I (EC 132/2023); Resolução do Senado 9/1992.
 
-**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 16 capa "HERANÇA", 10 gráfico com o teto de 8%`
+**Linha CHIP ADV:** `Tom: sóbrio · Efeitos: 16 capa "HERANÇA", 04 carimbo "TETO DE 8%"`
 
 ### TR5 · Pagou imposto a mais
 **Hook:** "Pagou imposto a mais? Dá para pedir de volta."
@@ -462,7 +462,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 9.279/1996, art. 129.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: tela dividida (Junta × INPI), 17 "MARCA"`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 02 comparação (Junta × INPI), 17 "MARCA"`
 
 ### E2 · Sócios sem acordo
 **Hook:** "Abriu empresa com um amigo? O contrato social não resolve tudo."
@@ -473,7 +473,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CC, arts. 1.053 e 1.057.
 
-**Linha CHIP ADV:** `Tom: conversa · Efeitos: 07 checklist dos temas, 13 recorte de papel com o "contrato"`
+**Linha CHIP ADV:** `Tom: conversa · Efeitos: 07 checklist dos temas, 14 rabisco circulando o "contrato"`
 
 ### E3 · LTDA protege o patrimônio?
 **Hook:** "Ter LTDA protege 100% os seus bens pessoais? Nem sempre."
@@ -484,7 +484,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** CC, arts. 50 e 1.052.
 
-**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "NEM SEMPRE", 07 com os cuidados, 04 saindo da tela no "confusão patrimonial"`
+**Linha CHIP ADV:** `Tom: alerta · Efeitos: 05 com "NEM SEMPRE", 07 com os cuidados, 04 carimbo no "confusão patrimonial"`
 
 ### E4 · Pequena empresa e LGPD
 **Hook:** "A LGPD vale para empresa pequena? Vale."
@@ -495,7 +495,7 @@ Cada roteiro tem cerca de 30 a 45 segundos de fala.
 
 **Base legal:** Lei 13.709/2018; Resolução CD/ANPD 2/2022.
 
-**Linha CHIP ADV:** `Tom: prático · Efeitos: 11 Revelação com uma planilha de clientes, 07 com o básico`
+**Linha CHIP ADV:** `Tom: prático · Efeitos: 11 bastidor com uma planilha de clientes, 07 com o básico`
 
 ### E5 · Empresa de um sócio só
 **Hook:** "Dá para ter uma LTDA sem sócio? Dá."

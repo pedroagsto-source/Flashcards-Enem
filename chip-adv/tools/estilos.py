@@ -62,10 +62,10 @@ ESTILOS = [
          trilha="Pop/funk instrumental, 110–125 BPM", frase="Seu direito em 30 segundos."),
 ]
 
-EFEITOS = {"01": "Órbita", "02": "Parede de posts", "03": "Dentro do app", "04": "Saindo da tela", "05": "Zoom digital",
-           "06": "Mockup de celular", "07": "Checklist", "08": "Mural de manchete", "09": "Corte no zoom", "10": "Gráfico subindo",
-           "11": "Revelação", "12": "Chroma key", "13": "Recorte de papel", "14": "Rabisco vivo", "15": "Vertigem",
-           "16": "Capa de revista", "17": "Letra de vidro"}
+EFEITOS = {"01": "Troca de cenário", "02": "Comparação lado a lado", "03": "Janela da IA", "04": "Carimbo de impacto", "05": "Zoom de impacto",
+           "06": "Celular com o resultado", "07": "Checklist", "08": "Mágica", "09": "Corte no zoom", "10": "Relógio de horas",
+           "11": "Bastidor do editor", "12": "Recorte + botão", "13": "Tela dividida animada", "14": "Rabisco vivo", "15": "Antes e depois",
+           "16": "Capa de revista", "17": "Palavra de vidro"}
 
 def fx(lst): return ", ".join(f"{n} {EFEITOS[n]}" for n in lst)
 

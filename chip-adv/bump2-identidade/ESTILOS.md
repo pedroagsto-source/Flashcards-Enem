@@ -14,8 +14,8 @@ fonte_titulo: "Cormorant Garamond"  # peso 700
 fonte_texto: "Inter"  # peso 800
 legenda: "Branca, caixa normal; palavra-chave em dourado, sem fundo"
 ritmo: "Calmo: cortes a cada 3–4 s, punch-in leve (1,04)"
-efeitos: [16, 07, 17, 11]  # 16 Capa de revista, 07 Checklist, 17 Letra de vidro, 11 Revelação
-evitar: [13, 14, 04, 02]  # 13 Recorte de papel, 14 Rabisco vivo, 04 Saindo da tela, 02 Parede de posts
+efeitos: [16, 07, 17, 11]  # 16 Capa de revista, 07 Checklist, 17 Palavra de vidro, 11 Bastidor do editor
+evitar: [13, 14, 04, 02]  # 13 Tela dividida animada, 14 Rabisco vivo, 04 Carimbo de impacto, 02 Comparação lado a lado
 trilha: "Piano e cordas, andamento lento"
 frase_final_sugerida: "Seus direitos, com clareza."
 ```
@@ -30,8 +30,8 @@ fonte_titulo: "Playfair Display"  # peso 900
 fonte_texto: "Inter"  # peso 800
 legenda: "Branca; palavra-chave com fundo vermelho"
 ritmo: "Médio: cortes a cada 2–3 s"
-efeitos: [16, 08, 17, 09]  # 16 Capa de revista, 08 Mural de manchete, 17 Letra de vidro, 09 Corte no zoom
-evitar: [13, 14]  # 13 Recorte de papel, 14 Rabisco vivo
+efeitos: [16, 08, 17, 09]  # 16 Capa de revista, 08 Mágica, 17 Palavra de vidro, 09 Corte no zoom
+evitar: [13, 14]  # 13 Tela dividida animada, 14 Rabisco vivo
 trilha: "Batida discreta, estilo telejornal"
 frase_final_sugerida: "O que mudou, explicado."
 ```
@@ -46,8 +46,8 @@ fonte_titulo: "Montserrat"  # peso 900
 fonte_texto: "Montserrat"  # peso 800
 legenda: "Caixa alta; palavra-chave com fundo azul"
 ritmo: "Ágil: cortes a cada 2 s, punch-in 1,08"
-efeitos: [05, 09, 11, 10]  # 05 Zoom digital, 09 Corte no zoom, 11 Revelação, 10 Gráfico subindo
-evitar: [13, 14]  # 13 Recorte de papel, 14 Rabisco vivo
+efeitos: [05, 09, 11, 10]  # 05 Zoom de impacto, 09 Corte no zoom, 11 Bastidor do editor, 10 Relógio de horas
+evitar: [13, 14]  # 13 Tela dividida animada, 14 Rabisco vivo
 trilha: "Eletrônica leve, 100–110 BPM"
 frase_final_sugerida: "Direito para quem empreende."
 ```
@@ -63,7 +63,7 @@ fonte_texto: "Manrope"  # peso 800
 legenda: "Caixa normal; palavra-chave sublinhada"
 ritmo: "Corte seco, sem zooms"
 efeitos: [07]  # 07 Checklist
-evitar: [04, 13, 14, 15, 02, 01]  # 04 Saindo da tela, 13 Recorte de papel, 14 Rabisco vivo, 15 Vertigem, 02 Parede de posts, 01 Órbita
+evitar: [04, 13, 14, 15, 02, 01]  # 04 Carimbo de impacto, 13 Tela dividida animada, 14 Rabisco vivo, 15 Antes e depois, 02 Comparação lado a lado, 01 Troca de cenário
 trilha: "Sem trilha ou ambiente muito baixo"
 frase_final_sugerida: "Direto ao ponto."
 ```
@@ -78,8 +78,8 @@ fonte_titulo: "Anton"  # peso 400
 fonte_texto: "Inter"  # peso 900
 legenda: "Caixa alta; palavra falada acende em limão; palavra-chave com fundo"
 ritmo: "Intenso: cortes a cada 1,5–2 s, zooms secos"
-efeitos: [05, 17, 09, 11, 16, 12]  # 05 Zoom digital, 17 Letra de vidro, 09 Corte no zoom, 11 Revelação, 16 Capa de revista, 12 Chroma key
-evitar: [13]  # 13 Recorte de papel
+efeitos: [05, 17, 09, 11, 16, 12]  # 05 Zoom de impacto, 17 Palavra de vidro, 09 Corte no zoom, 11 Bastidor do editor, 16 Capa de revista, 12 Recorte + botão
+evitar: [13]  # 13 Tela dividida animada
 trilha: "Batida marcada, 100–120 BPM"
 frase_final_sugerida: "Você grava. A IA edita."
 ```
@@ -94,8 +94,8 @@ fonte_titulo: "DM Serif Display"  # peso 400
 fonte_texto: "Inter"  # peso 800
 legenda: "Branca; palavra-chave em cobre"
 ritmo: "Calmo: cortes a cada 3 s"
-efeitos: [07, 10, 16, 11]  # 07 Checklist, 10 Gráfico subindo, 16 Capa de revista, 11 Revelação
-evitar: [13, 14, 04]  # 13 Recorte de papel, 14 Rabisco vivo, 04 Saindo da tela
+efeitos: [07, 10, 16, 11]  # 07 Checklist, 10 Relógio de horas, 16 Capa de revista, 11 Bastidor do editor
+evitar: [13, 14, 04]  # 13 Tela dividida animada, 14 Rabisco vivo, 04 Carimbo de impacto
 trilha: "Orquestral suave"
 frase_final_sugerida: "Tradição e orientação jurídica."
 ```
@@ -110,8 +110,8 @@ fonte_titulo: "Fraunces"  # peso 800
 fonte_texto: "Manrope"  # peso 800
 legenda: "Caixa normal; palavra-chave em rosa antigo"
 ritmo: "Calmo: cortes a cada 3–4 s, sem tremidas"
-efeitos: [07, 14, 13, 17]  # 07 Checklist, 14 Rabisco vivo, 13 Recorte de papel, 17 Letra de vidro
-evitar: [05, 04, 15, 09]  # 05 Zoom digital, 04 Saindo da tela, 15 Vertigem, 09 Corte no zoom
+efeitos: [07, 14, 13, 17]  # 07 Checklist, 14 Rabisco vivo, 13 Tela dividida animada, 17 Palavra de vidro
+evitar: [05, 04, 15, 09]  # 05 Zoom de impacto, 04 Carimbo de impacto, 15 Antes e depois, 09 Corte no zoom
 trilha: "Violão acústico ou piano suave"
 frase_final_sugerida: "Do seu lado, com cuidado."
 ```
@@ -126,7 +126,7 @@ fonte_titulo: "Bebas Neue"  # peso 400
 fonte_texto: "Montserrat"  # peso 900
 legenda: "Caixa alta; palavra-chave com fundo amarelo, pulando"
 ritmo: "Rápido: cortes a cada 1,5 s, zooms e tremidas"
-efeitos: [05, 04, 02, 13, 09]  # 05 Zoom digital, 04 Saindo da tela, 02 Parede de posts, 13 Recorte de papel, 09 Corte no zoom
+efeitos: [05, 04, 02, 13, 09]  # 05 Zoom de impacto, 04 Carimbo de impacto, 02 Comparação lado a lado, 13 Tela dividida animada, 09 Corte no zoom
 evitar: [16]  # 16 Capa de revista
 trilha: "Pop/funk instrumental, 110–125 BPM"
 frase_final_sugerida: "Seu direito em 30 segundos."

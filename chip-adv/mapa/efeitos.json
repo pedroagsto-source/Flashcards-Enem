@@ -1,0 +1,87 @@
+[
+ {
+  "id": "01",
+  "pt": "Troca de cenário",
+  "es": "Cambio de escenario"
+ },
+ {
+  "id": "02",
+  "pt": "Comparação lado a lado",
+  "es": "Comparación lado a lado"
+ },
+ {
+  "id": "03",
+  "pt": "Janela da IA",
+  "es": "Ventana de la IA"
+ },
+ {
+  "id": "04",
+  "pt": "Carimbo de impacto",
+  "es": "Sello de impacto"
+ },
+ {
+  "id": "05",
+  "pt": "Zoom de impacto",
+  "es": "Zoom de impacto"
+ },
+ {
+  "id": "06",
+  "pt": "Celular com o resultado",
+  "es": "Celular con el resultado"
+ },
+ {
+  "id": "07",
+  "pt": "Checklist no tempo da fala",
+  "es": "Checklist al ritmo de la voz"
+ },
+ {
+  "id": "08",
+  "pt": "Mágica",
+  "es": "Magia"
+ },
+ {
+  "id": "09",
+  "pt": "Corte no zoom",
+  "es": "Corte con zoom"
+ },
+ {
+  "id": "10",
+  "pt": "Relógio de horas",
+  "es": "Reloj de horas"
+ },
+ {
+  "id": "11",
+  "pt": "Bastidor do editor",
+  "es": "Detrás de cámaras del editor"
+ },
+ {
+  "id": "12",
+  "pt": "Recorte + botão",
+  "es": "Recorte + botón"
+ },
+ {
+  "id": "13",
+  "pt": "Tela dividida animada",
+  "es": "Pantalla dividida animada"
+ },
+ {
+  "id": "14",
+  "pt": "Rabisco vivo",
+  "es": "Garabato vivo"
+ },
+ {
+  "id": "15",
+  "pt": "Antes e depois",
+  "es": "Antes y después"
+ },
+ {
+  "id": "16",
+  "pt": "Capa de revista",
+  "es": "Portada de revista"
+ },
+ {
+  "id": "17",
+  "pt": "Palavra de vidro",
+  "es": "Palabra de vidrio"
+ }
+]
