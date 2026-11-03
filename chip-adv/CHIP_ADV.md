@@ -96,7 +96,7 @@ Funções narrativas: **Gancho · Problema · Virada · Prova · Método/Lista �
        Captions.tsx        → legendas dinâmicas (seção 4)
        PunchIn.tsx         → zooms sutis
        Grade.tsx           → color grade global
-       effects/E01Orbita.tsx … E17LetraDeVidro.tsx
+       effects/E01TrocaCenario.tsx … E17PalavraVidro.tsx
      data/ transcript.json, edl.json, storyboard.json
    public/ clip01.mp4, cutout/, prints/, sfx/, music/
    ```
@@ -157,7 +157,7 @@ export const brand = {
 - A **palavra falada no instante** ganha a cor `accent` + escala 1.08 com spring.
 - **1 palavra-chave por frase** (número, verbo forte, promessa) ganha destaque extra: fundo `accent` com texto escuro, cantos 14 px.
 - Posição: ~62% da altura. Quando um efeito ocupar essa região, suba ou desça a legenda — **nunca sobreponha texto com texto**.
-- Durante efeitos que já têm texto grande (05, 15, 16, 17), esconda a legenda.
+- Durante efeitos que já têm texto grande (04, 05, 08, 16, 17), esconda a legenda.
 
 ---
 

@@ -77,7 +77,7 @@
   /* ---------- 4. Hero: nome do efeito no tempo do vídeo ---------- */
   (function () {
     var v = $('[data-hero] video'), leg = $('[data-hero-leg]'), barra = $('[data-hero-barra]'), som = $('[data-hero-som]'); if (!v) return;
-    var cortes = [[0, 'Zoom digital'], [4.47, 'Letra de vidro'], [7.27, 'Antes e depois'], [11.9, 'Corte no zoom'], [12.7, 'Revelação'],
+    var cortes = [[0, 'Zoom de impacto'], [4.47, 'Palavra de vidro'], [7.27, 'Antes e depois'], [11.9, 'Corte no zoom'], [12.7, 'Bastidor do editor'],
       [15.77, 'Mapa na tela'], [17.7, 'Checklist'], [25.53, 'Legenda viva'], [27.9, 'Comandos na tela'], [33.27, 'Capa de revista'], [36.03, 'Recorte + botão']];
     v.addEventListener('timeupdate', function () {
       var t = v.currentTime, n = cortes[0][1]; cortes.forEach(function (c) { if (t >= c[0]) n = c[1]; });
@@ -213,8 +213,8 @@
   (function () {
     var fila = $('[data-es-fila]'); if (!fila) return;
     var E = [
-      ['e05', 'Gancho', 'Zoom digital', 'Abre com um gancho forte'],
-      ['e17', 'Palavra de impacto', 'Letra de vidro', 'Põe a frase forte atrás de mim'],
+      ['e05', 'Gancho', 'Zoom de impacto', 'Abre com um gancho forte'],
+      ['e17', 'Frase de impacto', 'Palavra de vidro', 'Põe a frase forte em vidro atrás de mim'],
       ['antes', 'Antes e depois', 'Gravação crua, depois a virada', 'Mostra o antes e o depois'],
       ['e11', 'Bastidor', 'O vídeo vira um editor', 'Mostra a edição acontecendo'],
       ['e07', 'Lista', 'Checklist no tempo da fala', 'Faz um checklist do que eu falar'],
@@ -313,7 +313,7 @@
   (function () {
     var box = $('[data-au]'); if (!box) return;
     var cs = $$('.au-c', box), leg = $('[data-au-leg]'), pts = $('[data-au-pts]'), at = 0;
-    var nomes = [null, 'Zoom digital', 'Letra de vidro', 'Capa de revista'];
+    var nomes = [null, 'Zoom de impacto', 'Palavra de vidro', 'Capa de revista'];
     pts.innerHTML = cs.map(function () { return '<i></i>'; }).join(''); var ps = $$('i', pts);
     function vai(i) {
       at = (i + cs.length) % cs.length;
