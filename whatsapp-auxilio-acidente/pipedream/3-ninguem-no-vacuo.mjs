@@ -58,7 +58,7 @@ export default defineComponent({
     const tempo = (m) => (m < 120 ? `${Math.round(m)} min` : `${Math.round(m / 60)} h`);
     const linhas = atrasados.map((a) =>
       `${a.prio === "Urgente" ? "🔴" : a.prio === "Alta" ? "🟠" : "⚪"} ${a.nome} — esperando há ${tempo(a.min)}` +
-      (a.fechando ? " ⏳ JANELA DE 24h FECHANDO" : a.expirada ? " (passou de 24h: usar modelo)" : "") +
+      (a.fechando ? " ⏳ JANELA DE 24h FECHANDO" : a.expirada ? " (passou de 24h: responder pelo celular)" : "") +
       `\n   “${a.msg}”\n   Responder: ${a.link}`);
 
     await $.send.email({

@@ -13,7 +13,8 @@
 //   META_WA_TOKEN         token permanente do System User (Meta Business)
 //   META_PHONE_NUMBER_ID  ID do número na API do WhatsApp
 //   SEND_SECRET           o mesmo do workflow 1
-//   TEMPLATE_RETOMADA     nome do modelo aprovado p/ fora da janela de 24h (ex.: retomar_contato)
+//
+// Fora da janela de 24h não envia nada: quem responde é você, pelo celular.
 // ============================================================================
 import crypto from "crypto";
 
@@ -48,10 +49,8 @@ export default defineComponent({
       const aviso = status === "Enviado" ? `<p class="warn">⚠️ Este rascunho já foi enviado.</p>` : "";
       if (!janelaAberta) {
         return html(200, `<h2>${esc(nome)}</h2>
-          <p class="warn">⏳ Já passaram 24h desde a última mensagem dessa pessoa. Pelas regras da Meta, só dá pra mandar um <b>modelo aprovado</b>.
-          Quando a pessoa responder, a conversa reabre e o rascunho volta a valer.</p>
-          <form method="POST">${hidden(pageId, sig)}<input type="hidden" name="acao" value="template">
-          <button>Enviar modelo de retomada</button></form>`);
+          <p class="warn">⏳ Já passaram 24h desde a última mensagem dessa pessoa. A resposta automática não vale mais:
+          responda você mesmo pelo WhatsApp no celular.</p>`);
       }
       return html(200, `<h2>${esc(nome)}</h2>${aviso}
         <p class="muted">Última mensagem: “${esc(ultimaMsg)}”</p>
@@ -69,18 +68,11 @@ export default defineComponent({
       return html(200, "<h2>Rascunho descartado</h2>");
     }
 
-    let payload, log;
-    if (form.acao === "template") {
-      payload = { type: "template", template: { name: process.env.TEMPLATE_RETOMADA, language: { code: "pt_BR" },
-        components: [{ type: "body", parameters: [{ type: "text", text: nome.split(" ")[0] }] }] } };
-      log = `📤 (modelo ${process.env.TEMPLATE_RETOMADA})`;
-    } else {
-      if (!janelaAberta) return html(400, "<h2>Janela de 24h fechada</h2><p>Use o modelo de retomada.</p>");
-      const texto = (form.texto || "").trim();
-      if (!texto) return html(400, "<h2>Texto vazio</h2>");
-      payload = { type: "text", text: { body: texto, preview_url: false } };
-      log = `📤 ${texto}`;
-    }
+    if (!janelaAberta) return html(400, "<h2>Janela de 24h fechada</h2><p>Responda pelo celular.</p>");
+    const texto = (form.texto || "").trim();
+    if (!texto) return html(400, "<h2>Texto vazio</h2>");
+    const payload = { type: "text", text: { body: texto, preview_url: false } };
+    const log = `📤 ${texto}`;
 
     const r = await fetch(`${GRAPH}/${process.env.META_PHONE_NUMBER_ID}/messages`, {
       method: "POST",
@@ -97,7 +89,7 @@ export default defineComponent({
       "Status rascunho": { select: { name: "Enviado" } },
       "Aguardando resposta": { checkbox: false },
       "Última resposta enviada": { date: { start: agora } },
-      ...(form.acao === "texto" ? { Rascunho: rt(form.texto) } : {}),
+      Rascunho: rt(texto),
     });
     const quando = new Date().toLocaleString("pt-BR", { timeZone: TZ, dateStyle: "short", timeStyle: "short" });
     await notion(token, "PATCH", `blocks/${pageId}/children`, {

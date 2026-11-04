@@ -26,7 +26,7 @@ No Notion: abra o banco → `•••` → **Conexões** → adicione **Pipedre
 1. No celular, o número precisa estar no app **WhatsApp Business**. Se hoje é WhatsApp normal, use *Configurações → Conta → Mudar para conta comercial*; as conversas são mantidas.
 2. No Meta Business da **Cortes Virais** (ou numa conta própria do escritório), crie a conta WhatsApp Business pelo **Embedded Signup** e escolha **"Conectar um app WhatsApp Business existente"**. Escaneie o QR code pelo app e escolha compartilhar o histórico.
 3. Atribua a conta WhatsApp e o número ao usuário do sistema **claude-api**, com controle total. Gere um **token permanente** com `whatsapp_business_messaging` e `whatsapp_business_management`.
-4. Me avise: daqui eu confirmo o número, pego o `PHONE_NUMBER_ID` e envio o modelo de retomada para aprovação.
+4. Me avise: daqui eu confirmo o número, pego o `PHONE_NUMBER_ID` e deixo os webhooks prontos.
 
 > Abra o app WhatsApp Business no celular com frequência: a coexistence depende do app ativo.
 
@@ -52,7 +52,6 @@ Em cada passo, conecte as contas pedidas (**Notion**, e **Anthropic** no workflo
 | `WEBHOOK_KEY` | texto aleatório |
 | `SEND_SECRET` | texto aleatório longo |
 | `SEND_URL` | URL do gatilho do workflow 2 |
-| `TEMPLATE_RETOMADA` | `retomar_contato` |
 
 ## Passo 3 — Webhook na Meta
 App da Meta → WhatsApp → Configuração → Webhook:
@@ -60,8 +59,8 @@ App da Meta → WhatsApp → Configuração → Webhook:
 - **Token de verificação:** o mesmo `WEBHOOK_VERIFY_TOKEN`
 - Assinar os campos **messages** e **smb_message_echoes**. O segundo detecta quando você respondeu pelo celular.
 
-## Modelo para depois de 24h (`retomar_contato`, categoria Utilidade, pt_BR)
-> Oi, {{1}}! Aqui é do escritório BH Advocacia. Nossa conversa ficou parada e quero dar sequência ao seu atendimento. Pode me responder por aqui quando puder?
+## Janela de 24h
+A IA só responde quem escreveu nas últimas 24h (regra da Meta para mensagem livre). Passou disso, o contato aparece em ⏰ No vácuo e no e-mail de alerta como "responder pelo celular": quem responde é você.
 
 ## Regras que a IA segue
 Ficam em `SYSTEM_PROMPT`, no workflow 1:
