@@ -287,11 +287,9 @@ async function draftReply(apiKey, page, historico) {
   };
   const agora = new Date().toLocaleString("pt-BR", { timeZone: TZ });
 
-  const res = await client.beta.messages.create({
-    model: "claude-opus-5-5",
+  const res = await client.messages.create({
+    model: "claude-haiku-5-5",
     max_tokens: 4000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
     output_config: { effort: "low", format: { type: "json_schema", schema: SCHEMA } },
     system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
     messages: [{
