@@ -300,7 +300,16 @@ function textOf(m) {
   switch (m.type) {
     case "text": return m.text.body;
     case "button": return m.button.text;
-    case "interactive": return m.interactive?.button_reply?.title || m.interactive?.list_reply?.title || "[interação]";
+    case "interactive": {
+      const i = m.interactive || {};
+      // Resposta do formulário (WhatsApp Flow) que abre pelo anúncio
+      if (i.type === "nfm_reply") {
+        let campos = i.nfm_reply?.response_json || "{}";
+        try { campos = Object.entries(JSON.parse(campos)).filter(([k]) => k !== "flow_token").map(([k, v]) => `${k}: ${v}`).join("; "); } catch {}
+        return `[formulário] ${campos}`;
+      }
+      return i.button_reply?.title || i.list_reply?.title || "[interação]";
+    }
     case "image": return "[imagem]" + (m.image?.caption ? " " + m.image.caption : "");
     case "document": return `[documento: ${m.document?.filename || "arquivo"}]` + (m.document?.caption ? " " + m.document.caption : "");
     case "audio": return "[áudio — ouvir no celular]";
