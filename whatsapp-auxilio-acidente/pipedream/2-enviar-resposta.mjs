@@ -77,7 +77,7 @@ export default defineComponent({
     const r = await fetch(`${GRAPH}/${process.env.META_PHONE_NUMBER_ID}/messages`, {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.META_WA_TOKEN}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ messaging_product: "whatsapp", recipient_type: "individual", to: waId, ...payload }),
+      body: JSON.stringify({ messaging_product: "whatsapp", recipient_type: "individual", to: toBR(waId), ...payload }),
     });
     const j = await r.json();
     if (!r.ok) {
@@ -131,3 +131,10 @@ textarea{width:100%;box-sizing:border-box;font:inherit;padding:10px;border:1px s
 button{margin-top:10px;width:100%;padding:12px;font:inherit;font-weight:600;border:0;border-radius:8px;background:#1a7f37;color:#fff}
 button.sec{background:#eee;color:#333}.muted{color:#666}.warn{background:#fff8c5;padding:10px;border-radius:8px}
 pre{white-space:pre-wrap;background:#f6f8fa;padding:10px;border-radius:8px}</style></head><body>${inner}</body></html>`;
+
+// Celular brasileiro: a Meta devolve o wa_id sem o 9 (55 + DDD + 8 dígitos).
+// Para enviar, recoloca o 9 — é o formato que a lista de destinatários aceita.
+function toBR(n) {
+  n = String(n).replace(/\D/g, "");
+  return /^55\d{2}[6-9]\d{7}$/.test(n) ? n.slice(0, 4) + "9" + n.slice(4) : n;
+}

@@ -243,10 +243,17 @@ async function graph(body) {
   if (!r.ok) throw new Error(`WhatsApp ${r.status}: ${j.error?.message}`);
   return j;
 }
-const sendText = (to, body) => graph({ recipient_type: "individual", to, type: "text", text: { body, preview_url: false } });
+const sendText = (to, body) => graph({ recipient_type: "individual", to: toBR(to), type: "text", text: { body, preview_url: false } });
 // Marca como lida e mostra "digitando..." enquanto a IA prepara a resposta
 async function markReadTyping(messageId) {
   try { await graph({ status: "read", message_id: messageId, typing_indicator: { type: "text" } }); } catch {}
+}
+
+// Celular brasileiro: a Meta devolve o wa_id sem o 9 (55 + DDD + 8 dígitos).
+// Para enviar, recoloca o 9 — é o formato que a lista de destinatários aceita.
+function toBR(n) {
+  n = String(n).replace(/\D/g, "");
+  return /^55\d{2}[6-9]\d{7}$/.test(n) ? n.slice(0, 4) + "9" + n.slice(4) : n;
 }
 
 // ============================== IA ==========================================

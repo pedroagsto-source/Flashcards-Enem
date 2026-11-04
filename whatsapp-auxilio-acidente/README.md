@@ -46,6 +46,7 @@ Em cada passo, conecte as contas pedidas (**Notion**, e **Anthropic** no workflo
 | Nome | Valor |
 |---|---|
 | `NOTION_DB_ID` | `88463c2bebb24b8d8dc80380600cb9be` |
+| (teste) `META_PHONE_NUMBER_ID` | `1450312318158580` — número de teste +1 555 158-6606 |
 | `META_WA_TOKEN` | token permanente do passo 1 |
 | `META_PHONE_NUMBER_ID` | ID do número (eu te passo) |
 | `WEBHOOK_VERIFY_TOKEN` | qualquer texto, ex.: `bh-aux-acidente` |
