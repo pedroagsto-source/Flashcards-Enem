@@ -18,6 +18,20 @@
 import crypto from "crypto";
 import Anthropic from "@anthropic-ai/sdk";
 
+// ----------------------------------------------------------------------------
+// ⚙️ CONFIGURAÇÃO — se existir variável de ambiente com o mesmo nome, ela vale.
+// ----------------------------------------------------------------------------
+const CFG = {
+  META_PHONE_NUMBER_ID: "1450312318158580", // número de teste +1 555 158-6606
+  META_WA_TOKEN: "COLE_AQUI_O_TOKEN_DA_META", // começa com EAA... (Meta → Usuários do sistema → claude-api)
+  NOTION_DB_ID: "88463c2bebb24b8d8dc80380600cb9be",
+  WEBHOOK_VERIFY_TOKEN: "__WEBHOOK_VERIFY_TOKEN__",
+  WEBHOOK_KEY: "__WEBHOOK_KEY__",
+  SEND_SECRET: "__SEND_SECRET__",
+  SEND_URL: "https://exemplo.com", // troque pela URL do workflow 2 quando criar
+};
+for (const k of Object.keys(CFG)) if (process.env[k]) CFG[k] = process.env[k];
+
 const NOTION_VERSION = "2022-06-28";
 const TZ = "America/Sao_Paulo";
 // Envio automático ligado. Para voltar ao modo "aprovar antes", troque para false.
@@ -119,14 +133,14 @@ export default defineComponent({
 
     // 1) Verificação do webhook (a Meta chama com GET uma vez)
     if (ev.method === "GET") {
-      const ok = q["hub.mode"] === "subscribe" && q["hub.verify_token"] === process.env.WEBHOOK_VERIFY_TOKEN;
+      const ok = q["hub.mode"] === "subscribe" && q["hub.verify_token"] === CFG.WEBHOOK_VERIFY_TOKEN;
       await $.respond({ status: ok ? 200 : 403, body: ok ? q["hub.challenge"] : "forbidden" });
       return $.flow.exit("verificação");
     }
 
     // 2) Responde 200 logo, senão a Meta reenvia o evento
     await $.respond({ status: 200, body: "ok" });
-    if (q.k !== process.env.WEBHOOK_KEY) return $.flow.exit("chave inválida");
+    if (q.k !== CFG.WEBHOOK_KEY) return $.flow.exit("chave inválida");
 
     const notionToken = this.notion.$auth.oauth_access_token;
     const results = [];
@@ -234,9 +248,9 @@ export default defineComponent({
 
 // ============================ WHATSAPP ======================================
 async function graph(body) {
-  const r = await fetch(`https://graph.facebook.com/v21.0/${process.env.META_PHONE_NUMBER_ID}/messages`, {
+  const r = await fetch(`https://graph.facebook.com/v21.0/${CFG.META_PHONE_NUMBER_ID}/messages`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${process.env.META_WA_TOKEN}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${CFG.META_WA_TOKEN}`, "Content-Type": "application/json" },
     body: JSON.stringify({ messaging_product: "whatsapp", ...body }),
   });
   const j = await r.json();
@@ -319,7 +333,7 @@ async function notion(token, method, path, body) {
 }
 
 async function findContact(token, waId) {
-  const r = await notion(token, "POST", `databases/${process.env.NOTION_DB_ID}/query`, {
+  const r = await notion(token, "POST", `databases/${CFG.NOTION_DB_ID}/query`, {
     filter: { property: "WhatsApp", phone_number: { equals: waId } },
     page_size: 1,
   });
@@ -328,7 +342,7 @@ async function findContact(token, waId) {
 
 async function createContact(token, waId, nome, origem) {
   return notion(token, "POST", "pages", {
-    parent: { database_id: process.env.NOTION_DB_ID },
+    parent: { database_id: CFG.NOTION_DB_ID },
     properties: {
       Nome: { title: [{ text: { content: nome } }] },
       WhatsApp: { phone_number: waId },
@@ -388,6 +402,6 @@ const isoFromTs = (ts) => new Date(Number(ts) * 1000).toISOString();
 const fmt = (ts) => new Date(Number(ts) * 1000).toLocaleString("pt-BR", { timeZone: TZ, dateStyle: "short", timeStyle: "short" });
 
 function sendLink(pageId) {
-  const sig = crypto.createHmac("sha256", process.env.SEND_SECRET).update(pageId).digest("hex").slice(0, 32);
-  return `${process.env.SEND_URL}?page=${pageId}&sig=${sig}`;
+  const sig = crypto.createHmac("sha256", CFG.SEND_SECRET).update(pageId).digest("hex").slice(0, 32);
+  return `${CFG.SEND_URL}?page=${pageId}&sig=${sig}`;
 }

@@ -18,6 +18,16 @@
 // ============================================================================
 import crypto from "crypto";
 
+// ----------------------------------------------------------------------------
+// ⚙️ CONFIGURAÇÃO — se existir variável de ambiente com o mesmo nome, ela vale.
+// ----------------------------------------------------------------------------
+const CFG = {
+  META_PHONE_NUMBER_ID: "1450312318158580", // número de teste +1 555 158-6606
+  META_WA_TOKEN: "COLE_AQUI_O_TOKEN_DA_META", // começa com EAA... (Meta → Usuários do sistema → claude-api)
+  SEND_SECRET: "__SEND_SECRET__",
+};
+for (const k of Object.keys(CFG)) if (process.env[k]) CFG[k] = process.env[k];
+
 const GRAPH = "https://graph.facebook.com/v21.0";
 const NOTION_VERSION = "2022-06-28";
 const TZ = "America/Sao_Paulo";
@@ -74,9 +84,9 @@ export default defineComponent({
     const payload = { type: "text", text: { body: texto, preview_url: false } };
     const log = `📤 ${texto}`;
 
-    const r = await fetch(`${GRAPH}/${process.env.META_PHONE_NUMBER_ID}/messages`, {
+    const r = await fetch(`${GRAPH}/${CFG.META_PHONE_NUMBER_ID}/messages`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${process.env.META_WA_TOKEN}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${CFG.META_WA_TOKEN}`, "Content-Type": "application/json" },
       body: JSON.stringify({ messaging_product: "whatsapp", recipient_type: "individual", to: toBR(waId), ...payload }),
     });
     const j = await r.json();
@@ -113,7 +123,7 @@ async function notion(token, method, path, body) {
 const updatePage = (t, id, properties) => notion(t, "PATCH", `pages/${id}`, { properties });
 const plain = (arr) => (arr || []).map((x) => x.plain_text).join("");
 const rt = (s) => ({ rich_text: [{ type: "text", text: { content: String(s || "").slice(0, 1990) } }] });
-const sign = (id) => crypto.createHmac("sha256", process.env.SEND_SECRET).update(id).digest("hex").slice(0, 32);
+const sign = (id) => crypto.createHmac("sha256", CFG.SEND_SECRET).update(id).digest("hex").slice(0, 32);
 const safeEq = (a, b) => typeof a === "string" && a.length === b.length && crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const hidden = (page, sig) => `<input type="hidden" name="page" value="${esc(page)}"><input type="hidden" name="sig" value="${esc(sig)}">`;

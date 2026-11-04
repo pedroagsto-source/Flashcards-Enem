@@ -9,6 +9,9 @@
 //
 // Variáveis de ambiente: NOTION_DB_ID
 // ============================================================================
+const CFG = { NOTION_DB_ID: "88463c2bebb24b8d8dc80380600cb9be" };
+for (const k of Object.keys(CFG)) if (process.env[k]) CFG[k] = process.env[k];
+
 const LIMITE_MIN = { Urgente: 30, Alta: 120, Normal: 240, Baixa: 24 * 60 };
 const JANELA_ALERTA_H = 20; // avisa quando faltar pouco para fechar a janela de 24h
 const TZ = "America/Sao_Paulo";
@@ -17,7 +20,7 @@ export default defineComponent({
   props: { notion: { type: "app", app: "notion" } },
   async run({ $ }) {
     const token = this.notion.$auth.oauth_access_token;
-    const r = await fetch(`https://api.notion.com/v1/databases/${process.env.NOTION_DB_ID}/query`, {
+    const r = await fetch(`https://api.notion.com/v1/databases/${CFG.NOTION_DB_ID}/query`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Notion-Version": "2022-06-28", "Content-Type": "application/json" },
       body: JSON.stringify({

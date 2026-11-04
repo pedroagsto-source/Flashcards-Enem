@@ -41,7 +41,7 @@ Crie 3 workflows e cole cada arquivo num passo **Node.js**:
 
 Em cada passo, conecte as contas pedidas (**Notion**, e **Anthropic** no workflow 1).
 
-**Variáveis de ambiente** (Settings → Environment Variables):
+**Configuração:** cada arquivo tem um bloco `CFG` no topo com os IDs. Os segredos ficam como `__...__`/`COLE_AQUI` no GitHub; preencha no Pipedream (ou use variáveis de ambiente com o mesmo nome, que têm prioridade):
 
 | Nome | Valor |
 |---|---|
