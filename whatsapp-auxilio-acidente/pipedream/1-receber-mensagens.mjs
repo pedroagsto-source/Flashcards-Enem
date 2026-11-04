@@ -1,5 +1,5 @@
 // ============================================================================
-// WORKFLOW 1 — RECEBER MENSAGENS (WhatsApp → Notion → rascunho da IA)
+// WORKFLOW 1 — RECEBER E RESPONDER (WhatsApp → Notion → IA → resposta automática)
 //
 // Gatilho: HTTP / Webhook  →  "HTTP Response: Return a custom response from your workflow"
 // Cole este arquivo inteiro num passo "Node.js code" logo depois do gatilho.
@@ -10,12 +10,20 @@
 //   SEND_SECRET           texto aleatório longo; assina os links de envio
 //   SEND_URL              URL do WORKFLOW 2 (ex.: https://eoxxxx.m.pipedream.net)
 //   NOTION_DB_ID          88463c2bebb24b8d8dc80380600cb9be
+//   META_WA_TOKEN         token permanente do System User
+//   META_PHONE_NUMBER_ID  ID do número na API do WhatsApp
+//
+// Settings do workflow: Timeout = 120 s (há uma espera de 20 s para juntar mensagens).
 // ============================================================================
 import crypto from "crypto";
 import Anthropic from "@anthropic-ai/sdk";
 
 const NOTION_VERSION = "2022-06-28";
 const TZ = "America/Sao_Paulo";
+// Envio automático ligado. Para voltar ao modo "aprovar antes", troque para false.
+const AUTO_SEND = true;
+// Espera antes de responder, para juntar mensagens seguidas (a pessoa vê "digitando...").
+const ESPERA_MS = 20000;
 
 // ----------------------------------------------------------------------------
 // ✏️ EDITE AQUI — quem responde e o SEU jeito de escrever.
@@ -33,7 +41,10 @@ const ESTILO = `
 `;
 
 const SYSTEM_PROMPT = `Você redige respostas de WhatsApp para ${QUEM_ASSINA}, do escritório ${ESCRITORIO}, em Belo Horizonte/MG, especializado em auxílio-acidente (INSS).
-Cada rascunho é revisado e aprovado por um humano antes de ser enviado.
+Sua resposta é enviada AUTOMATICAMENTE para a pessoa, como mensagem do escritório. Escreva como uma pessoa real da equipe: natural, sem parecer robô, sem listas longas, sem markdown (WhatsApp usa *negrito* só se precisar).
+É o primeiro contato e a pessoa veio de anúncio? Cumprimente, diga que vai entender o caso dela e faça a primeira pergunta da triagem.
+
+Quando precisa_humano = true, o "rascunho" deve ser só um acolhimento curto, dizendo que o advogado vai responder pessoalmente sobre aquele ponto ainda hoje (ou no próximo dia útil fora do horário comercial). Não responda à dúvida em si.
 
 ESTILO DE ESCRITA
 ${ESTILO}
@@ -150,34 +161,60 @@ export default defineComponent({
           let page = await findContact(notionToken, waId);
           if (!page) page = await createContact(notionToken, waId, names[waId] || `+${waId}`, m.referral ? "Anúncio" : "Desconhecido");
 
+          const msgTime = Number(m.timestamp) * 1000;
           await appendLog(notionToken, page.id, `📩 ${fmt(m.timestamp)}: ${texto}`);
+          await updatePage(notionToken, page.id, {
+            "Última msg recebida": { date: { start: isoFromTs(m.timestamp) } },
+            "Última mensagem": rt(texto),
+            "Aguardando resposta": { checkbox: true },
+          });
+          await markReadTyping(m.id);
+
+          // 3) Espera um pouco: quem manda várias mensagens seguidas recebe UMA resposta só
+          await new Promise((r) => setTimeout(r, ESPERA_MS));
+          page = await notion(notionToken, "GET", `pages/${page.id}`);
+          const ultimaIn = Date.parse(page.properties["Última msg recebida"]?.date?.start || 0);
+          const ultimaOut = Date.parse(page.properties["Última resposta enviada"]?.date?.start || 0);
+          if (ultimaIn > msgTime) { results.push({ waId, pulou: "chegou mensagem mais nova" }); continue; }
+          if (ultimaOut > msgTime) { results.push({ waId, pulou: "você já respondeu pelo celular" }); continue; }
+
           const historico = await readLog(notionToken, page.id, 40);
 
-          // 3) IA classifica e escreve o rascunho
+          // 4) IA classifica e escreve a resposta
           let ia;
           try {
             ia = await draftReply(this.anthropic.$auth.api_key, page, historico);
           } catch (err) {
-            await updatePage(notionToken, page.id, {
-              "Aguardando resposta": { checkbox: true },
-              "Última msg recebida": { date: { start: isoFromTs(m.timestamp) } },
-              "Última mensagem": rt(texto),
-              "Status rascunho": { select: { name: "Erro" } },
-            });
+            await updatePage(notionToken, page.id, { "Status rascunho": { select: { name: "Erro" } } });
             results.push({ waId, erro: String(err) });
             continue;
           }
 
+          // 5) Envio automático (Pessoal/Fornecedor/Spam ficam para você aprovar)
+          const podeAuto = AUTO_SEND && ia.precisa_resposta && ia.rascunho.trim() &&
+            !["Pessoal", "Fornecedor", "Spam"].includes(ia.categoria);
+          let enviado = false;
+          if (podeAuto) {
+            try {
+              await sendText(waId, ia.rascunho);
+              enviado = true;
+              await appendLog(notionToken, page.id, `📤 ${fmt(Date.now() / 1000)} (automático): ${ia.rascunho}`);
+            } catch (err) {
+              results.push({ waId, erroEnvio: String(err) });
+            }
+          }
+
           const props = {
-            "Última msg recebida": { date: { start: isoFromTs(m.timestamp) } },
-            "Última mensagem": rt(texto),
-            "Aguardando resposta": { checkbox: ia.precisa_resposta || ia.precisa_humano },
+            // Se precisa de você (honorários, MEI, caso delicado), a IA já acolheu a pessoa,
+            // mas o contato continua na fila "No vácuo" até você responder.
+            "Aguardando resposta": { checkbox: enviado ? ia.precisa_humano : (ia.precisa_resposta || ia.precisa_humano) },
             Categoria: { select: { name: ia.categoria } },
             Prioridade: { select: { name: ia.prioridade } },
             Resumo: rt((ia.precisa_humano ? `⚠️ Precisa de você: ${ia.motivo_humano}\n` : "") + ia.resumo),
             Rascunho: rt(ia.rascunho),
-            "Status rascunho": { select: { name: ia.rascunho ? "Pendente aprovação" : "Descartado" } },
+            "Status rascunho": { select: { name: enviado ? "Enviado" : podeAuto ? "Erro" : ia.rascunho ? "Pendente aprovação" : "Descartado" } },
             "Enviar resposta": { url: sendLink(page.id) },
+            ...(enviado ? { "Última resposta enviada": { date: { start: new Date().toISOString() } } } : {}),
           };
           // A IA só mexe no começo do funil; daí pra frente quem move é você.
           const etapaAtual = page.properties?.Etapa?.status?.name || "Novo lead";
@@ -187,13 +224,30 @@ export default defineComponent({
           Object.assign(props, extractedProps(page, ia.extraido));
 
           await updatePage(notionToken, page.id, props);
-          results.push({ waId, categoria: ia.categoria, prioridade: ia.prioridade });
+          results.push({ waId, categoria: ia.categoria, prioridade: ia.prioridade, enviado });
         }
       }
     }
     return results;
   },
 });
+
+// ============================ WHATSAPP ======================================
+async function graph(body) {
+  const r = await fetch(`https://graph.facebook.com/v21.0/${process.env.META_PHONE_NUMBER_ID}/messages`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.META_WA_TOKEN}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ messaging_product: "whatsapp", ...body }),
+  });
+  const j = await r.json();
+  if (!r.ok) throw new Error(`WhatsApp ${r.status}: ${j.error?.message}`);
+  return j;
+}
+const sendText = (to, body) => graph({ recipient_type: "individual", to, type: "text", text: { body, preview_url: false } });
+// Marca como lida e mostra "digitando..." enquanto a IA prepara a resposta
+async function markReadTyping(messageId) {
+  try { await graph({ status: "read", message_id: messageId, typing_indicator: { type: "text" } }); } catch {}
+}
 
 // ============================== IA ==========================================
 async function draftReply(apiKey, page, historico) {
