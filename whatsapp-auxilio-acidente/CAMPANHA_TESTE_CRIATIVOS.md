@@ -77,6 +77,15 @@ CAMPANHA  CA 121 | ACIDENTE | TESTE CRIATIVOS V1 | WA 7014     Leads · CBO R$ 1
 - **Diferença 2 — idade:** **21–65** (herdada; o público Advantage+ não aceita mudar a idade depois de copiado).
 - Anúncios: AD1 `120252300963560660` · AD2 `120252300964930660` · AD3 `120252300967000660` · AD4 `120252300970300660` · AD5 `120252300971250660`.
 
+## Versão definitiva: conta CA 02 GRINGA - DIRECT RESPONSE (USD) — 06/11
+A CA 121 da TPC CA02 ficou **pausada** e foi substituída por esta, a pedido.
+- **Base:** `AA | TESTE B2 | CBO | BR-F | WHATSAPP | DUPLICACAO` (Leads, página `127789140237809`, WhatsApp Business ok): US$ 80,04 → **57 conversas a US$ 1,40**, 21 com 2ª mensagem (37%).
+- **Campanha:** `AA | TESTE CRIATIVOS V1 | CBO | 1-1-5 | BR-TODOS | WHATSAPP | 06NOV`, **PAUSADA**, CBO **US$ 18/dia** (~R$ 100).
+- **Conjunto (criado do zero, mesma página e otimização da base):** Brasil, 18–65, **todos os gêneros**, Advantage+, otimização conversas no WhatsApp.
+- **Vídeos nesta conta:** AD1 `1146481524547666` · AD2 `2982444602134147` · AD3 `1934536925043693` · AD4 `1864728534878141` · AD5 `2364715890931202`.
+- UTMs iguais às da base (`utm_source={{site_source_name}}&utm_campaign={{campaign.id}}&utm_medium={{adset.id}}&utm_content={{ad.id}}&utm_term={{placement}}`).
+- Regras de decisão em dólar: pausar com US$ 8 e 0 conversas; com US$ 15 e custo por conversa > US$ 3 (2x a base); com US$ 28 e 0 lead qualificado no Notion.
+
 ## Antes de ativar (checklist)
 - [ ] Confirmar que a página do conjunto da CA 114 é a do WhatsApp 7014 atual
 - [ ] Workflow do Pipedream no ar respondendo o 7014 (senão as conversas ficam sem resposta)
