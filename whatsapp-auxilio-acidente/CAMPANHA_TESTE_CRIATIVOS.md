@@ -61,6 +61,15 @@ CAMPANHA  CA 121 | ACIDENTE | TESTE CRIATIVOS V1 | WA 7014     Leads · CBO R$ 1
 | R$ 150 gastos | 0 lead qualificado no Notion | Pausar |
 | Fim do teste | menor **custo por lead qualificado** | Vencedor → escala + variações (Multicâmera/Push-in, outros bodies) |
 
+## Vídeos na biblioteca da conta (Drive: Auxílio-acidente · Criativos / 01 · TESTE V1)
+| Anúncio | Arquivo | Meta video id |
+|---|---|---|
+| AD 1 | premium-h2b.mp4 | 2363837334404251 |
+| AD 2 | premium-h1b.mp4 | 1962331264725146 |
+| AD 3 | premium-h3b.mp4 | 1134380995875544 |
+| AD 4 | premium-h4b.mp4 | 1426393379692469 |
+| AD 5 | nativo-h2b.mp4 | 1136020675472124 |
+
 ## Antes de ativar (checklist)
 - [ ] Confirmar que a página do conjunto da CA 114 é a do WhatsApp 7014 atual
 - [ ] Workflow do Pipedream no ar respondendo o 7014 (senão as conversas ficam sem resposta)
