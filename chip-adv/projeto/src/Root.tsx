@@ -6,6 +6,8 @@ import { MotionAd, MOTION_FRAMES, MOTION_FRAMES_ES } from './MotionAd';
 import { F1Ad, F1_FRAMES } from './f1/F1Ad';
 import { F6Anim, F6_FRAMES, F6_FRAMES_ES } from './f6/F6Anim';
 import { F7Ad, F7_FRAMES } from './f7/F7Ad';
+import { AuxAd, auxFrames } from './auxilio/AuxAd';
+import { BODY_IDS, ESTILOS, HOOK_IDS } from './auxilio/plan';
 
 const HOOKS: HookId[] = ['h2', 'h3', 'h4', 'h5'];
 
@@ -28,5 +30,10 @@ export const RemotionRoot = () => (
       <Composition key={h} id={`Ad30-${h}`} component={AdVariant} defaultProps={{ hook: h, body: 'cut30' }}
         durationInFrames={BODY_FRAMES + (h === 'h5' ? COLD : 0)} fps={30} width={1080} height={1920} />
     ))}
+    {/* Auxílio-acidente: teste criativo 4 hooks × 3 bodies × 3 estilos */}
+    {ESTILOS.flatMap((estilo) => HOOK_IDS.flatMap((hook) => BODY_IDS.map((body) => (
+      <Composition key={`${estilo}${hook}${body}`} id={`Aux-${estilo}-${hook}${body}`} component={AuxAd} defaultProps={{ hook, body, estilo }}
+        durationInFrames={auxFrames(hook, body)} fps={30} width={1080} height={1920} />
+    ))))}
   </>
 );
