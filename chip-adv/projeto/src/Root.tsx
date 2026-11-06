@@ -7,7 +7,7 @@ import { F1Ad, F1_FRAMES } from './f1/F1Ad';
 import { F6Anim, F6_FRAMES, F6_FRAMES_ES } from './f6/F6Anim';
 import { F7Ad, F7_FRAMES } from './f7/F7Ad';
 import { AuxAd, auxFrames } from './auxilio/AuxAd';
-import { BODY_IDS, ESTILOS, HOOK_IDS } from './auxilio/plan';
+import { ANGULOS, BODY_IDS, ESTILOS, HOOK_IDS } from './auxilio/plan';
 
 const HOOKS: HookId[] = ['h2', 'h3', 'h4', 'h5'];
 
@@ -35,5 +35,10 @@ export const RemotionRoot = () => (
       <Composition key={`${estilo}${hook}${body}`} id={`Aux-${estilo}-${hook}${body}`} component={AuxAd} defaultProps={{ hook, body, estilo }}
         durationInFrames={auxFrames(hook, body)} fps={30} width={1080} height={1920} />
     ))))}
+    {/* mesmas combinações com ângulos de câmera virtuais (multicam e push-in) */}
+    {ANGULOS.filter((a) => a !== 'padrao').flatMap((angulo) => ESTILOS.flatMap((estilo) => HOOK_IDS.flatMap((hook) => BODY_IDS.map((body) => (
+      <Composition key={`${estilo}${hook}${body}${angulo}`} id={`Aux-${estilo}-${hook}${body}-${angulo}`} component={AuxAd}
+        defaultProps={{ hook, body, estilo, angulo }} durationInFrames={auxFrames(hook, body)} fps={30} width={1080} height={1920} />
+    )))))}
   </>
 );

@@ -11,6 +11,9 @@ export type Estilo = 'premium' | 'nativo' | 'manchete';
 export const HOOK_IDS: HookId[] = ['h1', 'h2', 'h3', 'h4'];
 export const BODY_IDS: BodyId[] = ['a', 'b', 'c'];
 export const ESTILOS: Estilo[] = ['premium', 'nativo', 'manchete'];
+/** ângulos de câmera virtuais: padrao = alterna 2 enquadramentos; multicam = aberto/fechado/médio como 3 câmeras; pushin = aproxima/afasta devagar em cada fala */
+export type Angulo = 'padrao' | 'multicam' | 'pushin';
+export const ANGULOS: Angulo[] = ['padrao', 'multicam', 'pushin'];
 
 export const HOOKS: Record<HookId, { clip: string; name: string; manchete: [string, string] }> = {
   h1: { clip: '8559', name: 'Benefício que quase nenhuma mulher pede', manchete: ['O benefício do INSS que', 'quase nenhuma mulher pede'] },
@@ -65,13 +68,13 @@ export const build = (hook: HookId, body: BodyId): Timeline => {
     const key = `${clip}:${i}`;
     const words: W[] = s.words.map((w) => ({ w: w.w, g: t + Math.round(w.s * FPS) - inF, ge: t + Math.round(w.e * FPS) - inF, key, k: false }));
     // enquadramento alterna a cada fala; falas longas trocam de novo numa pausa perto do meio (esconde o jump cut)
-    const zooms: [number, number][] = [[t, zi++ % 2]];
+    const zooms: [number, number][] = [[t, zi++]];
     const dur = outF - inF;
     if (dur > 100) {
       const cands = words.filter((w, j) => j > 0 && /[,.?!]$/.test(words[j - 1].w));
       const mid = t + dur / 2;
       const best = cands.sort((a, b) => Math.abs(a.g - mid) - Math.abs(b.g - mid))[0];
-      if (best && best.g - t > 40 && t + dur - best.g > 40) zooms.push([best.g - 2, zi++ % 2]);
+      if (best && best.g - t > 40 && t + dur - best.g > 40) zooms.push([best.g - 2, zi++]);
     }
     const p = { clip, key, hook: hk, inF, outF, start: t, dur, words, zooms };
     t += dur;

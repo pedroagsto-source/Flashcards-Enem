@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { ease, font } from '../brand';
 import { flash, lerp, shake } from '../lib';
-import { at, BodyId, build, endOf, Estilo, groups, HookId, HOOKS, Piece, Timeline } from './plan';
+import { Angulo, at, BodyId, build, endOf, Estilo, groups, HookId, HOOKS, Piece, Timeline } from './plan';
 
 /* Paleta do teste: amarelo quente de destaque, vermelho de alerta, verde de "conta", azul-marinho institucional */
 const C = { y: '#FFD23F', ink: '#111318', red: '#E5322D', green: '#22C55E', navy: '#0F2742', white: '#FFFFFF' };
@@ -11,18 +11,31 @@ const SPR = { damping: 14, stiffness: 170, mass: 0.6 };
 /* ───────────────────────── vídeo ───────────────────────── */
 const ZOOM: Record<Estilo, [number, number]> = { premium: [1, 1.12], nativo: [1, 1.07], manchete: [1, 1.06] };
 
-const Clip = ({ p, estilo }: { p: Piece; estilo: Estilo }) => {
+/* multicam: aberto → fechado → médio, como três câmeras; o fechado desloca um pouco pro lado */
+const CAMS = [{ s: 1, o: '50% 40%', x: 0 }, { s: 1.58, o: '50% 46%', x: -28 }, { s: 1.3, o: '50% 38%', x: 18 }];
+
+const Clip = ({ p, estilo, angulo }: { p: Piece; estilo: Estilo; angulo: Angulo }) => {
   const f = useCurrentFrame();
   const g = p.start + f;
-  const z = [...p.zooms].reverse().find(([s]) => g >= s)!;
-  let s = ZOOM[estilo][z[1]];
+  const zi = p.zooms.findIndex(([s], i) => g >= s && (i === p.zooms.length - 1 || g < p.zooms[i + 1][0]));
+  const [z0, n] = p.zooms[Math.max(0, zi)];
+  const z1 = zi < p.zooms.length - 1 ? p.zooms[zi + 1][0] : p.start + p.dur;
+  let s = ZOOM[estilo][n % 2];
+  let origin = '50% 40%';
   let blur = 0, tx = 0, ty = 0;
+  if (angulo === 'multicam') {
+    const c = CAMS[n % 3];
+    s = c.s; origin = c.o; tx = c.x;
+  } else if (angulo === 'pushin') {
+    const t = lerp(g, [z0, z1], [0, 1], ease.inOut);
+    s = n % 2 ? 1.2 - 0.14 * t : 1 + 0.15 * t;
+  }
   if (estilo === 'premium' && p.start === 0) {
     // abertura: entra fechado (1.32) e abre num tranco, com tremida e borrão
     s = lerp(f, [0, 9], [1.32, s], ease.out);
     blur = lerp(f, [0, 4], [6, 0]);
     const sh = shake(f, 0, 10, 16, 'open');
-    tx = sh.x; ty = sh.y;
+    tx += sh.x; ty = sh.y;
   }
   const grade = estilo === 'premium' ? 'contrast(1.07) saturate(1.1) brightness(1.02)' : 'contrast(1.03) saturate(1.04)';
   const D = p.outF - p.inF;
@@ -33,7 +46,7 @@ const Clip = ({ p, estilo }: { p: Piece; estilo: Estilo }) => {
         startFrom={p.inF}
         endAt={p.outF}
         volume={(x) => Math.max(0, Math.min(1, (x + 1) / 3, (D - x) / 3))}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', transform: `translate(${tx}px, ${ty}px) scale(${s})`, transformOrigin: '50% 40%',
+        style={{ width: '100%', height: '100%', objectFit: 'cover', transform: `translate(${tx}px, ${ty}px) scale(${s})`, transformOrigin: origin,
           filter: `${grade}${blur ? ` blur(${blur}px)` : ''}` }}
       />
     </AbsoluteFill>
@@ -273,7 +286,7 @@ const Faixa = ({ tl, hook }: { tl: Timeline; hook: HookId }) => {
         boxShadow: '0 10px 40px rgba(0,0,0,.35)', borderBottom: `8px solid ${C.y}` }}>
         <div style={{ position: 'absolute', left: 70, right: 70, top: 222, display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span style={{ fontFamily: font.ui, fontWeight: 800, fontSize: 30, letterSpacing: 3, color: C.y }}>AUXÍLIO-ACIDENTE · INSS</span>
-          <div style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 70, lineHeight: 1.06, color: C.white, letterSpacing: -1.5,
+          <div style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 62, lineHeight: 1.08, color: C.white, letterSpacing: -1.5, whiteSpace: 'nowrap',
             opacity: k, transform: `translateY(${(1 - k) * 18}px)` }}>
             {l1}<br /><span style={{ color: C.y }}>{l2}</span>
           </div>
@@ -287,7 +300,7 @@ const Faixa = ({ tl, hook }: { tl: Timeline; hook: HookId }) => {
 const NUNCA = () => false;
 export const auxFrames = (hook: HookId, body: BodyId) => build(hook, body).total;
 
-export const AuxAd = ({ hook, body, estilo }: { hook: HookId; body: BodyId; estilo: Estilo }) => {
+export const AuxAd = ({ hook, body, estilo, angulo = 'padrao' }: { hook: HookId; body: BodyId; estilo: Estilo; angulo?: Angulo }) => {
   const g = useCurrentFrame();
   const tl = build(hook, body);
   const ovs = React.useMemo(() => (estilo === 'premium' ? overlays(tl, hook, body) : []), [tl, hook, body, estilo]);
@@ -295,7 +308,7 @@ export const AuxAd = ({ hook, body, estilo }: { hook: HookId; body: BodyId; esti
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
       {tl.pieces.map((p) => (
         <Sequence key={p.key} from={p.start} durationInFrames={p.dur} layout="none">
-          <Clip p={p} estilo={estilo} />
+          <Clip p={p} estilo={estilo} angulo={angulo} />
         </Sequence>
       ))}
       {estilo === 'premium' && (
