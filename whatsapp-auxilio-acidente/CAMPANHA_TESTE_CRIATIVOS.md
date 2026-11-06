@@ -70,6 +70,13 @@ CAMPANHA  CA 121 | ACIDENTE | TESTE CRIATIVOS V1 | WA 7014     Leads · CBO R$ 1
 | AD 4 | premium-h4b.mp4 | 1426393379692469 |
 | AD 5 | nativo-h2b.mp4 | 1136020675472124 |
 
+## O que foi criado (06/11) — difere do plano em 2 pontos
+- **Campanha:** `CA 121 | ACIDENTE | TESTE CRIATIVOS V1 | WA 2352 | 06/11` (id `120252300962440660`), **PAUSADA**, CBO R$ 100/dia, 1-1-5.
+- **Base:** estrutura da CA 120 (página `107500887498474`, WhatsApp (86) 98827-2352), porque a página da CA 114 está com WhatsApp **pessoal** e a Meta recusou (erro 2446885).
+- **Diferença 1 — objetivo:** **Engajamento → conversas** (herdado da CA 120), não Leads. Para testar Leads, a página da CA 114 precisa ter o WhatsApp Business reconectado.
+- **Diferença 2 — idade:** **21–65** (herdada; o público Advantage+ não aceita mudar a idade depois de copiado).
+- Anúncios: AD1 `120252300963560660` · AD2 `120252300964930660` · AD3 `120252300967000660` · AD4 `120252300970300660` · AD5 `120252300971250660`.
+
 ## Antes de ativar (checklist)
 - [ ] Confirmar que a página do conjunto da CA 114 é a do WhatsApp 7014 atual
 - [ ] Workflow do Pipedream no ar respondendo o 7014 (senão as conversas ficam sem resposta)
