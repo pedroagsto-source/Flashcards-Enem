@@ -5,7 +5,7 @@ type RawSeg = { s: number; e: number; text: string; words: { w: string; s: numbe
 const SEGS = segs as Record<string, RawSeg[]>;
 
 export type HookId = 'h1' | 'h2' | 'h3' | 'h4';
-export type BodyId = 'a' | 'b' | 'c';
+export type BodyId = 'a' | 'b' | 'c' | 'd';
 export type Estilo = 'premium' | 'nativo' | 'manchete';
 
 export const HOOK_IDS: HookId[] = ['h1', 'h2', 'h3', 'h4'];
@@ -27,6 +27,8 @@ export const BODIES: Record<BodyId, { name: string; parts: [string, number[]][] 
   a: { name: 'Explicação', parts: [['8565', range(0, 10)]] },
   b: { name: 'História + CTA', parts: [['8566', range(0, 7)], ['8565', [9, 10]]] },
   c: { name: 'História + explicação', parts: [['8566', range(0, 7)], ['8565', range(1, 10)]] },
+  // d: explicação sem a frase "até com aposentadoria" (seg 8) — usada no formato tela dividida
+  d: { name: 'Explicação (sem aposentadoria)', parts: [['8565', [0, 1, 2, 3, 4, 5, 6, 7, 9, 10]]] },
 };
 
 export type W = { w: string; g: number; ge: number; key: string; k: boolean };
