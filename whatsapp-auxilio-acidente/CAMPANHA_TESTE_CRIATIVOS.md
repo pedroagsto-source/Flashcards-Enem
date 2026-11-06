@@ -84,6 +84,7 @@ A CA 121 da TPC CA02 ficou **pausada** e foi substituída por esta, a pedido.
 - **Conjunto (criado do zero, mesma página e otimização da base):** Brasil, 18–65, **todos os gêneros**, Advantage+, otimização conversas no WhatsApp.
 - **Vídeos nesta conta:** AD1 `1146481524547666` · AD2 `2982444602134147` · AD3 `1934536925043693` · AD4 `1864728534878141` · AD5 `2364715890931202`.
 - UTMs iguais às da base (`utm_source={{site_source_name}}&utm_campaign={{campaign.id}}&utm_medium={{adset.id}}&utm_content={{ad.id}}&utm_term={{placement}}`).
+- **Estado final (06/11):** o conjunto original foi arquivado e substituído pela cópia `AA | BR | TODOS | 18-65+ | WHATSAPP | 5 criativos — Cópia` (`120251363951700774`), com o WhatsApp (86) 98827-2352. Anúncios ativos: AD1 `120251363951690774` · AD2 `120251363951680774` · AD3 `120251363951710774` · AD4 `120251363951720774` · AD5 `120251363951730774`. As 5 duplicatas que eu tinha adicionado foram apagadas. O botão "Saiba mais" não é aceito pela Meta em Leads → WhatsApp (erro 1487891); ficou "Enviar mensagem".
 - Regras de decisão em dólar: pausar com US$ 8 e 0 conversas; com US$ 15 e custo por conversa > US$ 3 (2x a base); com US$ 28 e 0 lead qualificado no Notion.
 
 ## Antes de ativar (checklist)
