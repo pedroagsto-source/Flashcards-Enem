@@ -47,7 +47,7 @@ const Onda = ({ n, a, cortes = [], ativa = -1 }: { n: number; a: number; cortes?
   {Array.from({ length: n }, (_, i) => { const h = 12 + Math.abs(Math.sin(i * 1.7 + a / 12) * 60) + (i % 5) * 6; const c = cortes.includes(i) ? RED : i === ativa || i === ativa + 1 ? G : 'rgba(61,255,122,.35)';
     return <i key={i} style={{ width: 8, height: h, background: c, borderRadius: 4 }} />; })}</div>;
 const Janela = ({ g, a, y = 180, h = 660 }: { g: number; a: number; y?: number; h?: number }) => <div style={{ position: 'absolute', left: 60, top: y, width: 960, height: h, borderRadius: 24, overflow: 'hidden', border: '2px solid rgba(61,255,122,.5)', transform: `scale(${.9 + .1 * pop(g)})` }}>
-  <div style={{ position: 'absolute', inset: 0 }}><NeonVerde a={a} /></div><Pessoa a={a} style={{ inset: 'auto', left: 0, top: -380, width: 960, height: 1707 }} /></div>;
+  <div style={{ position: 'absolute', inset: 0 }}><NeonVerde a={a} /></div><Pessoa a={a} style={{ inset: 'auto', left: 0, top: -560, width: 960, height: 1707 }} /></div>;
 const Arquivo = ({ x, y, t, sub, k }: { x: number; y: number; t: string; sub: string; k: number }) => <div style={{ position: 'absolute', left: x, top: y, display: 'flex', alignItems: 'center', gap: 18, background: '#F5F2EA', color: '#1b1b1f', borderRadius: 24, padding: '18px 26px',
   boxShadow: `0 0 0 4px ${G}, 0 30px 60px rgba(0,0,0,.5)`, transform: `scale(${k}) rotate(${(1 - k) * -10}deg)`, fontFamily: font.ui }}>
   <span style={{ background: '#E8643C', color: '#fff', borderRadius: 10, padding: '14px 10px', fontWeight: 900, fontSize: 22 }}>.MD</span><span><b style={{ display: 'block', fontSize: 40, fontWeight: 900 }}>{t}</b><span style={{ fontSize: 24, color: '#777', fontWeight: 600 }}>{sub}</span></span></div>;
@@ -134,7 +134,7 @@ const Legenda = () => { const a = useCurrentFrame(); if (a < S(2) || (a >= S(12)
   const at = PALAVRAS.find((p) => a >= p.g && a < p.ge + 2); if (!at) return null;
   const ps = PALAVRAS.filter((p) => p.i === at.i); const i = ps.indexOf(at); const ini = Math.floor(i / 3) * 3; const grupo = ps.slice(ini, ini + 3);
   const y = a >= S(18) ? 1100 : a >= S(4) && a < S(5) ? 1500 : 1420;
-  return <div style={{ position: 'absolute', left: 60, right: 60, top: y, textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: 72, lineHeight: 1.1, textTransform: 'uppercase', textShadow: '0 4px 20px rgba(0,0,0,.85)' }}>
+  return <div style={{ position: 'absolute', left: 60, right: 60, top: y, textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: grupo.reduce((n, p) => n + p.w.length, 0) > 17 ? 58 : 72, lineHeight: 1.1, textTransform: 'uppercase', textShadow: '0 4px 20px rgba(0,0,0,.85)' }}>
     {grupo.map((p, j) => <span key={j} style={{ color: p === at || (p.k && a >= p.g) ? G : '#fff', marginRight: 18 }}>{p.w.replace(/[,.?!]$/, '')}</span>)}</div>; };
 
 const SFX: [number, string, number][] = [[0, 'impact', .55], [W(1, 'manualmente'), 'erro', .35], [S(2), 'whoosh', .35], [W(3, 'intelig'), 'ding', .35], [W(3, 'arquivo'), 'pop', .45],

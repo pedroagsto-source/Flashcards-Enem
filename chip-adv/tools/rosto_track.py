@@ -18,7 +18,7 @@ for c in edl['chunks']:
         y0 = rows[0]; cab = a[y0 + 8:y0 + 70]          # faixa da cabeça (acima dos ombros)
         cols = np.where(cab.sum(0) > 2)[0]
         x0, x1 = (cols[0], cols[-1]) if len(cols) else (75, 195)
-        out.append([float(x0 * 4), float(y0 * 4 + 20), float((x1 - x0) * 4), float(105 * 4)])
+        out.append([float(x0 * 4), float(y0 * 4 + 20), float((x1 - x0) * 4), float(130 * 4)])
 arr = np.array(out)
 k = 7; pad = np.pad(arr, ((k, k), (0, 0)), mode='edge')
 suave = np.array([pad[i:i + 2 * k + 1].mean(0) for i in range(len(arr))])
