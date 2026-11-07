@@ -17,9 +17,10 @@
 
 **Área de miembros (módulos, en este orden):**
 1. Empieza aquí · `GUIA_PRIMER_VIDEO.pdf`
-2. El CHIP ABOGADO · `CHIP_ABOGADO.md`
-3. Mapa de efectos · `MAPA_EFECTOS_CHIP_ABOGADO.pdf`
-4. Bono · `BONO_64_IDEAS_ABOGADOS.pdf`
+2. Instalación · `skill-chip-abogado.zip` (la skill que el alumno instala en Claude: luego solo escribe `/chip-abogado`)
+3. El CHIP ABOGADO · `CHIP_ABOGADO.md` (para quien no use la skill)
+4. Mapa de efectos · `MAPA_EFECTOS_CHIP_ABOGADO.pdf`
+5. Bono · `BONO_64_IDEAS_ABOGADOS.pdf`
 
 **Mensaje de entrega:**
 > ¡Tu CHIP ABOGADO llegó! 🎬

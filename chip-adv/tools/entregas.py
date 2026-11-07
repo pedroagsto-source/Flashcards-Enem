@@ -138,14 +138,20 @@ PRODUTOS = [
 **Descrição curta (checkout):** O prompt mestre que faz a sua IA editar seus vídeos de advogado: corta as pausas, legenda, põe efeitos e trilha. Inclui o mapa com 17 efeitos, o guia do primeiro vídeo e 64 pautas por área do Direito.
 
 **Área de membros (módulos, nesta ordem):**
-1. Comece aqui · `GUIA_PRIMEIRO_VIDEO.pdf`
-2. O CHIP ADV · `CHIP_ADV.md`
-3. Mapa de efeitos · `MAPA_EFEITOS_CHIP_ADV.pdf`
-4. Bônus · `BONUS_64_PAUTAS_ADVOGADOS.pdf`
+1. Comece aqui · Aulas 0 e 1 + `GUIA_PRIMEIRO_VIDEO.pdf` (resumo de 4 páginas)
+2. Instalação · Aulas 2, 3 e 4 + `skill-chip-adv.zip` (a skill que o aluno instala no Claude)
+3. Primeiro vídeo · Aulas 5, 6 e 7
+4. Efeitos · Aula 8 + `MAPA_EFEITOS_CHIP_ADV.pdf`
+5. Suporte · Aula 9 + `MANUAL_COMPLETO_CHIP_ADV.pdf`
+6. Arquivos avulsos · `CHIP_ADV.md` (para quem não usar a skill)
+7. Bônus · `BONUS_64_PAUTAS_ADVOGADOS.pdf`
+
+Roteiro de cada aula para gravar: `conteudo/AULAS_ROTEIRO.md` (no repositório).
 
 {ENTREGA_PT}""",
      [(f'{R}/CHIP_ADV.md', 'CHIP_ADV.md'), (f'{R}/mapa/MAPA_EFEITOS_CHIP_ADV.pdf', 'MAPA_EFEITOS_CHIP_ADV.pdf'),
-      ('@guia_pt', 'GUIA_PRIMEIRO_VIDEO.pdf'), ('@pautas_pt', 'BONUS_64_PAUTAS_ADVOGADOS.pdf')],
+      ('@guia_pt', 'GUIA_PRIMEIRO_VIDEO.pdf'), ('@pautas_pt', 'BONUS_64_PAUTAS_ADVOGADOS.pdf'),
+      ('@manual_pt', 'MANUAL_COMPLETO_CHIP_ADV.pdf'), ('@skill_pt', 'skill-chip-adv.zip')],
      ['produto.png', 'banner.png', 'selo-garantia.png']),
 
     (f'{BR}/02_BUMP1_ATUALIZACOES', 'Order bump 1 · CHIP ADV Sempre Atualizado', """| Campo | Valor |
@@ -258,9 +264,10 @@ Se recusar, mostre o **downsell** (pasta 07).""",
 
 **Área de miembros (módulos, en este orden):**
 1. Empieza aquí · `GUIA_PRIMER_VIDEO.pdf`
-2. El CHIP ABOGADO · `CHIP_ABOGADO.md`
-3. Mapa de efectos · `MAPA_EFECTOS_CHIP_ABOGADO.pdf`
-4. Bono · `BONO_64_IDEAS_ABOGADOS.pdf`
+2. Instalación · `skill-chip-abogado.zip` (la skill que el alumno instala en Claude: luego solo escribe `/chip-abogado`)
+3. El CHIP ABOGADO · `CHIP_ABOGADO.md` (para quien no use la skill)
+4. Mapa de efectos · `MAPA_EFECTOS_CHIP_ABOGADO.pdf`
+5. Bono · `BONO_64_IDEAS_ABOGADOS.pdf`
 
 **Mensaje de entrega:**
 > ¡Tu CHIP ABOGADO llegó! 🎬
@@ -271,7 +278,7 @@ Se recusar, mostre o **downsell** (pasta 07).""",
 
 > **V1 sin order bumps.** Para el primer test en LATAM, solo el producto principal. Los bumps entran cuando la oferta esté validada.""",
      [(f'{R}/latam/CHIP_ABOGADO.md', 'CHIP_ABOGADO.md'), (f'{R}/mapa/MAPA_EFECTOS_CHIP_ABOGADO.pdf', 'MAPA_EFECTOS_CHIP_ABOGADO.pdf'),
-      ('@guia_es', 'GUIA_PRIMER_VIDEO.pdf'), ('@pautas_es', 'BONO_64_IDEAS_ABOGADOS.pdf')],
+      ('@guia_es', 'GUIA_PRIMER_VIDEO.pdf'), ('@pautas_es', 'BONO_64_IDEAS_ABOGADOS.pdf'), ('@skill_es', 'skill-chip-abogado.zip')],
      ['es/producto.png', 'es/banner.png', 'es/sello-garantia.png']),
 ]
 
@@ -306,8 +313,17 @@ Já estão nas landings: `landing/legal.html` e `latam/landing-es/legal.html`. *
 def main():
     os.makedirs(OUT, exist_ok=True)
     gerados = {'@guia_pt': (f'{C}/GUIA_PRIMEIRO_VIDEO.md', 'CHIP <b>ADV</b>'), '@pautas_pt': (f'{C}/PAUTAS_ADVOGADOS.md', 'CHIP <b>ADV</b>'),
-               '@guia_es': (f'{C}/GUIA_PRIMER_VIDEO_ES.md', 'CHIP <b>ABOGADO</b>'), '@pautas_es': (f'{C}/IDEAS_ABOGADOS_ES.md', 'CHIP <b>ABOGADO</b>')}
+               '@guia_es': (f'{C}/GUIA_PRIMER_VIDEO_ES.md', 'CHIP <b>ABOGADO</b>'), '@pautas_es': (f'{C}/IDEAS_ABOGADOS_ES.md', 'CHIP <b>ABOGADO</b>'),
+               '@manual_pt': (f'{C}/MANUAL_CHIP_ADV.md', 'CHIP <b>ADV</b>')}
     pdfs = {}
+    # skills: copia o prompt e o mapa atuais para dentro da pasta da skill e gera o zip
+    for k, nome, prompt, mapa_src, mapa_dst in [('@skill_pt', 'chip-adv', f'{R}/CHIP_ADV.md', f'{R}/mapa/MAPA_EFEITOS.md', 'MAPA_EFEITOS.md'),
+                                                ('@skill_es', 'chip-abogado', f'{R}/latam/CHIP_ABOGADO.md', f'{R}/mapa/MAPA_EFECTOS_ES.md', 'MAPA_EFECTOS.md')]:
+        d = f'{R}/skill/{nome}'; shutil.copy(prompt, d); shutil.copy(mapa_src, f'{d}/{mapa_dst}')
+        z = f'{C}/skill-{nome}.zip'
+        with zipfile.ZipFile(z, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for f in sorted(os.listdir(d)): zf.write(f'{d}/{f}', f'{nome}/{f}')
+        pdfs[k] = z
     for k, (md, marca) in gerados.items():
         p = f'{C}/{os.path.basename(md).replace(".md", ".pdf")}'; pdf(md, p, marca); pdfs[k] = p
     legal(f'{C}/LEGAL_PT.md', f'{R}/landing/legal.html', 'CHIP ADV', 'pt-BR')
