@@ -11,4 +11,4 @@
 
 **Descrição:** Seu acesso é de 1 ano. Com o vitalício, o CHIP ADV e a área de membros ficam com você pra sempre, sem renovar.
 
-**Entrega:** não tem arquivo. Na Cakto, configure este bump para **liberar o acesso sem prazo** à área de membros do produto principal.
+**Entrega:** na Cakto, configure este bump para **liberar o acesso sem prazo** à área de membros do produto principal. Deixe também `ACESSO_VITALICIO.pdf` (confirmação para o cliente) num módulo liberado só para quem comprou o bump, ou anexe na mensagem de entrega.

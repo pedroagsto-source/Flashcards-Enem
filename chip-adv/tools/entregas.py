@@ -165,10 +165,17 @@ Roteiro de cada aula para gravar: `conteudo/AULAS_ROTEIRO.md` (no repositório).
 
 **Descrição:** Toda semana, durante 12 meses, o CHIP ADV ganha uma melhoria: um efeito novo, um pedido pronto ou um ajuste no corte, na legenda e nas animações. Você baixa a versão nova na área de membros e anexa na conversa.
 
-**Entrega:** um módulo "Atualizações" na área de membros, com uma aula nova por semana. O calendário das 12 primeiras está em `PLANO_ATUALIZACOES.md`.
+**Entrega:** um módulo **Atualizações** na área de membros deste bump. No lançamento já suba:
+- `COMO_FUNCIONAM_AS_ATUALIZACOES.pdf` (boas-vindas e como usar, na primeira aula do módulo);
+- `atualizacoes/S01_EFEITO_18_LINHA_DO_TEMPO.md` (libere já na compra);
+- `atualizacoes/S02…`, `S03…` e `S04…` (programe a liberação para 7, 14 e 21 dias após a compra, se a Cakto permitir conteúdo programado; senão, libere uma por semana).
+
+O calendário das 12 primeiras semanas está em `PLANO_ATUALIZACOES.md` (uso interno). Com as 4 primeiras prontas, você tem 1 mês de folga para produzir as próximas.
 
 > ⚠️ São 52 entregas. **Só ative se for cumprir o calendário.** Dá para lançar sem este bump e ativar depois.""",
-     [(f'{C}/ATUALIZACOES_PLANO.md', 'PLANO_ATUALIZACOES.md')], ['bump-atualizado.png']),
+     [(f'{C}/ATUALIZACOES_PLANO.md', '../PLANO_ATUALIZACOES_uso_interno.md'), ('@atu_pt', 'COMO_FUNCIONAM_AS_ATUALIZACOES.pdf')]
+     + [(f'{R}/bump-atualizacoes/{f}', f'atualizacoes/{f}') for f in ['S01_EFEITO_18_LINHA_DO_TEMPO.md', 'S02_PEDIDOS_PRONTOS_FAMILIA.md', 'S03_LEGENDA_KARAOKE.md', 'S04_MODO_STORIES.md']],
+     ['bump-atualizado.png']),
 
     (f'{BR}/03_BUMP2_ROTEIROS', 'Order bump 2 · Roteiros Prontos para Advogados', """| Campo | Valor |
 |---|---|
@@ -200,8 +207,10 @@ Roteiro de cada aula para gravar: `conteudo/AULAS_ROTEIRO.md` (no repositório).
 > Chame no WhatsApp: [LINK wa.me/55DDDNUMERO]
 > Horário: [seg a sex, 9h às 18h]. Mande o print ou o erro que aparecer que eu te ajudo.
 
+**Entrega:** além da mensagem, deixe `SUPORTE_INDIVIDUAL_COMO_FUNCIONA.pdf` no módulo deste bump (troque os campos entre [colchetes] no arquivo `bump-suporte/SUPORTE_INDIVIDUAL_COMO_FUNCIONA.md` e gere de novo, ou me peça). Para quem atende: `PARA_VOCE_RESPOSTAS_PRONTAS.md` tem 10 respostas prontas (não entregar ao cliente).
+
 > ⚠️ Precisa de um número de WhatsApp dedicado e de alguém para responder.""",
-     [], ['bump-suporte.png']),
+     [('@suporte_pt', 'SUPORTE_INDIVIDUAL_COMO_FUNCIONA.pdf'), (f'{R}/bump-suporte/RESPOSTAS_PRONTAS_SUPORTE.md', '../PARA_VOCE_RESPOSTAS_PRONTAS.md')], ['bump-suporte.png']),
 
     (f'{BR}/05_BUMP4_VITALICIO', 'Order bump 4 · Acesso Vitalício', """| Campo | Valor |
 |---|---|
@@ -214,8 +223,8 @@ Roteiro de cada aula para gravar: `conteudo/AULAS_ROTEIRO.md` (no repositório).
 
 **Descrição:** Seu acesso é de 1 ano. Com o vitalício, o CHIP ADV e a área de membros ficam com você pra sempre, sem renovar.
 
-**Entrega:** não tem arquivo. Na Cakto, configure este bump para **liberar o acesso sem prazo** à área de membros do produto principal.""",
-     [], ['bump-vitalicio.png']),
+**Entrega:** na Cakto, configure este bump para **liberar o acesso sem prazo** à área de membros do produto principal. Deixe também `ACESSO_VITALICIO.pdf` (confirmação para o cliente) num módulo liberado só para quem comprou o bump, ou anexe na mensagem de entrega.""",
+     [('@vital_pt', 'ACESSO_VITALICIO.pdf')], ['bump-vitalicio.png']),
 
     (f'{BR}/06_UPSELL_CHIP_ADV_PRO', 'Upsell · CHIP ADV PRO', """| Campo | Valor |
 |---|---|
@@ -314,7 +323,10 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     gerados = {'@guia_pt': (f'{C}/GUIA_PRIMEIRO_VIDEO.md', 'CHIP <b>ADV</b>'), '@pautas_pt': (f'{C}/PAUTAS_ADVOGADOS.md', 'CHIP <b>ADV</b>'),
                '@guia_es': (f'{C}/GUIA_PRIMER_VIDEO_ES.md', 'CHIP <b>ABOGADO</b>'), '@pautas_es': (f'{C}/IDEAS_ABOGADOS_ES.md', 'CHIP <b>ABOGADO</b>'),
-               '@manual_pt': (f'{C}/MANUAL_CHIP_ADV.md', 'CHIP <b>ADV</b>')}
+               '@manual_pt': (f'{C}/MANUAL_CHIP_ADV.md', 'CHIP <b>ADV</b>'),
+               '@atu_pt': (f'{R}/bump-atualizacoes/COMO_FUNCIONAM_AS_ATUALIZACOES.md', 'CHIP <b>ADV</b>'),
+               '@suporte_pt': (f'{R}/bump-suporte/SUPORTE_INDIVIDUAL_COMO_FUNCIONA.md', 'CHIP <b>ADV</b>'),
+               '@vital_pt': (f'{R}/bump-vitalicio/ACESSO_VITALICIO.md', 'CHIP <b>ADV</b>')}
     pdfs = {}
     # skills: copia o prompt e o mapa atuais para dentro da pasta da skill e gera o zip
     for k, nome, prompt, mapa_src, mapa_dst in [('@skill_pt', 'chip-adv', f'{R}/CHIP_ADV.md', f'{R}/mapa/MAPA_EFEITOS.md', 'MAPA_EFEITOS.md'),
@@ -328,10 +340,16 @@ def main():
         p = f'{C}/{os.path.basename(md).replace(".md", ".pdf")}'; pdf(md, p, marca); pdfs[k] = p
     legal(f'{C}/LEGAL_PT.md', f'{R}/landing/legal.html', 'CHIP ADV', 'pt-BR')
     legal(f'{C}/LEGAL_ES.md', f'{R}/latam/landing-es/legal.html', 'CHIP ABOGADO', 'es')
-    shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
+    # recria as pastas de produto; a área de membros (vídeos das aulas) é montada à parte e fica intacta
+    os.makedirs(OUT, exist_ok=True)
+    for raiz in [f'{OUT}/BRASIL_CAKTO', f'{OUT}/LATAM_HOTMART']:
+        if not os.path.isdir(raiz): continue
+        for n in os.listdir(raiz):
+            if n.startswith('00_AREA_DE_MEMBROS'): continue
+            q = f'{raiz}/{n}'; shutil.rmtree(q) if os.path.isdir(q) else os.remove(q)
     open(f'{OUT}/LEIA-ME.md', 'w').write(LEIAME)
     for pasta, titulo, ficha, arqs, imgs in PRODUTOS:
-        os.makedirs(pasta)
+        os.makedirs(pasta, exist_ok=True)
         open(f'{pasta}/FICHA.md', 'w').write(f'# {titulo}\n\n{ficha}\n')
         for src, dst in arqs:
             src = pdfs.get(src, src); d = f'{pasta}/arquivos/{dst}'; os.makedirs(os.path.dirname(d), exist_ok=True); shutil.copy(src, d)

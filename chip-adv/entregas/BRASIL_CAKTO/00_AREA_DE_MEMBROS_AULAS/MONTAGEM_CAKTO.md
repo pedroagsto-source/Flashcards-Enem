@@ -54,3 +54,18 @@ Os vídeos estão em `videos/`, já numerados na ordem de subida. Cada linha aba
 > As aulas **Bônus 1 e 2** pertencem ao upsell e ao downsell. Se a Cakto permitir, libere esse módulo só para quem comprou o CHIP ADV PRO ou o Módulo Anúncios. Se não permitir, coloque essas duas aulas na área de membros do produto de upsell (pasta `06_UPSELL_CHIP_ADV_PRO`).
 
 Os anexos estão em `01_PRINCIPAL_CHIP_ADV/arquivos/` e `06_UPSELL_CHIP_ADV_PRO/arquivos/`.
+
+---
+
+## Order bumps · o que cada comprador recebe
+
+Na Cakto, cada order bump é um **produto próprio**. Crie uma área de membros (ou um módulo restrito) para cada um e suba os arquivos da pasta `arquivos/`:
+
+| Bump | Módulo | Arquivos |
+|---|---|---|
+| 1 · Sempre Atualizado | **Atualizações** | `COMO_FUNCIONAM_AS_ATUALIZACOES.pdf` + `S01` já liberado; `S02`, `S03`, `S04` em 7, 14 e 21 dias |
+| 2 · Roteiros Prontos | **Roteiros prontos** | `ROTEIROS_PRONTOS_ADVOGADOS.pdf` |
+| 3 · Suporte WhatsApp | **Suporte individual** | `SUPORTE_INDIVIDUAL_COMO_FUNCIONA.pdf` + mensagem automática com o link do WhatsApp |
+| 4 · Vitalício | (sem módulo novo) | Configure acesso **sem prazo** ao produto principal e envie `ACESSO_VITALICIO.pdf` na mensagem de entrega |
+
+Arquivos para você (não suba): `PLANO_ATUALIZACOES_uso_interno.md` e `PARA_VOCE_RESPOSTAS_PRONTAS.md`.
