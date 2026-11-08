@@ -14,11 +14,11 @@ import { E07Checklist } from './effects/E07Checklist';
 import { Ordens } from './effects/Ordens';
 import { E16Capa } from './effects/E16Capa';
 import { E12Cta } from './effects/E12Cta';
-import { Lang, LangCtx } from './lang';
+import { Lang, LangCtx, useLang, VOZ_ES } from './lang';
 
 /** Vídeo base: cada trecho do EDL em sequência, com a "câmera" (zoom, posição, filtro) aplicada. */
 const Base = () => {
-  const g = useCurrentFrame();
+  const g = useCurrentFrame(); const mudo = useLang() === 'es';
   const cam = camera(g);
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
@@ -34,7 +34,7 @@ const Base = () => {
         {chunks.map((c) => (
           <Sequence key={c.i} from={c.start} durationInFrames={c.dur} layout="none">
             <AbsoluteFill>
-              <OffthreadVideo src={staticFile(`${c.clip}.mp4`)} trimBefore={c.from} style={{ width: '100%', height: '100%' }} />
+              <OffthreadVideo src={staticFile(`${c.clip}.mp4`)} trimBefore={c.from} muted={mudo} style={{ width: '100%', height: '100%' }} />
             </AbsoluteFill>
           </Sequence>
         ))}
@@ -72,6 +72,7 @@ export const ChipAdv = ({ lang = 'pt' }: { lang?: Lang }) => (
 
     <Captions />
     <Grade />
+    {lang === 'es' && <Audio src={staticFile(VOZ_ES.demo)} />}
     <Music />
     <Sfx />
   </AbsoluteFill></LangCtx.Provider>

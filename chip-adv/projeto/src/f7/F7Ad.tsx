@@ -1,7 +1,7 @@
 import { AbsoluteFill, Audio, interpolate, OffthreadVideo, random, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font, springIn } from '../brand';
 import { Grade } from '../components/Grade';
-import { clipe, Lang, LangCtx, useLang, useTx } from '../lang';
+import { clipe, Lang, LangCtx, porTrecho, useLang, useTx, VOZ_ES } from '../lang';
 
 /** F7 · "Gravado no carro": efeitos bem evidentes, um forte por frase. */
 type Raw = [from: number, to: number, text: string, keys: string[]];
@@ -16,18 +16,6 @@ const RAW: Raw[] = [
   [591, 652, 'e vê a mágica acontecer, meu irmão.', ['mágica']],
   [664, 731, 'Clica em Saiba Mais e saiba mais sobre isso.', ['Saiba', 'Mais']],
 ];
-/* legenda em espanhol na mesma janela de tempo (a voz continua a original) */
-const ES: [string, string[]][] = [
-  ['Abogado,', ['Abogado,']],
-  ['igual que yo, estás cansado de hacer videos amateurs.', ['cansado', 'amateurs.']],
-  ['Pasar horas editando un video', ['horas']],
-  ['y que no quede ni cerca de esos videos con los que te comparas.', ['comparas.']],
-  ['Pero ahora tengo una forma de que resuelvas esto', ['ahora']],
-  ['solo adjuntando un archivo a tu IA.', ['archivo']],
-  ['Adjunta este archivo.', ['Adjunta']],
-  ['y mira la magia suceder, hermano.', ['magia']],
-  ['Haz clic en Más información y conoce más.', ['Más', 'información']],
-];
 const peso = (w: string) => Math.max(1, (w.toLowerCase().match(/[aeiouáéíóúâêôãõà]/g) || []).length + 0.25 * w.length);
 type W = { w: string; g: number; ge: number; k: boolean };
 type C = { i: number; from: number; start: number; dur: number; words: W[] };
@@ -41,7 +29,8 @@ const CH: C[] = RAW.map(([a, b, text, keys], i) => {
   const dur = b - a, words = palavras(text, keys, t, dur);
   const c = { i, from: a, start: t, dur, words }; t += dur; return c;
 });
-const CH_ES: C[] = CH.map((c) => ({ ...c, words: palavras(ES[c.i][0], ES[c.i][1], c.start, c.dur) }));
+const ES_W = porTrecho('f7', CH);
+const CH_ES: C[] = CH.map((c) => ({ ...c, words: ES_W[c.i] }));
 export const F7_FRAMES = t;
 const S = (i: number) => CH[i].start, E = (i: number) => CH[i].start + CH[i].dur;
 const wf = (i: number, w: string) => (CH[i].words.find((x) => x.w.toLowerCase().startsWith(w)) || CH[i].words[0]).g;
@@ -81,11 +70,11 @@ const camera = (g: number) => {
 };
 
 const Base = () => {
-  const g = useCurrentFrame(); const c = camera(g);
+  const g = useCurrentFrame(); const c = camera(g); const mudo = useLang() === 'es';
   return <AbsoluteFill style={{ overflow: 'hidden' }}>
     <AbsoluteFill style={{ transform: `translate(${c.x}px, ${c.y}px) scale(${c.s})`, transformOrigin: `50% ${c.oy}%`, filter: c.filter }}>
       {CH.map((x) => <Sequence key={x.i} from={x.start} durationInFrames={x.dur} layout="none">
-        <AbsoluteFill><OffthreadVideo src={staticFile('f7/carro.mp4')} trimBefore={x.from} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>
+        <AbsoluteFill><OffthreadVideo src={staticFile('f7/carro.mp4')} trimBefore={x.from} muted={mudo} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>
       </Sequence>)}
     </AbsoluteFill>
     {/* tinta vermelha no "cansado" */}
@@ -249,6 +238,7 @@ export const F7Ad = ({ lang = 'pt' }: { lang?: Lang }) => (
     <Flash />
     <Grade />
     {SFX.map(([f, n, v], i) => <Sequence key={i} from={Math.max(0, Math.round(f))} durationInFrames={50} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
+    {lang === 'es' && <Audio src={staticFile(VOZ_ES.f7)} />}
     <Audio src={staticFile('music/bed.wav')} volume={(f) => L(f, [0, 6, F7_FRAMES - 15, F7_FRAMES], [0, 0.16, 0.16, 0])} />
   </AbsoluteFill></LangCtx.Provider>
 );

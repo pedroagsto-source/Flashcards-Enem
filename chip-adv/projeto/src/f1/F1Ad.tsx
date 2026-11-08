@@ -1,7 +1,7 @@
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { brand, font, springIn } from '../brand';
 import { Grade } from '../components/Grade';
-import { clipe, Lang, LangCtx, useLang, useTx } from '../lang';
+import { clipe, Lang, LangCtx, porTrecho, useLang, useTx, VOZ_ES } from '../lang';
 
 /* ---------- EDL do F1 (gancho + corpo), em frames de 30 fps da origem ---------- */
 type Raw = [clip: 'gancho' | 'corpo', from: number, to: number, text: string, keys: string[]];
@@ -14,17 +14,6 @@ const RAW: Raw[] = [
   ['corpo', 325, 403, 'Ela corta as pausas, fica com a melhor tomada,', ['pausas,', 'tomada,']],
   ['corpo', 438, 499, 'e devolve pronto pra postar.', ['pronto']],
   ['corpo', 530, 604, 'Toca em Saiba Mais que eu te mostro os efeitos funcionando.', ['Saiba', 'Mais']],
-];
-/* legenda em espanhol: mesma janela de tempo de cada trecho (a voz continua a original) */
-const ES: [string, string[]][] = [
-  ['Abogado,', ['Abogado,']],
-  ['tu editor de video ahora cabe en un archivo.', ['archivo.']],
-  ['Abres tu IA y adjuntas este archivo aquí.', ['adjuntas']],
-  ['Luego envías el video tal como lo grabaste, con errores, con pausas.', ['errores,', 'pausas.']],
-  ['Y escribes solo esto: edítalo por mí.', ['edítalo', 'por', 'mí.']],
-  ['Corta las pausas, se queda con la mejor toma,', ['pausas,', 'toma,']],
-  ['y te lo devuelve listo para publicar.', ['listo']],
-  ['Toca en Más información y te muestro los efectos funcionando.', ['Más', 'información']],
 ];
 const peso = (w: string) => Math.max(1, (w.toLowerCase().match(/[aeiouáéíóúâêôãõà]/g) || []).length + 0.25 * w.length);
 type W = { w: string; g: number; ge: number; k: boolean };
@@ -39,7 +28,8 @@ const CH: C[] = RAW.map(([clip, a, b, text, keys], i) => {
   const dur = b - a, words = palavras(text, keys, t, dur);
   const c = { i, clip, from: a, start: t, dur, words }; t += dur; return c;
 });
-const CH_ES: C[] = CH.map((c) => ({ ...c, words: palavras(ES[c.i][0], ES[c.i][1], c.start, c.dur) }));
+const ES_W = porTrecho('f1', CH);
+const CH_ES: C[] = CH.map((c) => ({ ...c, words: ES_W[c.i] }));
 export const F1_FRAMES = t;
 export type Fundo = 'original' | 'escritorio';
 const S = (i: number) => CH[i].start, E = (i: number) => CH[i].start + CH[i].dur;
@@ -74,7 +64,7 @@ const Recorte = ({ c }: { c: C }) => {
 };
 
 const Base = ({ fundo }: { fundo: Fundo }) => {
-  const g = useCurrentFrame(); const c = camera(g);
+  const g = useCurrentFrame(); const c = camera(g); const mudo = useLang() === 'es';
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
       <AbsoluteFill style={{ transform: `translate(${c.x}px, ${c.y}px) scale(${c.s})`, transformOrigin: `50% ${c.oy}%`, filter: c.filter }}>
@@ -83,8 +73,8 @@ const Base = ({ fundo }: { fundo: Fundo }) => {
         {CH.map((x) => (
           <Sequence key={x.i} from={x.start} durationInFrames={x.dur} layout="none">
             {fundo === 'escritorio'
-              ? <><AbsoluteFill><Recorte c={x} /></AbsoluteFill><Audio src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} /></>
-              : <AbsoluteFill><OffthreadVideo src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>}
+              ? <><AbsoluteFill><Recorte c={x} /></AbsoluteFill><Audio src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} volume={mudo ? 0 : 1} /></>
+              : <AbsoluteFill><OffthreadVideo src={staticFile(`f1/${x.clip}.mp4`)} trimBefore={x.from} muted={mudo} style={{ width: '100%', height: '100%' }} /></AbsoluteFill>}
           </Sequence>
         ))}
       </AbsoluteFill>
@@ -263,6 +253,7 @@ export const F1Ad = ({ fundo = 'original', lang = 'pt' }: { fundo?: Fundo; lang?
     <Flash />
     <Grade />
     {SFX.map(([f, n, v], i) => <Sequence key={i} from={Math.round(f)} durationInFrames={50} layout="none"><Audio src={staticFile(`sfx/${n}.wav`)} volume={v} /></Sequence>)}
+    {lang === 'es' && <Audio src={staticFile(VOZ_ES.f1)} />}
     <Audio src={staticFile('music/bed.wav')} volume={(f) => interpolate(f, [0, 6, F1_FRAMES - 15, F1_FRAMES], [0, 0.16, 0.16, 0], clamp)} />
   </AbsoluteFill></LangCtx.Provider>
 );
