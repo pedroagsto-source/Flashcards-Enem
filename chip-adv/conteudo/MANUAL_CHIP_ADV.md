@@ -156,7 +156,8 @@ Depois do vídeo pronto, peça em português normal. Exemplos que funcionam:
 | Versão curta | "Faz uma versão de 15 segundos." |
 | Mudar a música | "Põe uma trilha mais calma." |
 | Mudar o fim | "Termina com 'me segue para mais'." |
-| Usar sua logo | Arraste a logo para a conversa: "Usa essa logo no final." |
+| Acelerar ou desacelerar | "Acelera o trecho do segundo 20 ao 25." · "Deixa o final mais lento." · "Deixa o vídeo inteiro 10% mais rápido." |
+| Usar sua logo | Coloque `logo.png` na pasta CHIP ADV (vale para todos os vídeos) ou arraste para a conversa: "Usa essa logo no final." |
 | Corrigir legenda | "Corrige a palavra 'peção' para 'pensão' na legenda." |
 | Recomeçar um trecho | "Refaz só os primeiros 5 segundos com um gancho mais forte." |
 
@@ -178,7 +179,8 @@ O mapa (PDF) mostra os **17 efeitos** com imagem e o pedido pronto de cada um. U
 
 1. Abra o arquivo `MARCA.md` e preencha: nome na tela, escritório, OAB, áreas, cores (ou escolha um dos 8 estilos do catálogo).
 2. Coloque o `MARCA.md` na pasta CHIP ADV.
-3. Pronto: todo vídeo sai com a sua identidade (nome, OAB, cores e fonte).
+3. **Logomarca:** coloque também a logo do escritório na pasta (ex.: `logo.png`, de preferência com fundo transparente).
+4. Pronto: todo vídeo sai com a sua identidade (nome, OAB, cores, fonte e logo).
 
 ---
 
@@ -188,6 +190,18 @@ O mapa (PDF) mostra os **17 efeitos** com imagem e o pedido pronto de cada um. U
 2. Grave o gancho 3 a 5 vezes de jeitos diferentes e o corpo uma vez.
 3. Escreva: **"Roda o CHIP ADV no modo anúncio."**
 4. Você recebe versões de **15, 30 e 45 segundos**, **5 ganchos** diferentes, os **textos do anúncio** e uma **planilha** para nomear e testar.
+
+---
+
+## Parte 10.5 · Avançado: transformações com IA (opcional)
+
+**Para começar, você não precisa disto.** É só para quem quiser vídeos mais complexos: trocar a sua roupa (por exemplo, por uma beca), trocar o cenário (um tribunal) ou colocar objetos na cena.
+
+1. **Conecte o fal no Claude:** Configurações → Conectores → adicione o **fal** e entre com a sua conta.
+2. **Créditos:** o fal é pago por uso, sem mensalidade. Comece com **US$ 10** em fal.ai → Billing → Credits. Cada imagem custa em torno de **US$ 0,04**.
+3. **Conta bloqueada depois da primeira compra?** Contas novas às vezes ficam em análise. Mande um e-mail para **support@fal.ai**:
+   > Hi! My new fal account was restricted right after my first credit purchase. I use it for video editing with Claude. Could you please review and unlock it? Thank you.
+4. **Peça na conversa:** "troca a minha camisa por uma beca de advogado" ou "me coloca num tribunal".
 
 ---
 

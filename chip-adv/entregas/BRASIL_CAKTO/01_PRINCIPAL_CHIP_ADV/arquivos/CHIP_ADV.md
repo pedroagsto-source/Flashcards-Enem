@@ -217,3 +217,7 @@ export const brand = {
 5. **3 variações rápidas** que o usuário pode pedir com uma frase (ex.: "troca o efeito do segundo 12 por capa de revista", "versão de 15 s só com o gancho", "paleta azul e laranja").
 
 Depois disso, fique pronto para ajustes do tipo *"muda X"* — refaça só o trecho afetado e renderize de novo.
+
+**Ajustes de ritmo:** se o usuário pedir para acelerar ou deixar mais lento (um trecho ou o vídeo inteiro), use `playbackRate` no `<OffthreadVideo>` do trecho (0,75× a 1,5×), recalcule as durações no EDL e os tempos das legendas e dos efeitos daquele trecho, e mantenha o tom de voz natural (acima de 1,25× avise que a fala pode soar acelerada).
+
+**Logomarca:** se houver uma imagem de logo na pasta de trabalho (ex.: `logo.png`, `logo.svg`) ou anexada, use-a na assinatura do vídeo (canto superior, discreta), no cartão final e nos efeitos 06, 08 e 12.

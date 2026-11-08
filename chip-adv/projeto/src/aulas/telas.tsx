@@ -58,7 +58,7 @@ export const Pasta = ({ nome, itens, f, at, novo }: { nome: string; itens: strin
     <div style={{ fontWeight: 900, fontSize: 32, color: '#1b1b1f', marginBottom: 20 }}>📁 {nome}</div>
     <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap', minHeight: 120 }}>{itens.map((t, i) => { const d = novo !== undefined && i === itens.length - 1 ? novo : at; if (f < d) return null;
       return <div key={t} style={{ textAlign: 'center', width: 180, transform: `translateY(${(1 - pop(f, d)) * -60}px)` }}>
-        <div style={{ fontSize: 70 }}>{t.endsWith('.zip') ? '🗜' : t.endsWith('.md') ? '📄' : t.endsWith('.pdf') ? '📕' : /\.(mov|mp4)$/.test(t) ? '🎬' : '📁'}</div>
+        <div style={{ fontSize: 70 }}>{t.endsWith('.zip') ? '🗜' : t.endsWith('.md') ? '📄' : t.endsWith('.pdf') ? '📕' : /\.(png|jpg|svg)$/.test(t) ? '🖼' : /\.(mov|mp4)$/.test(t) ? '🎬' : '📁'}</div>
         <div style={{ fontWeight: 700, fontSize: 20, color: '#333', wordBreak: 'break-all' }}>{t}</div></div>; })}</div></div>;
 
 export const Rotulo = ({ t, f, at }: { t: string; f: number; at: number }) => f < at ? null :

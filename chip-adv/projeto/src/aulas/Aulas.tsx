@@ -2,7 +2,7 @@ import { Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remo
 import { brand, font } from '../brand';
 import T from '../data/aulas_tempos.json';
 import { A, Ac, BG, Centro, Chip, Itens, Moldura, pop, Proxima, Titulo } from './kit';
-import { AppClaude, Botao, Card, Cursor, Digitando, Msg, Navegador, Pasta, Permissao, Rotulo } from './telas';
+import { AppClaude, Botao, Card, Cursor, Digitando, Janela, Msg, Navegador, Pasta, Permissao, Rotulo } from './telas';
 
 type K = keyof typeof T;
 const tempos = (k: K) => T[k] as { frases: number[]; total: number };
@@ -87,13 +87,15 @@ const C06 = () => { const { f, F, em } = usa('aula06');
 /* ---------- Aula 7 · Ajustes ---------- */
 const C07 = () => { const { f, F, em } = usa('aula07');
   if (em(0, 1)) return <Abertura n="7" t={<>Roteiro e <Ac>ajustes</Ac>.</>} f={f} />;
-  if (em(1, 6)) return <Centro><AppClaude pasta="CHIP ADV">
+  if (em(1, 7)) return <Centro><AppClaude pasta="CHIP ADV">
     <Msg de="voce" f={f} at={F[1] + 40}>na linha 2, usa a capa de revista</Msg><Msg de="claude" f={f} at={F[1] + 70}>Feito ✓ Linha 2: 16 Capa de revista.</Msg>
     <Msg de="voce" f={f} at={F[3]}>deixa a legenda maior</Msg><Msg de="claude" f={f} at={F[3] + 25}>Feito ✓</Msg>
     <Msg de="voce" f={f} at={F[4]}>troca o efeito do segundo 12 por capa de revista</Msg><Msg de="claude" f={f} at={F[4] + 30}>Feito ✓</Msg>
-    <Msg de="voce" f={f} at={F[5]}>faz uma versão de 15 segundos</Msg><Msg de="claude" f={f} at={F[5] + 30}>Pronto: out/video-15s.mp4 ✓</Msg>
+    {f < F[6] && <><Msg de="voce" f={f} at={F[5]}>faz uma versão de 15 segundos</Msg><Msg de="claude" f={f} at={F[5] + 30}>Pronto: out/video-15s.mp4 ✓</Msg></>}
+    {f >= F[6] && <><Msg de="voce" f={f} at={F[6] + 20}>acelera o trecho do segundo 20 ao 25</Msg><Msg de="claude" f={f} at={F[6] + 45}>Feito ✓ trecho em 1,25×</Msg>
+      <Msg de="voce" f={f} at={F[6] + 80}>deixa o final mais lento</Msg><Msg de="claude" f={f} at={F[6] + 105}>Feito ✓ final em 0,8×</Msg></>}
     {f >= F[2] && f < F[3] && <div style={{ position: 'absolute', left: 30, right: 30, top: '45%', textAlign: 'center', fontFamily: font.ui, fontWeight: 900, fontSize: 40, color: '#1b1b1f', opacity: pop(f, F[2]) }}>Peça em português normal ↓</div>}</AppClaude></Centro>;
-  return <Fim t={<>Ele refaz <Ac>só o que você pediu</Ac>.</>} prox="Aula 8 · Mapa de efeitos" f={f} d={F[6]} />; };
+  return <Fim t={<>Ele refaz <Ac>só o que você pediu</Ac>.</>} prox="Aula 8 · Mapa de efeitos" f={f} d={F[7]} />; };
 
 /* ---------- Aula 8 · Mapa de efeitos ---------- */
 const NOMES = ['Troca de cenário', 'Comparação', 'Janela da IA', 'Carimbo', 'Zoom de impacto', 'Celular', 'Checklist', 'Mágica', 'Corte no zoom', 'Relógio de horas', 'Bastidor', 'Recorte + botão', 'Tela dividida', 'Rabisco vivo', 'Antes e depois', 'Capa de revista', 'Palavra de vidro'];
@@ -117,6 +119,33 @@ const C09 = () => { const { f, F, em } = usa('aula09');
     <Card titulo={PROB[i][0]} sub={PROB[i][1]} f={f} at={F[i + 1]} /></Centro>; }
   return <Fim t={<>Agora é com você. <Ac>Bons vídeos.</Ac></>} f={f} d={F[7]} />; };
 
+
+/* ---------- Aula 10 · Avançado: transformações com IA (fal) ---------- */
+const EMAIL = 'Hi! My new fal account was restricted right after my first credit purchase. I use it for video editing with Claude. Could you please review and unlock it? Thank you.';
+const C10 = () => { const { f, F, em } = usa('aula10');
+  if (em(0, 1)) return <Abertura n="10 · Avançado" t={<>Transformações com <Ac>IA</Ac>.</>} f={f} />;
+  if (em(1, 2)) return <Centro><Titulo t={<>Para começar, <Ac>não precisa</Ac>.</>} sub="Só para quem quiser vídeos mais complexos." f={f} d={F[1]} size={100} /></Centro>;
+  if (em(2, 3)) return <Centro><Img src={staticFile('aulas/comparacao.jpg')} style={{ height: 800, borderRadius: 18, boxShadow: `0 0 0 4px ${A}`, opacity: pop(f, F[2]) }} /></Centro>;
+  if (em(3, 4)) return <Centro><Janela titulo="Claude · Configurações"><div style={{ display: 'flex', height: '100%', fontFamily: font.ui }}>
+    <div style={{ width: 300, background: '#EFECE5', padding: 26, fontSize: 24, color: '#555', lineHeight: 2.2 }}>{['Geral', 'Conta', 'Conectores', 'Privacidade'].map((t) => <div key={t} style={{ fontWeight: t === 'Conectores' ? 900 : 600, color: t === 'Conectores' ? '#1b1b1f' : '#777' }}>{t}</div>)}</div>
+    <div style={{ flex: 1, padding: 40 }}><div style={{ fontWeight: 900, fontSize: 40, color: '#1b1b1f', marginBottom: 24 }}>Conectores</div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fff', border: `3px solid ${f >= F[3] + 60 ? A : '#e3ddd0'}`, borderRadius: 16, padding: '20px 26px', width: 820 }}>
+        <span style={{ fontWeight: 900, fontSize: 34, color: '#1b1b1f' }}>fal <span style={{ fontWeight: 600, fontSize: 22, color: '#777' }}>· imagem e vídeo com IA</span></span>
+        <span style={{ background: f >= F[3] + 90 ? '#2f7d16' : '#1b1b1f', color: '#fff', fontWeight: 800, fontSize: 24, padding: '12px 26px', borderRadius: 12 }}>{f >= F[3] + 90 ? 'Conectado ✓' : 'Conectar'}</span></div></div></div></Janela>
+    <Cursor f={f} de={[1500, 900]} ate={[1270, 330]} a0={F[3] + 30} a1={F[3] + 80} /></Centro>;
+  if (em(4, 5)) return <Centro><div style={{ display: 'flex', gap: 30 }}>{[['US$ 10', 'para começar'], ['≈ US$ 0,04', 'por imagem'], ['pago por uso', 'sem mensalidade']].map(([a, b], i) =>
+    <div key={a} style={{ width: 420, background: 'rgba(255,255,255,.05)', border: `2px solid ${A}55`, borderRadius: 24, padding: 34, textAlign: 'center', opacity: pop(f, F[4] + i * 25) }}>
+      <div style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 64, color: A }}>{a}</div><div style={{ fontFamily: font.ui, fontWeight: 700, fontSize: 32, color: brand.ink, marginTop: 8 }}>{b}</div></div>)}</div>
+    <div style={{ marginTop: 40, fontFamily: font.ui, fontWeight: 700, fontSize: 30, color: brand.muted, opacity: pop(f, F[4] + 80) }}>Créditos em fal.ai → Billing → Credits</div></Centro>;
+  if (em(5, 6)) return <Centro><Janela titulo="Novo e-mail" w={1400} h={760}><div style={{ padding: 40, fontFamily: font.ui, fontSize: 28, color: '#333', lineHeight: 1.6 }}>
+    <div><b>Para:</b> support@fal.ai</div><div><b>Assunto:</b> Please unlock my account</div><hr style={{ border: 0, borderTop: '1px solid #ddd', margin: '20px 0' }} />
+    <div style={{ color: '#1b1b1f' }}>{EMAIL.slice(0, Math.floor(Math.min(1, Math.max(0, (f - F[5] - 30) / 120)) * EMAIL.length))}</div></div></Janela>
+    <Rotulo t="Só se aparecer bloqueio na conta" f={f} at={F[5] + 20} /></Centro>;
+  if (em(6, 7)) return <Centro><AppClaude pasta="CHIP ADV"><Msg de="voce" f={f} at={F[6] + 10}>troca a minha camisa por uma beca de advogado</Msg>
+    <Msg de="claude" f={f} at={F[6] + 60}><div style={{ display: 'flex', gap: 16, alignItems: 'center' }}><Img src={staticFile('aulas/beca.jpg')} style={{ height: 300, borderRadius: 12 }} /><span>Feito ✓ beca aplicada</span></div></Msg>
+    <Digitando texto="" f={f} at={1e9} /></AppClaude></Centro>;
+  return <Fim t={<>Agora, os <Ac>bônus</Ac>.</>} prox="Bônus 1 · Identidade" f={f} d={F[7]} />; };
+
 /* ---------- PRO 1 · Identidade ---------- */
 const CP1 = () => { const { f, F, em } = usa('pro1');
   if (em(0, 1)) return <Abertura n="bônus" t={<>A identidade do seu <Ac>escritório</Ac>.</>} f={f} />;
@@ -124,12 +153,14 @@ const CP1 = () => { const { f, F, em } = usa('pro1');
     <div style={{ fontFamily: font.ui, fontWeight: 900, fontSize: 34, color: '#1b1b1f', marginBottom: 10 }}>📄 MARCA.md</div>
     {[['nome_na_tela', 'Dra. Ana Souza'], ['escritorio', 'Souza Advocacia'], ['oab', 'OAB/SP 000.000'], ['areas', 'Família · Sucessões'], [f >= F[2] ? 'estilo' : 'cores', f >= F[2] ? 'Sóbrio Clássico (catálogo)' : 'azul-marinho e dourado']].map(([k, v], i) =>
       <div key={k} style={{ opacity: f >= F[1] + 20 + i * 18 ? 1 : 0 }}>{k}: <b style={{ color: '#2f7d16' }}>"{v}"</b></div>)}</div></Centro>;
-  if (em(3, 4)) return <Centro><Pasta nome="CHIP ADV" itens={['skill-chip-adv.zip', 'MARCA.md']} f={f} at={F[3]} novo={F[3] + 25} /></Centro>;
+  if (em(3, 5)) return <Centro><Pasta nome="CHIP ADV" itens={f >= F[4] ? ['skill-chip-adv.zip', 'MARCA.md', 'logo.png'] : ['skill-chip-adv.zip', 'MARCA.md']} f={f} at={F[3]} novo={f >= F[4] ? F[4] + 20 : F[3] + 25} />
+    {f >= F[4] && <div style={{ marginTop: 30 }}><Titulo t={<>+ a sua <Ac>logomarca</Ac></>} f={f} d={F[4] + 30} size={64} /></div>}</Centro>;
   return <Centro><div style={{ position: 'relative', width: 380, height: 676, borderRadius: 40, overflow: 'hidden', boxShadow: `0 0 0 6px ${A}` }}>
-    <Sequence from={F[4]} layout="none"><OffthreadVideo src={staticFile('aulas/pronto.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
-    <div style={{ position: 'absolute', left: 20, bottom: 40, background: '#0F1E33', color: '#F4EFE6', fontFamily: font.ui, padding: '12px 18px', borderLeft: '6px solid #B8955A', opacity: pop(f, F[4] + 15) }}>
+    <Sequence from={F[5]} layout="none"><OffthreadVideo src={staticFile('aulas/pronto.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
+    <div style={{ position: 'absolute', right: 18, top: 18, width: 74, height: 74, borderRadius: 37, background: '#0F1E33', border: '3px solid #B8955A', color: '#B8955A', display: 'grid', placeItems: 'center', fontFamily: font.mag, fontWeight: 900, fontSize: 30, opacity: pop(f, F[5] + 10) }}>AS</div>
+    <div style={{ position: 'absolute', left: 20, bottom: 40, background: '#0F1E33', color: '#F4EFE6', fontFamily: font.ui, padding: '12px 18px', borderLeft: '6px solid #B8955A', opacity: pop(f, F[5] + 15) }}>
       <div style={{ fontWeight: 900, fontSize: 26 }}>Dra. Ana Souza</div><div style={{ fontWeight: 600, fontSize: 18 }}>OAB/SP 000.000</div></div></div>
-    <div style={{ marginTop: 30 }}><Titulo t={<>Todo vídeo com a <Ac>sua marca</Ac>.</>} f={f} d={F[4] + 20} size={60} /></div></Centro>; };
+    <div style={{ marginTop: 30 }}><Titulo t={<>Nome, OAB, cores e <Ac>logo</Ac>.</>} f={f} d={F[5] + 20} size={60} /></div></Centro>; };
 
 /* ---------- PRO 2 · Modo anúncio ---------- */
 const CP2 = () => { const { f, F, em } = usa('pro2');
@@ -146,4 +177,4 @@ const CP2 = () => { const { f, F, em } = usa('pro2');
 const mk = (C: React.FC, k: K, n: string) => () => <Moldura n={n} total={TOTAL(k)} voz={`aulas/${k}_voz.mp3`}><C /></Moldura>;
 export const AULAS: [string, React.FC, K][] = [['Aula02', mk(C02, 'aula02', '2'), 'aula02'], ['Aula03', mk(C03, 'aula03', '3'), 'aula03'], ['Aula04', mk(C04, 'aula04', '4'), 'aula04'],
   ['Aula05', mk(C05, 'aula05', '5'), 'aula05'], ['Aula06', mk(C06, 'aula06', '6'), 'aula06'], ['Aula07', mk(C07, 'aula07', '7'), 'aula07'], ['Aula08', mk(C08, 'aula08', '8'), 'aula08'],
-  ['Aula09', mk(C09, 'aula09', '9'), 'aula09'], ['AulaPro1', mk(CP1, 'pro1', 'BÔNUS 1'), 'pro1'], ['AulaPro2', mk(CP2, 'pro2', 'BÔNUS 2'), 'pro2']];
+  ['Aula09', mk(C09, 'aula09', '9'), 'aula09'], ['Aula10', mk(C10, 'aula10', '10'), 'aula10'], ['AulaPro1', mk(CP1, 'pro1', 'BÔNUS 1'), 'pro1'], ['AulaPro2', mk(CP2, 'pro2', 'BÔNUS 2'), 'pro2']];
