@@ -9,6 +9,7 @@ import { F7Ad, F7_FRAMES } from './f7/F7Ad';
 import { F8Ad, F8_FRAMES } from './f8/F8Ad';
 import { Aula00, AULA00_FRAMES } from './aulas/Aula00';
 import { Aula01, AULA01_FRAMES } from './aulas/Aula01';
+import { AULAS, TOTAL as TOTAL_AULA } from './aulas/Aulas';
 
 const HOOKS: HookId[] = ['h2', 'h3', 'h4', 'h5'];
 
@@ -23,6 +24,7 @@ export const RemotionRoot = () => (
     <Composition id="F8Ad" component={F8Ad} durationInFrames={F8_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="Aula00" component={Aula00} durationInFrames={AULA00_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="Aula01" component={Aula01} durationInFrames={AULA01_FRAMES} fps={30} width={1920} height={1080} />
+    {AULAS.map(([id, C, k]) => <Composition key={id} id={id} component={C} durationInFrames={TOTAL_AULA(k)} fps={30} width={1920} height={1080} />)}
     {/* LATAM: versões em espanhol */}
     <Composition id="ChipAdv-es" component={ChipAdv} defaultProps={{ lang: 'es' as const }} durationInFrames={TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="F1Ad-es" component={F1Ad} defaultProps={{ lang: 'es' as const }} durationInFrames={F1_FRAMES} fps={30} width={1080} height={1920} />
