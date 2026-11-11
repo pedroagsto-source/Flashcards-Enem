@@ -7,6 +7,7 @@ import { F1Ad, F1_FRAMES } from './f1/F1Ad';
 import { F6Anim, F6_FRAMES, F6_FRAMES_ES } from './f6/F6Anim';
 import { F7Ad, F7_FRAMES } from './f7/F7Ad';
 import { F8Ad, F8_FRAMES } from './f8/F8Ad';
+import { F10Estudio, F10_FRAMES } from './f10/F10Estudio';
 import { Aula00, AULA00_FRAMES } from './aulas/Aula00';
 import { Aula01, AULA01_FRAMES } from './aulas/Aula01';
 import { AULAS, TOTAL as TOTAL_AULA } from './aulas/Aulas';
@@ -22,6 +23,7 @@ export const RemotionRoot = () => (
     <Composition id="F7Ad" component={F7Ad} durationInFrames={F7_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="MotionAd" component={MotionAd} durationInFrames={MOTION_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="F8Ad" component={F8Ad} durationInFrames={F8_FRAMES} fps={30} width={1080} height={1920} />
+    <Composition id="F10Estudio" component={F10Estudio} durationInFrames={F10_FRAMES} fps={30} width={1080} height={1920} />
     <Composition id="Aula00" component={Aula00} durationInFrames={AULA00_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="Aula01" component={Aula01} durationInFrames={AULA01_FRAMES} fps={30} width={1920} height={1080} />
     {AULAS.map(([id, C, k]) => <Composition key={id} id={id} component={C} durationInFrames={TOTAL_AULA(k)} fps={30} width={1920} height={1080} />)}
