@@ -328,13 +328,15 @@ def main():
                '@suporte_pt': (f'{R}/bump-suporte/SUPORTE_INDIVIDUAL_COMO_FUNCIONA.md', 'CHIP <b>ADV</b>'),
                '@vital_pt': (f'{R}/bump-vitalicio/ACESSO_VITALICIO.md', 'CHIP <b>ADV</b>')}
     pdfs = {}
+    import estudio; estudio.main()  # Estúdio + roteiro visual dentro da skill do CHIP ADV
     # skills: copia o prompt e o mapa atuais para dentro da pasta da skill e gera o zip
     for k, nome, prompt, mapa_src, mapa_dst in [('@skill_pt', 'chip-adv', f'{R}/CHIP_ADV.md', f'{R}/mapa/MAPA_EFEITOS.md', 'MAPA_EFEITOS.md'),
                                                 ('@skill_es', 'chip-abogado', f'{R}/latam/CHIP_ABOGADO.md', f'{R}/mapa/MAPA_EFECTOS_ES.md', 'MAPA_EFECTOS.md')]:
         d = f'{R}/skill/{nome}'; shutil.copy(prompt, d); shutil.copy(mapa_src, f'{d}/{mapa_dst}')
         z = f'{C}/skill-{nome}.zip'
         with zipfile.ZipFile(z, 'w', zipfile.ZIP_DEFLATED) as zf:
-            for f in sorted(os.listdir(d)): zf.write(f'{d}/{f}', f'{nome}/{f}')
+            for raiz, _, fs in sorted(os.walk(d)):
+                for f in sorted(fs): zf.write(f'{raiz}/{f}', f'{nome}/{os.path.relpath(f"{raiz}/{f}", d)}')
         pdfs[k] = z
     for k, (md, marca) in gerados.items():
         p = f'{C}/{os.path.basename(md).replace(".md", ".pdf")}'; pdf(md, p, marca); pdfs[k] = p

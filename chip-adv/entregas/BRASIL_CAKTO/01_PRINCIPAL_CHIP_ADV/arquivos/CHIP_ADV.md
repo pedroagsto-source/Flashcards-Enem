@@ -51,7 +51,14 @@ Idioma de tudo que aparece na tela e nas suas respostas: **português do Brasil*
 4. **Gancho:** os primeiros **1,5 s** decidem tudo. Se a frase mais forte estiver no meio, avalie abrir com ela (*cold open*) e depois voltar ao começo.
 5. Gere `src/data/edl.json` (lista de cortes: `{ clip, inSec, outSec }`) e informe a duração final. Meta: **20 a 25% mais curto** que o bruto sem perder conteúdo.
 
+### Etapa 0 — Estúdio (escolhas visuais, antes do primeiro vídeo)
+- Se existir `MEU_ESTILO.md` na pasta de trabalho (ou o usuário colou as escolhas do Estúdio na conversa), use: formato, estilo, fonte da legenda, cores, efeitos preferidos e efeitos a evitar. Isso tem prioridade sobre as escolhas automáticas e sobre `ESTILOS.md`; `MARCA.md` (nome, OAB, logo) continua valendo.
+- Se não existir e o usuário não disse "pode escolher por mim", **abra o Estúdio**: o arquivo `estudio/ESTUDIO.html` da skill (no Mac `open`, no Windows `start ""`, no Linux `xdg-open`; se o app tiver painel de pré-visualização, mostre nele). Diga em uma frase: "Escolha formato, estilo, fonte, cores e animações; no fim, toque em **Baixar MEU_ESTILO.md** e salve na pasta do CHIP ADV, ou **Copiar escolhas** e cole aqui."
+- **Formato "Lista numerada":** cartão escuro no topo (≈ 60% da largura, cantos 18 px) com o nome do item, contador "03/07" em monoespaçada no canto e uma tela ou ícone demonstrando o item; título gigante do item embaixo (Inter 900, 64–72 px) com 1 linha de explicação; troca de item com spring rápido no frame em que a fala muda de item. O último item é o mais forte e prepara o CTA.
+
 ### Etapa 4 — Roteiro de edição (storyboard)
+Além da tabela abaixo, gere o **roteiro visual**: copie `estudio/STORYBOARD_MODELO.html` da skill para a pasta de trabalho como `roteiro.html` e troque **só** o JSON do bloco `<script id="roteiro">` por: `{"titulo", "resumo", "cores": {"principal", "destaque"}, "momentos": [{"inicio": "0:00", "fim": "0:03", "frase", "funcao", "opcoes": [{"efeito": "05", "motivo"}, {"efeito": "17", "motivo"}]}]}`. Em cada momento com efeito, dê **2 opções** (a primeira é a sua sugestão), respeitando `MEU_ESTILO.md`. Abra o `roteiro.html` para o usuário; ele escolhe e cola a aprovação na conversa. Use exatamente as escolhas dele.
+
 Antes de escrever qualquer componente, monte e **mostre** uma tabela:
 
 | # | Tempo | Fala (resumo) | Função narrativa | Efeito (nº do mapa) | Por quê |
