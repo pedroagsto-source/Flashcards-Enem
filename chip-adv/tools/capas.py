@@ -7,34 +7,33 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUB = f'{R}/projeto/public'
 OUT = f'{R}/entregas/BRASIL_CAKTO/00_AREA_DE_MEMBROS_AULAS/capas'
 FOTOS = f'{R}/fotos-pro'  # fotos profissionais geradas a partir dos vídeos (fal · nano-banana)
-P = {'a': '1_estudio_terno.jpg', 'b': '2_escritorio_estante.jpg', 'c': '3_notebook.jpg', 'd': '4_gravando_tripe.jpg',
-     'e': '5_close_janela.jpg', 'f': '6_explicando.jpg', 'g': '7_pb_editorial.jpg', 'h': '8_corredor.jpg'}
-POS = {'a': '50% 18%', 'b': '50% 30%', 'c': '30% 40%', 'd': '62% 35%', 'e': '50% 25%', 'f': '50% 30%', 'g': '50% 20%', 'h': '62% 45%'}
+P = {'a': '1_estudio_terno.jpg', 'f': '6_explicando.jpg', 'g': '7_pb_editorial.jpg', 'h': '8_corredor.jpg'}
+POS = {'a': '50% 18%', 'b': '50% 30%', 'c': '30% 40%', 'd': '62% 35%', 'e': '50% 25%', 'f': '50% 30%', 'g': '50% 20%', 'h': '64% 40%'}
 
 MODULOS = [
     ('01', 'Comece aqui', 'O caminho inteiro em 2 aulas', 'a'),
-    ('02', 'Instalação', 'Uma vez só, sem complicação', 'b'),
-    ('03', 'Seu primeiro vídeo', 'Do celular ao vídeo pronto', 'd'),
-    ('04', 'Efeitos', 'Os 17 efeitos e como pedir', 'f'),
-    ('05', 'Suporte', 'Os problemas mais comuns, resolvidos', 'e'),
-    ('06', 'Avançado', 'Transformações com IA (opcional)', 'c'),
-    ('07', 'Bônus', 'Pautas, identidade e anúncios', 'g'),
+    ('02', 'Instalação', 'Uma vez só, sem complicação', 'f'),
+    ('03', 'Seu primeiro vídeo', 'Do celular ao vídeo pronto', 'h'),
+    ('04', 'Efeitos', 'Os 17 efeitos e como pedir', 'g'),
+    ('05', 'Suporte', 'Os problemas mais comuns, resolvidos', 'f'),
+    ('06', 'Avançado', 'Transformações com IA (opcional)', 'h'),
+    ('07', 'Bônus', 'Pautas, identidade e anúncios', 'a'),
 ]
 AULAS = [
     ('01_M1_Aula0', 'AULA 0', 'Boas-vindas', 'O caminho em 1 minuto', 'Comece aqui', 'a'),
-    ('02_M1_Aula1', 'AULA 1', 'O que você precisa', '4 coisas, nenhuma paga a mais', 'Comece aqui', 'e'),
-    ('03_M2_Aula2', 'AULA 2', 'Instalando o Claude', 'Plano, app e aba Code', 'Instalação', 'c'),
-    ('04_M2_Aula3', 'AULA 3', 'Instalando o CHIP ADV', 'A skill /chip-adv', 'Instalação', 'b'),
-    ('05_M2_Aula4', 'AULA 4', 'Preparando o computador', 'Um pedido e pronto', 'Instalação', 'c'),
-    ('06_M3_Aula5', 'AULA 5', 'Gravando do jeito certo', 'As 6 regras', 'Seu primeiro vídeo', 'd'),
-    ('07_M3_Aula6', 'AULA 6', 'Primeira edição', 'Estúdio, roteiro e vídeo pronto', 'Seu primeiro vídeo', 'c'),
-    ('08_M3_Aula7', 'AULA 7', 'Roteiro e ajustes', 'Aprovar, mudar, acelerar', 'Seu primeiro vídeo', 'f'),
+    ('02_M1_Aula1', 'AULA 1', 'O que você precisa', '4 coisas, nenhuma paga a mais', 'Comece aqui', 'f'),
+    ('03_M2_Aula2', 'AULA 2', 'Instalando o Claude', 'Plano, app e aba Code', 'Instalação', 'g'),
+    ('04_M2_Aula3', 'AULA 3', 'Instalando o CHIP ADV', 'A skill /chip-adv', 'Instalação', 'h'),
+    ('05_M2_Aula4', 'AULA 4', 'Preparando o computador', 'Um pedido e pronto', 'Instalação', 'f'),
+    ('06_M3_Aula5', 'AULA 5', 'Gravando do jeito certo', 'As 6 regras', 'Seu primeiro vídeo', 'a'),
+    ('07_M3_Aula6', 'AULA 6', 'Primeira edição', 'Estúdio, roteiro e vídeo pronto', 'Seu primeiro vídeo', 'h'),
+    ('08_M3_Aula7', 'AULA 7', 'Roteiro e ajustes', 'Aprovar, mudar, acelerar', 'Seu primeiro vídeo', 'g'),
     ('09_M4_Aula8', 'AULA 8', 'Mapa de efeitos', '17 efeitos com o pedido de cada um', 'Efeitos', 'f'),
-    ('10_M5_Aula9', 'AULA 9', 'Problemas comuns', 'E a solução de cada um', 'Suporte', 'e'),
+    ('10_M5_Aula9', 'AULA 9', 'Problemas comuns', 'E a solução de cada um', 'Suporte', 'a'),
     ('11_M6_Aula10', 'AULA 10', 'Transformações com IA', 'Roupa, cenário e objetos', 'Avançado', 'h'),
     ('12_M7_Bonus1', 'BÔNUS 1', 'Identidade do escritório', 'Nome, OAB, cores e logo', 'Bônus', 'g'),
     ('13_M7_Bonus2', 'BÔNUS 2', 'Modo anúncio', '5 ganchos e versões de 15/30/45 s', 'Bônus', 'a'),
-    ('14_M7_Bonus_Pautas', 'BÔNUS', '64 pautas para advogados', 'Ganchos prontos por área', 'Bônus', 'b'),
+    ('14_M7_Bonus_Pautas', 'BÔNUS', '64 pautas para advogados', 'Ganchos prontos por área', 'Bônus', 'f'),
 ]
 
 FONTES = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@600;800;900&family=Instrument+Serif:ital@1&display=swap">'
@@ -52,6 +51,7 @@ BASE = """*{margin:0;box-sizing:border-box}body{width:%(w)dpx;height:%(h)dpx;ove
 
 
 def italico(t):  # última palavra em serifa itálica, como na landing
+    if t.endswith('CHIP ADV'): return t.replace('CHIP ADV', 'CHIP <span style="color:#D8FF3C">ADV</span>')
     p = t.rsplit(' ', 1)
     return t if len(p) < 2 else f'{p[0]} <span class="serif">{p[1]}</span>'
 
