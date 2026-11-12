@@ -316,3 +316,14 @@ details p { margin: 10px 0 0; color: var(--cl-muted); }
   box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 2px #2c2c34, 0 0 80px rgba(216,255,60,.14); }
 .st-cel video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 34px; background: #0B0B0F; }
 @media (min-width: 900px) { .st-grade { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); } }
+
+/* Fotos e módulos */
+.oab-grade { display: grid; gap: 32px; align-items: center; }
+.oab-grade > * { min-width: 0; }
+.oab-foto { margin: 0; justify-self: center; width: min(360px, 78vw); aspect-ratio: 2 / 3; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.55); border: 1px solid var(--line); }
+.oab-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 900px) { .oab-grade { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); } .oab-l { grid-template-columns: 1fr; } }
+.kt-mods { margin: 40px 0 8px; }
+.kt-fila { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 2px 14px; scrollbar-width: thin; }
+.kt-fila img { flex: none; width: 40vw; max-width: 200px; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 16px; scroll-snap-align: start; border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+@media (min-width: 900px) { .kt-fila img { width: calc((100% - 6 * 14px) / 7); height: auto; aspect-ratio: 2 / 3; } }
