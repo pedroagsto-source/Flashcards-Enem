@@ -85,7 +85,10 @@ def main():
     ads = []
     for nome, arq in CRIATIVOS:
         if nome in feitos: print(rotulo, nome, 'já existe'); continue
-        vid = vids.get(nome) or subir_video(conta, nome, arq); thumb = esperar_thumb(vid)
+        vid = vids.get(nome) or subir_video(conta, nome, arq)
+        if os.environ.get('SO_PREPARO'):  # app em modo desenvolvimento: só sobe o vídeo; o anúncio é criado no Gerenciador
+            ads.append({'nome': nome, 'video': vid}); print(rotulo, nome, 'vídeo na biblioteca', flush=True); continue
+        thumb = esperar_thumb(vid)
         cr = api(f'{conta}/adcreatives', {'name': nome, 'url_tags': UTM, 'object_story_spec': {
             'page_id': PAGINA, 'instagram_user_id': INSTA,
             'video_data': {'video_id': vid, 'image_url': thumb, 'message': TEXTO, 'title': TITULO, 'link_description': DESCR,

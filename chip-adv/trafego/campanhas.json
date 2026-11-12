@@ -1,0 +1,190 @@
+{
+ "CA 01": {
+  "conta": "act_2042924396393255",
+  "campanha": "52555117504026",
+  "conjunto": "52555117509426",
+  "anuncios": [
+   {
+    "nome": "CR01_F1_demo",
+    "video": "1839336123887529"
+   },
+   {
+    "nome": "CR02_F1_escritorio",
+    "video": "2637300843359774"
+   },
+   {
+    "nome": "CR03_F4_ladoalado",
+    "video": "3481879358657832"
+   },
+   {
+    "nome": "CR04_F5_motion",
+    "video": "1137572315647153"
+   },
+   {
+    "nome": "CR05_F6_animado",
+    "video": "4825442717700801"
+   },
+   {
+    "nome": "CR06_F6_animado_voz",
+    "video": "29631272173136206"
+   },
+   {
+    "nome": "CR07_F7_carro",
+    "video": "1139691168707657"
+   },
+   {
+    "nome": "CR08_F8_ia_editou",
+    "video": "2360926701362872"
+   },
+   {
+    "nome": "CR09_F10_estudio",
+    "video": "1121907310452590"
+   }
+  ],
+  "cambio": 5.5,
+  "bid_usd_centavos": 1818,
+  "orcamento_usd_centavos": 1818,
+  "status": "PAUSED"
+ },
+ "CA 02": {
+  "conta": "act_1090584430448420",
+  "campanha": "120251475912740774",
+  "conjunto": "120251475912860774",
+  "anuncios": [
+   {
+    "nome": "CR01_F1_demo",
+    "video": "2855305944871334"
+   },
+   {
+    "nome": "CR02_F1_escritorio",
+    "video": "2289914525139790"
+   },
+   {
+    "nome": "CR03_F4_ladoalado",
+    "video": "29274646125509488"
+   },
+   {
+    "nome": "CR04_F5_motion",
+    "video": "1823491558895470"
+   },
+   {
+    "nome": "CR05_F6_animado",
+    "video": "3651507748339122"
+   },
+   {
+    "nome": "CR06_F6_animado_voz",
+    "video": "2373803740030384"
+   },
+   {
+    "nome": "CR07_F7_carro",
+    "video": "1924164821881294"
+   },
+   {
+    "nome": "CR08_F8_ia_editou",
+    "video": "1142558638360505"
+   },
+   {
+    "nome": "CR09_F10_estudio",
+    "video": "1840703053796717"
+   }
+  ],
+  "cambio": 5.5,
+  "bid_usd_centavos": 1818,
+  "orcamento_usd_centavos": 1818,
+  "status": "PAUSED"
+ },
+ "CA 03": {
+  "conta": "act_1633296008264064",
+  "campanha": "120252467975860021",
+  "conjunto": "120252467975990021",
+  "anuncios": [
+   {
+    "nome": "CR01_F1_demo",
+    "video": "1827423255171826"
+   },
+   {
+    "nome": "CR02_F1_escritorio",
+    "video": "1810598966681051"
+   },
+   {
+    "nome": "CR03_F4_ladoalado",
+    "video": "2232645624350259"
+   },
+   {
+    "nome": "CR04_F5_motion",
+    "video": "1648641316804009"
+   },
+   {
+    "nome": "CR05_F6_animado",
+    "video": "1285511874372451"
+   },
+   {
+    "nome": "CR06_F6_animado_voz",
+    "video": "1140532901704313"
+   },
+   {
+    "nome": "CR07_F7_carro",
+    "video": "2218027729110830"
+   },
+   {
+    "nome": "CR08_F8_ia_editou",
+    "video": "2596462084154336"
+   },
+   {
+    "nome": "CR09_F10_estudio",
+    "video": "1166216375939822"
+   }
+  ],
+  "cambio": 5.5,
+  "bid_usd_centavos": 1818,
+  "orcamento_usd_centavos": 1818,
+  "status": "PAUSED"
+ },
+ "CA 04": {
+  "conta": "act_1757740808840578",
+  "campanha": "120251874724250158",
+  "conjunto": "120251874724820158",
+  "anuncios": [
+   {
+    "nome": "CR01_F1_demo",
+    "video": "1641918077473528"
+   },
+   {
+    "nome": "CR02_F1_escritorio",
+    "video": "1890354941961567"
+   },
+   {
+    "nome": "CR03_F4_ladoalado",
+    "video": "1708826637468560"
+   },
+   {
+    "nome": "CR04_F5_motion",
+    "video": "962127313341886"
+   },
+   {
+    "nome": "CR05_F6_animado",
+    "video": "1802075644232643"
+   },
+   {
+    "nome": "CR06_F6_animado_voz",
+    "video": "4436120480051644"
+   },
+   {
+    "nome": "CR07_F7_carro",
+    "video": "1685661583084883"
+   },
+   {
+    "nome": "CR08_F8_ia_editou",
+    "video": "1848331333005560"
+   },
+   {
+    "nome": "CR09_F10_estudio",
+    "video": "1149015260946516"
+   }
+  ],
+  "cambio": 5.5,
+  "bid_usd_centavos": 1818,
+  "orcamento_usd_centavos": 1818,
+  "status": "PAUSED"
+ }
+}
