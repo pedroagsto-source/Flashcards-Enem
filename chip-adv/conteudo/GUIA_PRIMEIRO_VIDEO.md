@@ -39,8 +39,9 @@ O jeito mais simples é o aplicativo:
 ## Passo 3 · Crie a pasta do CHIP ADV
 
 1. Na sua área de trabalho, crie uma pasta chamada **CHIP ADV**.
-2. Coloque dentro dela os arquivos `CHIP_ADV.md` e `MAPA_EFEITOS_CHIP_ADV.pdf`.
-3. No Claude (aba Code), escolha essa pasta como a pasta de trabalho.
+2. Coloque dentro dela os arquivos `CHIP_ADV.md` e `MAPA_EFEITOS_CHIP_ADV.pdf` (ou instale a skill `/chip-adv`).
+3. Dentro dela, crie 3 pastas: **material-bruto** (suas gravações), **referencias** (3 a 5 vídeos de perfis que você admira, opcional) e **exportados** (onde chegam os vídeos prontos). Se tiver logo, salve como **logo.png**.
+4. No Claude (aba Code), escolha essa pasta como a pasta de trabalho e, no seletor de ambiente, **Este computador**. Na nuvem ele não enxerga os seus vídeos.
 
 ---
 
@@ -124,6 +125,8 @@ O Claude refaz só o que você pediu.
 | A legenda saiu com palavra errada | Peça: "Corrija a palavra X para Y na legenda." |
 | O Claude parou no meio | Escreva: "Continue de onde parou." |
 | Pediu permissão para um comando | Leia o comando e clique em Permitir. São instalações e o próprio render. |
+| O Estúdio ou o roteiro abriu no Bloco de Notas (só texto) | Clique com o botão direito no arquivo `ESTUDIO.html` (ou `roteiro.html`) → **Abrir com** → **Google Chrome** ou **Microsoft Edge**. Para não acontecer mais: **Abrir com → Escolher outro aplicativo → Chrome → Sempre**. |
+| O Claude não acha os meus vídeos | Confira se o ambiente é **Este computador** e se os vídeos estão em `material-bruto`. |
 
 ---
 
